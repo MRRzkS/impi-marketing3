@@ -131,6 +131,25 @@
   }
   @keyframes sweep { 0%, 65% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
+  /* Hero clips share one grid cell, so the stage takes the height of the tallest
+     and nothing shifts when a clip changes. */
+  .stage { display: grid; }
+  .clip {
+    grid-area: 1 / 1;
+    opacity: 0; visibility: hidden; transform: translateX(16px);
+    transition: opacity .5s ease, transform .5s cubic-bezier(.2,.7,.3,1), visibility 0s .5s;
+  }
+  .clip.on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s, 0s, 0s; }
+
+  .seg { position: relative; flex: 1; height: 5px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
+  /* scaleX keeps the fill on the compositor; animating width would force a layout pass every frame. */
+  .seg > i { position: absolute; inset: 0; border-radius: 999px; transform: scaleX(0); transform-origin: left; }
+
+  /* The pause control stops every looping animation on the page, not just the progress bar. */
+  body.motion-paused .atmos::before,
+  body.motion-paused .atmos::after,
+  body.motion-paused .slot::after { animation-play-state: paused; }
+
   [data-page] { display: none; }
   [data-page].is-active { display: block; }
 
@@ -254,27 +273,86 @@
 
   <div class="atmos">
     <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-20 pb-16 lg:pt-28 lg:pb-24">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7">RUMAH PRODUKSI VIDEO B2B · JAKARTA</p>
-        <h1 class="display text-[42px] sm:text-[62px] lg:text-[84px] max-w-[16ch]">
-          Video korporat B2B untuk <span class="goldtext">keputusan bernilai tinggi</span>
-        </h1>
-        <p class="mt-8 text-[17px] lg:text-[19.5px] t2 max-w-[52ch] leading-relaxed">
-          Company profile, materi investor, dan video pendukung penjualan. Untuk perusahaan yang fasilitasnya tidak mudah dijangkau.
-        </p>
-        <div class="mt-10 flex flex-col sm:flex-row gap-3">
-          <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
-          <a href="#/portofolio" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat tiga studi kasus</a>
+      <div id="hero-stage" class="stage">
+
+        <div class="clip on enter" data-clip="0">
+          <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7">RUMAH PRODUKSI VIDEO B2B · JAKARTA</p>
+          <h1 class="display text-[40px] sm:text-[58px] lg:text-[76px] max-w-[16ch]">
+            Video korporat B2B untuk <span class="goldtext">keputusan bernilai tinggi</span>
+          </h1>
+          <p class="mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed">
+            Company profile, materi investor, dan video pendukung penjualan. Untuk perusahaan yang fasilitasnya tidak mudah dijangkau.
+          </p>
+          <div class="mt-10 flex flex-col sm:flex-row gap-3">
+            <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
+            <a href="#/portofolio" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat tiga studi kasus</a>
+          </div>
         </div>
-        <div class="mt-14 glass px-6 py-5 flex flex-wrap items-center gap-x-5 gap-y-2 max-w-3xl">
-          <span class="font-mono text-[10px] tracking-[0.2em] text-gold shrink-0">KREDENSIAL</span>
-          <p class="text-[15px] t2">Dipimpin mantan <strong class="text-text font-semibold">Country Sales Leader</strong> dengan 11 tahun memegang target di tiga perusahaan Amerika.</p>
+
+        <div class="clip" data-clip="1" aria-hidden="true">
+          <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7">KREDENSIAL</p>
+          <p class="display text-[40px] sm:text-[58px] lg:text-[76px] max-w-[16ch]">
+            Sebelas tahun di <span class="goldtext">kursi pembeli Anda</span>
+          </p>
+          <p class="mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed">
+            Country Sales Leader di tiga perusahaan Amerika. Kami tahu video seperti apa yang lolos rapat anggaran, karena kami pernah berada di sisi meja yang mengajukannya.
+          </p>
+          <div class="mt-10 flex flex-col sm:flex-row gap-3">
+            <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
+            <a href="#/tentang" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Kenali tim kami</a>
+          </div>
+        </div>
+
+        <div class="clip" data-clip="2" aria-hidden="true">
+          <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7">AKSES LOKASI SULIT</p>
+          <p class="display text-[40px] sm:text-[58px] lg:text-[76px] max-w-[16ch]">
+            Tambang, pelabuhan, kilang — <span class="goldtext">izinnya kami yang urus</span>
+          </p>
+          <p class="mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed">
+            Perizinan lokasi, induksi keselamatan, dan logistik pengambilan gambar di tempat yang tidak bisa didatangi tim biasa.
+          </p>
+          <div class="mt-10 flex flex-col sm:flex-row gap-3">
+            <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
+            <a href="#/portofolio" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat tiga studi kasus</a>
+          </div>
         </div>
       </div>
+
+      <div id="hero-player" class="glass mt-12 lg:mt-14 px-3.5 py-3 lg:px-5 lg:py-3.5 max-w-3xl">
+        <div class="flex items-center gap-3.5">
+          <div class="flex items-center gap-0.5 shrink-0">
+            <button id="hero-play" type="button" class="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-white/[0.08] transition-colors" aria-label="Jeda animasi">
+              <svg class="ico-pause" width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.4" height="12" rx="1.2"/><rect x="9.6" y="2" width="3.4" height="12" rx="1.2"/></svg>
+              <svg class="ico-play hidden" width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.4v11.2L14 8z"/></svg>
+            </button>
+            <button id="hero-next" type="button" class="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-white/[0.08] transition-colors" aria-label="Klip berikutnya">
+              <svg class="ico-next" width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.5 2.4v11.2L11 8z"/><rect x="11.6" y="2.4" width="2.4" height="11.2" rx="1"/></svg>
+              <svg class="ico-down hidden" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.8v9.4M4 8.6l4 4 4-4"/></svg>
+            </button>
+          </div>
+
+          <div id="hero-timeline" class="flex items-center gap-1.5 flex-1 min-w-0">
+            <span class="seg"><i style="background:linear-gradient(90deg,#EFD277,#D3B037)"></i></span>
+            <span class="seg"><i style="background:linear-gradient(90deg,#5CC8F5,#00A2E9)"></i></span>
+            <span class="seg"><i style="background:linear-gradient(90deg,#84D9A8,#54B877)"></i></span>
+          </div>
+
+          <div class="hidden sm:flex items-center gap-3 shrink-0 font-mono text-[11px]">
+            <span id="hero-timecode" class="t3 tabular-nums">00:00 / 00:06</span>
+            <span class="w-px h-3.5 bg-white/15"></span>
+            <span id="hero-clip-label" class="text-gold">Posisi</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-6 text-[13.5px] t3 max-w-3xl leading-relaxed">
+        <span class="font-mono text-[9.5px] tracking-[0.18em] text-gold/70 mr-2.5">SEJAK 2023</span>
+        PT berbadan hukum · Dipimpin mantan Country Sales Leader dengan 11 tahun pengalaman korporat
+      </p>
     </div>
   </div>
 
-  <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20">
+  <div id="setelah-hero" class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20 scroll-mt-24">
     <h2 class="display text-[32px] lg:text-[44px] max-w-[22ch]">Tiga pekerjaan yang paling sering dipercayakan ke kami</h2>
     <div class="grid md:grid-cols-3 gap-5 mt-12">
       <article class="reveal glass glass-hover p-7 relative overflow-hidden">
@@ -976,6 +1054,123 @@
 <div id="wa-spacer" class="sm:hidden h-[76px]"></div>
 
 <script>
+// Hero player. One clock drives the progress bar, the timecode, and the auto-advance,
+// so the three can never drift out of step with each other.
+(function () {
+  var CLIP_DURATION_MS = 6000;
+
+  var stage = document.getElementById('hero-stage');
+  if (!stage) return;
+
+  var clips = Array.prototype.slice.call(stage.querySelectorAll('.clip'));
+  var fills = Array.prototype.slice.call(document.querySelectorAll('#hero-timeline .seg > i'));
+  var playButton = document.getElementById('hero-play');
+  var nextButton = document.getElementById('hero-next');
+  var timecode = document.getElementById('hero-timecode');
+  var clipLabel = document.getElementById('hero-clip-label');
+  var clipNames = ['Posisi', 'Kredensial', 'Lokasi sulit'];
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var currentClip = 0;
+  var elapsedMs = 0;
+  var lastFrameAt = 0;
+  var isPlaying = false;
+  var frameRequest = null;
+
+  function render() {
+    fills.forEach(function (fill, i) {
+      var ratio = i < currentClip ? 1 : (i === currentClip ? elapsedMs / CLIP_DURATION_MS : 0);
+      fill.style.transform = 'scaleX(' + ratio.toFixed(4) + ')';
+    });
+    var seconds = Math.min(Math.floor(elapsedMs / 1000), CLIP_DURATION_MS / 1000);
+    timecode.textContent = '00:0' + seconds + ' / 00:0' + (CLIP_DURATION_MS / 1000);
+  }
+
+  function selectClip(target) {
+    currentClip = (target + clips.length) % clips.length;
+    elapsedMs = 0;
+    clips.forEach(function (clip, i) {
+      var active = i === currentClip;
+      clip.classList.toggle('on', active);
+      clip.setAttribute('aria-hidden', String(!active));
+    });
+    clipLabel.textContent = clipNames[currentClip];
+
+    // On the last clip the control leaves the hero entirely, so it says so and looks the part.
+    var isFinalClip = currentClip === clips.length - 1;
+    nextButton.setAttribute('aria-label', isFinalClip ? 'Lanjut ke bagian berikutnya' : 'Klip berikutnya');
+    nextButton.querySelector('.ico-next').classList.toggle('hidden', isFinalClip);
+    nextButton.querySelector('.ico-down').classList.toggle('hidden', !isFinalClip);
+    render();
+  }
+
+  function tick(now) {
+    if (!isPlaying) return;
+    elapsedMs += now - lastFrameAt;
+    lastFrameAt = now;
+    if (elapsedMs >= CLIP_DURATION_MS) selectClip(currentClip + 1);
+    render();
+    frameRequest = requestAnimationFrame(tick);
+  }
+
+  function play() {
+    if (isPlaying) return;
+    isPlaying = true;
+    lastFrameAt = performance.now();
+    document.body.classList.remove('motion-paused');
+    playButton.setAttribute('aria-label', 'Jeda animasi');
+    playButton.querySelector('.ico-pause').classList.remove('hidden');
+    playButton.querySelector('.ico-play').classList.add('hidden');
+    frameRequest = requestAnimationFrame(tick);
+  }
+
+  // Stops the clock only. Used when the visitor navigates away, where freezing the
+  // background light of every other page would be wrong.
+  function stopClock() {
+    isPlaying = false;
+    if (frameRequest) cancelAnimationFrame(frameRequest);
+  }
+
+  function pause() {
+    stopClock();
+    document.body.classList.add('motion-paused');
+    playButton.setAttribute('aria-label', 'Lanjutkan animasi');
+    playButton.querySelector('.ico-pause').classList.add('hidden');
+    playButton.querySelector('.ico-play').classList.remove('hidden');
+  }
+
+  playButton.addEventListener('click', function () { isPlaying ? pause() : play(); });
+
+  nextButton.addEventListener('click', function () {
+    if (currentClip === clips.length - 1) {
+      document.getElementById('setelah-hero').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      return;
+    }
+    selectClip(currentClip + 1);
+  });
+
+  // A background tab still fires timers; pausing there keeps the clip in step on return.
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden && isPlaying) pause();
+  });
+
+  window.heroPlayer = {
+    start: function () {
+      document.body.classList.remove('motion-paused');
+      selectClip(0);
+      // Auto-rotation is motion the visitor did not ask for, so it stays off when they
+      // have asked for less of it. The controls still work by hand.
+      if (!prefersReducedMotion) play(); else pause();
+    },
+    stop: stopClock
+  };
+
+  selectClip(0);
+  if (!prefersReducedMotion) play();
+})();
+</script>
+
+<script>
 (function () {
   var pages = document.querySelectorAll('[data-page]');
   var nav = document.getElementById('site-nav');
@@ -1005,6 +1200,10 @@
     window.scrollTo(0, 0);
     replayEntrance(name);
     reveal();
+
+    // The player only exists on the home page; leaving it running elsewhere would
+    // keep the atmosphere paused-state and the clock out of sync.
+    if (window.heroPlayer) name === 'beranda' ? window.heroPlayer.start() : window.heroPlayer.stop();
   }
 
   // Re-triggers the staggered hero entrance when a page is opened, since the CSS
