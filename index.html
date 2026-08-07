@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jasa Video Company Profile B2B untuk Perusahaan Industri | IMPI Marketing</title>
-<meta name="description" content="Rumah produksi video komersial B2B untuk perusahaan industri dan korporasi Indonesia. Company profile, materi investor, dan video pendukung penjualan.">
+<meta name="description" content="Rumah produksi video komersial B2B untuk perusahaan industri dan korporasi Indonesia. Company profile, materi investor, konsultan pengembangan bisnis, dan kampanye pemasaran digital.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,8 +26,7 @@
         fontFamily: {
           sans: ['"Plus Jakarta Sans"', 'Segoe UI', 'sans-serif'],
           mono: ['"IBM Plex Mono"', 'Consolas', 'monospace']
-        },
-        borderRadius: { card: '20px', btn: '12px' }
+        }
       }
     }
   }
@@ -69,7 +68,7 @@
   @keyframes drift1 { to { transform: translate3d(90px, 60px, 0) scale(1.12); } }
   @keyframes drift2 { to { transform: translate3d(-70px, -50px, 0) scale(1.08); } }
 
-  /* Glass is used on raised surfaces only — nav and cards — never on long-form text areas. */
+  /* Glass sits on raised surfaces only, never behind long-form text. */
   .glass {
     background: var(--glass);
     border: 1px solid var(--brd);
@@ -106,8 +105,8 @@
 
   .rule { height: 1px; background: linear-gradient(90deg, rgba(211,176,55,0.55), rgba(255,255,255,0.06) 60%, transparent); }
 
-  /* Viewfinder brackets — the signature. Every media slot is framed, so an empty slot
-     reads as awaiting its subject rather than as a broken image. */
+  /* Viewfinder brackets. Every media slot is framed, so an empty slot reads as
+     awaiting its subject rather than as a broken image. */
   .frame { position: relative; overflow: hidden; border-radius: 18px; }
   .frame .fc { position: absolute; width: 22px; height: 22px; border: 2px solid #D3B037; opacity: .85; transition: inset .3s cubic-bezier(.2,.7,.3,1), opacity .3s ease; }
   .frame .fc.tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; border-radius: 6px 0 0 0; }
@@ -145,7 +144,7 @@
   /* scaleX keeps the fill on the compositor; animating width would force a layout pass every frame. */
   .seg > i { position: absolute; inset: 0; border-radius: 999px; transform: scaleX(0); transform-origin: left; }
 
-  /* The pause control stops every looping animation on the page, not just the progress bar. */
+  /* The pause control stops every looping animation on the page, not only the progress bar. */
   body.motion-paused .atmos::before,
   body.motion-paused .atmos::after,
   body.motion-paused .slot::after { animation-play-state: paused; }
@@ -161,7 +160,6 @@
   .enter > *:nth-child(2) { animation-delay: .14s; }
   .enter > *:nth-child(3) { animation-delay: .23s; }
   .enter > *:nth-child(4) { animation-delay: .32s; }
-  .enter > *:nth-child(5) { animation-delay: .41s; }
   @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
 
   .drop { opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
@@ -188,7 +186,7 @@
 
 <!-- Review banner. Removed before the real build; present so the client never mistakes this for a live site. -->
 <div class="bg-gradient-to-r from-gold/25 via-gold/10 to-transparent border-b border-white/10 text-[11.5px] font-mono tracking-[0.14em] px-4 py-2 text-center t2">
-  MOCKUP UNTUK PENINJAUAN — TOMBOL BELUM AKTIF, MATERI VISUAL MENYUSUL
+  MOCKUP UNTUK PENINJAUAN. TOMBOL BELUM AKTIF, MATERI VISUAL MENYUSUL.
 </div>
 
 <!-- ============================ NAV ============================ -->
@@ -213,10 +211,16 @@
             </button>
           </span>
           <div class="drop absolute left-0 top-full pt-2">
-            <div class="glass !rounded-2xl w-64 py-2 px-1.5" style="background:rgba(16,20,26,0.94);backdrop-filter:blur(20px)">
-              <a href="#/paket" class="block px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">Paket Dasar</a>
-              <a href="#/paket" class="block px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">Paket Kampanye</a>
-              <a href="#/paket" class="block px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">Paket Sales Enablement</a>
+            <div class="glass !rounded-2xl w-[19rem] py-2 px-1.5" style="background:rgba(16,20,26,0.94);backdrop-filter:blur(20px)">
+              <a href="#/paket" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold shrink-0"></span> Produksi Video
+              </a>
+              <a href="#/konsultan" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-logistics shrink-0"></span> Konsultan Pengembangan Bisnis
+              </a>
+              <a href="#/kampanye" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-mining shrink-0"></span> Digital Marketing Campaign
+              </a>
               <div class="rule my-2 mx-3.5"></div>
               <a href="#/promo" class="block px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors text-gold">Promo berjalan</a>
             </div>
@@ -250,9 +254,9 @@
         </summary>
         <div class="pb-3 pl-3.5 space-y-0.5">
           <a href="#/layanan" class="block py-2.5 text-[14.5px] text-gold font-medium">Semua layanan</a>
-          <a href="#/paket" class="block py-2.5 text-[14.5px] t2">Paket Dasar</a>
-          <a href="#/paket" class="block py-2.5 text-[14.5px] t2">Paket Kampanye</a>
-          <a href="#/paket" class="block py-2.5 text-[14.5px] t2">Paket Sales Enablement</a>
+          <a href="#/paket" class="block py-2.5 text-[14.5px] t2">Produksi Video</a>
+          <a href="#/konsultan" class="block py-2.5 text-[14.5px] t2">Konsultan Pengembangan Bisnis</a>
+          <a href="#/kampanye" class="block py-2.5 text-[14.5px] t2">Digital Marketing Campaign</a>
           <a href="#/promo" class="block py-2.5 text-[14.5px] t2">Promo berjalan</a>
         </div>
       </details>
@@ -272,7 +276,8 @@
 <section data-page="beranda" class="is-active">
 
   <div class="atmos">
-    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-20 pb-16 lg:pt-28 lg:pb-24">
+    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-16 pb-12 lg:pt-24 lg:pb-16">
+
       <div id="hero-stage" class="stage">
 
         <div class="clip on enter" data-clip="0">
@@ -281,21 +286,21 @@
             Video korporat B2B untuk <span class="goldtext">keputusan bernilai tinggi</span>
           </h1>
           <p class="mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed">
-            Company profile, materi investor, dan video pendukung penjualan. Untuk perusahaan yang fasilitasnya tidak mudah dijangkau.
+            Company profile, materi investor, dan video untuk tim penjualan. Kami biasa mengambil gambar di pabrik, tambang, dan pelabuhan.
           </p>
           <div class="mt-10 flex flex-col sm:flex-row gap-3">
             <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
-            <a href="#/portofolio" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat tiga studi kasus</a>
+            <a href="#/portofolio" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat studi kasus</a>
           </div>
         </div>
 
         <div class="clip" data-clip="1" aria-hidden="true">
           <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7">KREDENSIAL</p>
           <p class="display text-[40px] sm:text-[58px] lg:text-[76px] max-w-[16ch]">
-            Sebelas tahun di <span class="goldtext">kursi pembeli Anda</span>
+            Pendiri kami 11 tahun jadi <span class="goldtext">Country Sales Leader</span>
           </p>
           <p class="mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed">
-            Country Sales Leader di tiga perusahaan Amerika. Kami tahu video seperti apa yang lolos rapat anggaran, karena kami pernah berada di sisi meja yang mengajukannya.
+            Di tiga perusahaan Amerika, memegang target penjualan ke klien korporat. Kami tahu video seperti apa yang lolos rapat anggaran, karena kami pernah duduk di rapat itu.
           </p>
           <div class="mt-10 flex flex-col sm:flex-row gap-3">
             <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
@@ -306,14 +311,14 @@
         <div class="clip" data-clip="2" aria-hidden="true">
           <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7">AKSES LOKASI SULIT</p>
           <p class="display text-[40px] sm:text-[58px] lg:text-[76px] max-w-[16ch]">
-            Tambang, pelabuhan, kilang — <span class="goldtext">izinnya kami yang urus</span>
+            Tambang, pelabuhan, kilang. <span class="goldtext">Izinnya kami yang urus</span>
           </p>
           <p class="mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed">
-            Perizinan lokasi, induksi keselamatan, dan logistik pengambilan gambar di tempat yang tidak bisa didatangi tim biasa.
+            Kami mengurus izin masuk lokasi, induksi keselamatan, dan jadwal syuting yang tidak menghentikan operasional Anda.
           </p>
           <div class="mt-10 flex flex-col sm:flex-row gap-3">
             <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
-            <a href="#/portofolio" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat tiga studi kasus</a>
+            <a href="#/proses" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat cara kerja kami</a>
           </div>
         </div>
       </div>
@@ -353,26 +358,42 @@
   </div>
 
   <div id="setelah-hero" class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20 scroll-mt-24">
-    <h2 class="display text-[32px] lg:text-[44px] max-w-[22ch]">Tiga pekerjaan yang paling sering dipercayakan ke kami</h2>
-    <div class="grid md:grid-cols-3 gap-5 mt-12">
-      <article class="reveal glass glass-hover p-7 relative overflow-hidden">
-        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#54B877,transparent)"></span>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">SEGMEN TAMBANG</p>
-        <h3 class="font-extrabold text-[20px] mt-3.5 leading-snug tracking-tight">Video B2B untuk pemasok sektor tambang</h3>
-        <p class="mt-3.5 text-[15px] t2 leading-relaxed">Menjelaskan produk teknis kepada pembeli yang membandingkan spesifikasi, bukan menonton hiburan.</p>
+    <h2 class="display text-[32px] lg:text-[44px] max-w-[20ch]">Tiga hal yang bisa kami kerjakan untuk Anda</h2>
+    <p class="mt-5 text-[16.5px] t2 max-w-[58ch] leading-relaxed">Produksi video adalah pekerjaan utama kami. Dua layanan lain memakai keahlian yang sama, dipakai di tempat yang berbeda.</p>
+
+    <div class="grid lg:grid-cols-5 gap-5 mt-11">
+
+      <article class="reveal glass glass-hover p-8 lg:p-9 lg:col-span-3 relative overflow-hidden flex flex-col">
+        <span class="absolute top-0 left-0 right-0 h-[3px]" style="background:linear-gradient(90deg,#EFD277,#D3B037,transparent)"></span>
+        <p class="font-mono text-[9.5px] tracking-[0.18em] text-gold">LAYANAN UTAMA</p>
+        <h3 class="display text-[30px] lg:text-[38px] mt-3">Produksi Video</h3>
+        <p class="mt-4 text-[16px] t2 leading-relaxed max-w-[46ch]">Company profile, video untuk calon investor, video teknis untuk tim penjualan, dan potongan pendek untuk media sosial. Tiga paket, mulai Rp15 juta.</p>
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="text-[13px] t3 px-3 py-1.5 rounded-full" style="border:1px solid var(--brd)">Company profile</span>
+          <span class="text-[13px] t3 px-3 py-1.5 rounded-full" style="border:1px solid var(--brd)">Materi investor</span>
+          <span class="text-[13px] t3 px-3 py-1.5 rounded-full" style="border:1px solid var(--brd)">Video produk teknis</span>
+          <span class="text-[13px] t3 px-3 py-1.5 rounded-full" style="border:1px solid var(--brd)">Dokumentasi fasilitas</span>
+        </div>
+        <a href="#/paket" class="btn-gold mt-8 inline-flex self-start px-6 py-3.5 text-[15px]">Lihat tiga paketnya</a>
       </article>
-      <article class="reveal glass glass-hover p-7 relative overflow-hidden">
-        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#00A2E9,transparent)"></span>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">MENUJU BURSA</p>
-        <h3 class="font-extrabold text-[20px] mt-3.5 leading-snug tracking-tight">Video untuk proses menjadi perusahaan terbuka</h3>
-        <p class="mt-3.5 text-[15px] t2 leading-relaxed">Materi yang harus lolos tinjauan hukum sekaligus tetap meyakinkan bagi calon pemegang saham.</p>
-      </article>
-      <article class="reveal glass glass-hover p-7 relative overflow-hidden">
-        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#E62129,transparent)"></span>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-port">PENJARINGAN MODAL</p>
-        <h3 class="font-extrabold text-[20px] mt-3.5 leading-snug tracking-tight">Video penjaringan investor</h3>
-        <p class="mt-3.5 text-[15px] t2 leading-relaxed">Menjawab pertanyaan yang benar-benar diajukan investor, dalam durasi yang mereka bersedia luangkan.</p>
-      </article>
+
+      <div class="lg:col-span-2 grid gap-5">
+        <article class="reveal glass glass-hover p-7 relative overflow-hidden">
+          <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#00A2E9,transparent)"></span>
+          <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">LAYANAN</p>
+          <h3 class="font-extrabold text-[22px] mt-3 tracking-tight">Konsultan Pengembangan Bisnis</h3>
+          <p class="mt-3 text-[15px] t2 leading-relaxed">Membenahi cara tim Anda menjual ke klien korporat. Dikerjakan langsung oleh orang yang 11 tahun memegang target penjualan.</p>
+          <a href="#/konsultan" class="mt-5 inline-flex text-[14.5px] font-medium text-logistics hover:text-white transition-colors">Selengkapnya →</a>
+        </article>
+
+        <article class="reveal glass glass-hover p-7 relative overflow-hidden">
+          <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#54B877,transparent)"></span>
+          <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">LAYANAN</p>
+          <h3 class="font-extrabold text-[22px] mt-3 tracking-tight">Digital Marketing Campaign</h3>
+          <p class="mt-3 text-[15px] t2 leading-relaxed">Menyebarkan materi Anda ke orang yang tepat lewat Google, Meta, dan LinkedIn. Laporannya menghitung prospek masuk.</p>
+          <a href="#/kampanye" class="mt-5 inline-flex text-[14.5px] font-medium text-mining hover:text-white transition-colors">Selengkapnya →</a>
+        </article>
+      </div>
     </div>
   </div>
 
@@ -380,12 +401,12 @@
     <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20 grid lg:grid-cols-2 gap-14 items-start">
       <div class="reveal">
         <p class="font-mono text-[10.5px] tracking-[0.2em] text-gold">KENAPA KAMI</p>
-        <h2 class="display text-[34px] lg:text-[52px] mt-5">Kami pernah duduk di <span class="goldtext">kursi pembeli Anda</span></h2>
+        <h2 class="display text-[34px] lg:text-[52px] mt-5">Kami pernah <span class="goldtext">jadi pembelinya</span></h2>
       </div>
       <div class="reveal space-y-5 text-[16.5px] leading-relaxed t2">
-        <p>Sebelas tahun memegang target penjualan sebagai Country Sales Leader di tiga perusahaan Amerika. Itu latar yang jarang dimiliki rumah produksi.</p>
-        <p>Artinya kami tahu bagaimana anggaran video disetujui, siapa yang sebenarnya harus diyakinkan di ruang rapat, dan pertanyaan apa yang muncul begitu angka disodorkan.</p>
-        <p class="text-text font-semibold">Naskah yang ditulis dari sisi pembeli berbeda dengan naskah yang ditulis dari balik kamera. Perbedaan itu yang Anda bayar.</p>
+        <p>Sebelas tahun memegang target penjualan sebagai Country Sales Leader di tiga perusahaan Amerika. Latar seperti ini jarang ada di rumah produksi.</p>
+        <p>Kami tahu bagaimana anggaran video disetujui. Kami tahu siapa yang harus diyakinkan di ruang rapat, dan pertanyaan apa yang muncul begitu angka disodorkan. Pengetahuan itu masuk ke naskah sejak halaman pertama.</p>
+        <p class="text-text font-semibold">Itu yang Anda bayar.</p>
       </div>
     </div>
   </div>
@@ -395,17 +416,17 @@
       <div class="reveal">
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center font-mono text-[13px] font-medium text-gold" style="background:rgba(211,176,55,0.10);border:1px solid rgba(211,176,55,0.35)">01</div>
         <h3 class="font-extrabold text-[21px] mt-5 tracking-tight">Akses lokasi sulit</h3>
-        <p class="mt-3 text-[15.5px] t2 leading-relaxed">Tambang, pelabuhan, gudang, kilang. Kami mengurus perizinan lokasi, induksi keselamatan, dan logistik pengambilan gambar di tempat yang tidak bisa didatangi tim biasa.</p>
+        <p class="mt-3 text-[15.5px] t2 leading-relaxed">Tambang, pelabuhan, gudang, kilang. Kami mengurus izin lokasi, induksi keselamatan, dan logistik kru sampai ke titik pengambilan gambar.</p>
       </div>
       <div class="reveal">
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center font-mono text-[13px] font-medium text-gold" style="background:rgba(211,176,55,0.10);border:1px solid rgba(211,176,55,0.35)">02</div>
-        <h3 class="font-extrabold text-[21px] mt-5 tracking-tight">Naskah lebih dulu</h3>
-        <p class="mt-3 text-[15.5px] t2 leading-relaxed">Produksi dimulai dari satu pertanyaan: apa yang harus dijawab video ini. Kamera menyusul setelah naskah disetujui, bukan sebaliknya.</p>
+        <h3 class="font-extrabold text-[21px] mt-5 tracking-tight">Naskah dulu</h3>
+        <p class="mt-3 text-[15.5px] t2 leading-relaxed">Kami mulai dengan satu pertanyaan: apa yang harus dijawab video ini. Kamera baru dinyalakan setelah Anda menyetujui naskahnya.</p>
       </div>
       <div class="reveal">
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center font-mono text-[13px] font-medium text-gold" style="background:rgba(211,176,55,0.10);border:1px solid rgba(211,176,55,0.35)">03</div>
         <h3 class="font-extrabold text-[21px] mt-5 tracking-tight">Paham taruhannya</h3>
-        <p class="mt-3 text-[15.5px] t2 leading-relaxed">Company profile Anda ditonton calon investor, mitra, dan pembeli korporat. Kami memperlakukannya sesuai bobot itu, bukan sebagai pesanan biasa.</p>
+        <p class="mt-3 text-[15.5px] t2 leading-relaxed">Company profile Anda akan ditonton calon investor, mitra, dan pembeli korporat. Kami memperlakukannya sesuai bobot itu.</p>
       </div>
     </div>
   </div>
@@ -448,8 +469,8 @@
   <div class="atmos">
     <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-24 text-center">
       <h2 class="display text-[34px] lg:text-[56px] max-w-[20ch] mx-auto">Ceritakan kebutuhan Anda. <span class="goldtext">Kami balas di jam kerja.</span></h2>
-      <p class="mt-6 t2 text-[16.5px] max-w-[54ch] mx-auto leading-relaxed">Sebutkan jenis video, lokasi fasilitas, dan tenggat yang Anda kejar. Kami akan menyampaikan kisaran biaya dan waktu di percakapan pertama.</p>
-      <a href="#/kontak" class="btn-gold mt-10 inline-flex px-8 py-4.5 text-[16px]" style="padding-top:17px;padding-bottom:17px">Mulai percakapan di WhatsApp</a>
+      <p class="mt-6 t2 text-[16.5px] max-w-[54ch] mx-auto leading-relaxed">Sebutkan jenis video, lokasi fasilitas, dan tanggal tayang yang Anda kejar. Kisaran biaya kami sampaikan di percakapan pertama.</p>
+      <a href="#/kontak" class="btn-gold mt-10 inline-flex px-8 text-[16px]" style="padding-top:17px;padding-bottom:17px">Mulai percakapan di WhatsApp</a>
     </div>
   </div>
 </section>
@@ -457,77 +478,120 @@
 <!-- ============================ LAYANAN ============================ -->
 <section data-page="layanan">
   <div class="atmos">
-    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">LAYANAN</p>
-        <h1 class="display text-[38px] lg:text-[64px] max-w-[16ch]">Satu produksi, <span class="goldtext">banyak keluaran</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Sekali mobilisasi tim ke fasilitas Anda menghasilkan video utama, potongan pendek untuk media sosial, dan materi presentasi penjualan. Anda membayar satu perjalanan, bukan tiga.</p>
+        <h1 class="display text-[38px] lg:text-[64px] max-w-[16ch]">Tiga cara kami <span class="goldtext">membantu penjualan Anda</span></h1>
+        <p class="mt-7 text-[17px] t2 max-w-[58ch] leading-relaxed">Produksi video adalah pekerjaan utama kami dan yang paling banyak kami kerjakan. Konsultasi dan kampanye memakai keahlian yang sama di tahap yang berbeda.</p>
       </div>
     </div>
   </div>
 
-  <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-16">
-    <div class="grid lg:grid-cols-3 gap-5 items-start">
+  <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-14">
 
-      <article class="reveal glass glass-hover p-8 flex flex-col">
-        <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 01</p>
-        <h2 class="font-extrabold text-[27px] mt-2.5 tracking-tight">Dasar</h2>
-        <p class="mt-3 text-[15px] t2 leading-relaxed">Untuk kebutuhan yang jelas dan tenggat pendek. Satu video, satu pesan.</p>
-        <div class="rule my-7"></div>
-        <p class="font-mono text-[12px] t3">Mulai dari</p>
-        <p class="display text-[36px] mt-1.5">Rp15 juta</p>
-        <ul class="mt-7 space-y-3 text-[15px] flex-1 t2">
-          <li class="flex gap-3"><span class="text-gold">—</span> Naskah dan papan cerita ringkas</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Satu hari pengambilan gambar</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Video utama 60–90 detik</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Dua putaran revisi</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Serah terima 14 hari kerja</li>
+    <article class="reveal glass p-8 lg:p-10 relative overflow-hidden" style="border-color:rgba(211,176,55,0.4);background:linear-gradient(180deg,rgba(211,176,55,0.07),rgba(255,255,255,0.03))">
+      <span class="absolute top-0 left-0 right-0 h-[3px]" style="background:linear-gradient(90deg,#EFD277,#D3B037,transparent)"></span>
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="font-mono text-[9.5px] tracking-[0.18em] text-gold">LAYANAN UTAMA</span>
+        <span class="w-px h-3 bg-white/15"></span>
+        <span class="font-mono text-[9.5px] tracking-[0.16em] t3">92 PERSEN PEKERJAAN KAMI</span>
+      </div>
+      <h2 class="display text-[32px] lg:text-[46px] mt-5">Produksi Video</h2>
+      <p class="mt-5 text-[17px] t2 max-w-[60ch] leading-relaxed">Sekali kru berangkat ke lokasi Anda, hasilnya bisa dipakai untuk banyak hal. Video utama, potongan pendek untuk media sosial, dan foto diam untuk presentasi. Anda membayar satu perjalanan.</p>
+
+      <div class="grid lg:grid-cols-3 gap-5 mt-10">
+
+        <div class="glass glass-hover p-7 flex flex-col" style="background:rgba(255,255,255,0.03)">
+          <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 01</p>
+          <h3 class="font-extrabold text-[25px] mt-2.5 tracking-tight">Dasar</h3>
+          <p class="mt-3 text-[15px] t2 leading-relaxed">Untuk kebutuhan yang sudah jelas dan tenggat pendek.</p>
+          <div class="rule my-6"></div>
+          <p class="font-mono text-[12px] t3">Mulai dari</p>
+          <p class="display text-[34px] mt-1.5">Rp15 juta</p>
+          <ul class="mt-6 space-y-2.5 text-[15px] flex-1 t2">
+            <li class="flex gap-3"><span class="text-gold">·</span> Naskah dan papan cerita</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Satu hari pengambilan gambar</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Video utama 60 sampai 90 detik</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Dua putaran revisi</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Selesai dalam 14 hari kerja</li>
+          </ul>
+          <a href="#/paket" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
+        </div>
+
+        <div class="glass glass-hover p-7 flex flex-col relative" style="border-color:rgba(211,176,55,0.5);background:rgba(211,176,55,0.07)">
+          <span class="absolute -top-3 left-7 btn-gold text-[9.5px] font-mono tracking-[0.14em] px-3 py-1.5">PALING SERING DIPILIH</span>
+          <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 02</p>
+          <h3 class="font-extrabold text-[25px] mt-2.5 tracking-tight">Kampanye</h3>
+          <p class="mt-3 text-[15px] t2 leading-relaxed">Untuk peluncuran produk, pameran dagang, atau kampanye satu kuartal.</p>
+          <div class="rule my-6"></div>
+          <p class="font-mono text-[12px] t3">Mulai dari</p>
+          <p class="text-[23px] font-extrabold tracking-tight mt-1.5 t2">Menunggu konfirmasi</p>
+          <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-1.5">ANGKA DITETAPKAN KLIEN</p>
+          <ul class="mt-6 space-y-2.5 text-[15px] flex-1 t2">
+            <li class="flex gap-3"><span class="text-gold">·</span> Semua isi paket Dasar</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Dua hari pengambilan gambar</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Video utama 2 sampai 3 menit</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Enam potongan pendek media sosial</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Teks Indonesia dan Inggris</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Selesai dalam 21 hari kerja</li>
+          </ul>
+          <a href="#/paket" class="btn-gold mt-7 text-center py-3.5">Lihat rincian</a>
+        </div>
+
+        <div class="glass glass-hover p-7 flex flex-col" style="background:rgba(255,255,255,0.03)">
+          <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 03</p>
+          <h3 class="font-extrabold text-[25px] mt-2.5 tracking-tight">Sales Enablement</h3>
+          <p class="mt-3 text-[15px] t2 leading-relaxed">Produksi penuh untuk tim penjualan, calon investor, dan proses menuju bursa.</p>
+          <div class="rule my-6"></div>
+          <p class="font-mono text-[12px] t3">Mulai dari</p>
+          <p class="display text-[34px] mt-1.5">Rp60 juta</p>
+          <ul class="mt-6 space-y-2.5 text-[15px] flex-1 t2">
+            <li class="flex gap-3"><span class="text-gold">·</span> Semua isi paket Kampanye</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Sesi penggalian bersama tim penjualan</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Pengambilan gambar di beberapa lokasi</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Versi utama, versi investor, versi ringkas</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Panduan pemakaian untuk tim internal</li>
+            <li class="flex gap-3"><span class="text-gold">·</span> Selesai dalam 35 hari kerja</li>
+          </ul>
+          <a href="#/paket" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="grid lg:grid-cols-2 gap-5 mt-6">
+
+      <article class="reveal glass glass-hover p-8 lg:p-9 relative overflow-hidden flex flex-col">
+        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#00A2E9,transparent)"></span>
+        <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">LAYANAN</p>
+        <h2 class="display text-[28px] lg:text-[34px] mt-3">Konsultan Pengembangan Bisnis</h2>
+        <p class="mt-4 text-[16px] t2 leading-relaxed">Kadang masalahnya ada di cara tim Anda menjual, sebelum sampai ke materinya. Kami membenahi bagian itu. Dikerjakan langsung oleh orang yang 11 tahun memegang target penjualan korporat.</p>
+        <ul class="mt-6 space-y-2.5 text-[15px] t2 flex-1">
+          <li class="flex gap-3"><span class="text-logistics">·</span> Meninjau jalur penjualan dari prospek sampai kontrak</li>
+          <li class="flex gap-3"><span class="text-logistics">·</span> Menyusun materi presentasi dan proposal</li>
+          <li class="flex gap-3"><span class="text-logistics">·</span> Melatih tim menjawab keberatan harga</li>
+          <li class="flex gap-3"><span class="text-logistics">·</span> Memetakan siapa yang memutuskan pembelian</li>
         </ul>
-        <a href="#/paket" class="btn-ghost mt-8 text-center font-medium py-3.5">Lihat rincian</a>
+        <a href="#/konsultan" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
       </article>
 
-      <article class="reveal glass glass-hover p-8 flex flex-col relative lg:-mt-3" style="border-color:rgba(211,176,55,0.45);background:linear-gradient(180deg,rgba(211,176,55,0.08),rgba(255,255,255,0.03))">
-        <span class="absolute -top-3 left-8 btn-gold text-[9.5px] font-mono tracking-[0.14em] px-3 py-1.5">PALING SERING DIPILIH</span>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 02</p>
-        <h2 class="font-extrabold text-[27px] mt-2.5 tracking-tight">Kampanye</h2>
-        <p class="mt-3 text-[15px] t2 leading-relaxed">Untuk peluncuran, pameran dagang, atau kampanye yang berjalan beberapa bulan.</p>
-        <div class="rule my-7"></div>
-        <p class="font-mono text-[12px] t3">Mulai dari</p>
-        <p class="text-[24px] font-extrabold tracking-tight mt-1.5 t2">Menunggu konfirmasi</p>
-        <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-1.5">ANGKA DITETAPKAN KLIEN</p>
-        <ul class="mt-7 space-y-3 text-[15px] flex-1 t2">
-          <li class="flex gap-3"><span class="text-gold">—</span> Seluruh isi paket Dasar</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Dua hari pengambilan gambar</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Video utama 2–3 menit</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Enam potongan pendek media sosial</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Versi teks Indonesia dan Inggris</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Serah terima 21 hari kerja</li>
+      <article class="reveal glass glass-hover p-8 lg:p-9 relative overflow-hidden flex flex-col">
+        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#54B877,transparent)"></span>
+        <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">LAYANAN</p>
+        <h2 class="display text-[28px] lg:text-[34px] mt-3">Digital Marketing Campaign</h2>
+        <p class="mt-4 text-[16px] t2 leading-relaxed">Materi yang bagus tetap perlu sampai ke orang yang tepat. Kami menjalankan kampanye berbayar yang menargetkan pengambil keputusan di perusahaan, lalu melaporkan berapa prospek yang masuk.</p>
+        <ul class="mt-6 space-y-2.5 text-[15px] t2 flex-1">
+          <li class="flex gap-3"><span class="text-mining">·</span> Iklan Google untuk kata kunci pembelian</li>
+          <li class="flex gap-3"><span class="text-mining">·</span> Kampanye LinkedIn ke jabatan tertentu</li>
+          <li class="flex gap-3"><span class="text-mining">·</span> Halaman pendaratan yang terhubung ke WhatsApp</li>
+          <li class="flex gap-3"><span class="text-mining">·</span> Laporan bulanan berisi jumlah prospek</li>
         </ul>
-        <a href="#/paket" class="btn-gold mt-8 text-center py-3.5">Lihat rincian</a>
-      </article>
-
-      <article class="reveal glass glass-hover p-8 flex flex-col">
-        <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 03</p>
-        <h2 class="font-extrabold text-[27px] mt-2.5 tracking-tight">Sales Enablement</h2>
-        <p class="mt-3 text-[15px] t2 leading-relaxed">Produksi penuh untuk tim penjualan, materi investor, dan proses menuju bursa.</p>
-        <div class="rule my-7"></div>
-        <p class="font-mono text-[12px] t3">Mulai dari</p>
-        <p class="display text-[36px] mt-1.5">Rp60 juta</p>
-        <ul class="mt-7 space-y-3 text-[15px] flex-1 t2">
-          <li class="flex gap-3"><span class="text-gold">—</span> Seluruh isi paket Kampanye</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Sesi penggalian bersama tim penjualan</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Multi-lokasi fasilitas</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Versi utama, investor, dan ringkas</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Panduan pemakaian untuk tim internal</li>
-          <li class="flex gap-3"><span class="text-gold">—</span> Serah terima 35 hari kerja</li>
-        </ul>
-        <a href="#/paket" class="btn-ghost mt-8 text-center font-medium py-3.5">Lihat rincian</a>
+        <a href="#/kampanye" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
       </article>
     </div>
 
-    <div class="reveal glass mt-16 p-8 lg:p-10">
+    <div class="reveal glass mt-14 p-8 lg:p-10">
       <h2 class="font-extrabold text-[25px] tracking-tight">Skema pembayaran</h2>
-      <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-2.5">USULAN — MENUNGGU PERSETUJUAN KLIEN</p>
+      <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-2.5">USULAN, MENUNGGU PERSETUJUAN KLIEN</p>
       <div class="grid sm:grid-cols-3 gap-6 mt-8">
         <div class="pl-5" style="border-left:2px solid rgba(211,176,55,0.5)">
           <p class="display text-[32px] goldtext">50%</p>
@@ -539,35 +603,25 @@
         </div>
         <div class="pl-5" style="border-left:2px solid rgba(211,176,55,0.5)">
           <p class="display text-[32px] goldtext">20%</p>
-          <p class="text-[15px] t2 mt-2">Saat serah terima berkas akhir</p>
+          <p class="text-[15px] t2 mt-2">Saat berkas akhir diserahkan</p>
         </div>
       </div>
-      <p class="mt-7 text-[15px] t2">Faktur diterbitkan atas nama PT dengan faktur pajak. Pembayaran melalui transfer bank perusahaan.</p>
-    </div>
-
-    <div class="mt-14">
-      <h2 class="font-extrabold text-[23px] tracking-tight">Layanan pendukung</h2>
-      <p class="mt-2.5 text-[15.5px] t2 max-w-[58ch]">Tersedia untuk klien video yang membutuhkannya. Bukan lini terpisah, dan tidak dijual sendiri.</p>
-      <div class="flex flex-wrap gap-2.5 mt-6">
-        <span class="glass px-5 py-2.5 text-[14.5px] !rounded-full t2">Pengembangan situs</span>
-        <span class="glass px-5 py-2.5 text-[14.5px] !rounded-full t2">Optimasi mesin pencari</span>
-        <span class="glass px-5 py-2.5 text-[14.5px] !rounded-full t2">Pengelolaan konten media sosial</span>
-      </div>
+      <p class="mt-7 text-[15px] t2">Faktur atas nama PT dengan faktur pajak. Pembayaran lewat transfer bank perusahaan.</p>
     </div>
 
     <div class="mt-14 text-center">
-      <a href="#/kontak" class="btn-gold inline-flex px-8 py-4">Tanyakan paket yang sesuai</a>
+      <a href="#/kontak" class="btn-gold inline-flex px-8 py-4">Tanyakan layanan yang sesuai</a>
     </div>
   </div>
 </section>
 
-<!-- ============================ DETAIL PAKET ============================ -->
+<!-- ============================ DETAIL PAKET VIDEO ============================ -->
 <section data-page="paket">
   <div class="atmos">
-    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <a href="#/layanan" class="font-mono text-[10.5px] tracking-[0.18em] text-gold hover:text-goldlite transition-colors">← SEMUA LAYANAN</a>
-        <h1 class="display text-[38px] lg:text-[60px] mt-6">Paket Kampanye</h1>
+        <h1 class="display text-[38px] lg:text-[60px] mt-6">Produksi Video, Paket Kampanye</h1>
         <p class="mt-6 text-[17px] t2 max-w-[56ch] leading-relaxed">Untuk perusahaan yang sedang meluncurkan lini baru, bersiap ke pameran dagang, atau menjalankan kampanye selama satu kuartal.</p>
       </div>
     </div>
@@ -576,30 +630,162 @@
   <div class="max-w-[900px] mx-auto px-5 lg:px-7 py-14">
     <div class="frame slot aspect-video flex items-center justify-center">
       <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-      <span class="font-mono text-[10.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">CUPLIKAN CONTOH — MENUNGGU TAUTAN YOUTUBE ATAU VIMEO</span>
+      <span class="font-mono text-[10.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">CUPLIKAN CONTOH · MENUNGGU TAUTAN YOUTUBE ATAU VIMEO</span>
     </div>
 
     <h2 class="font-extrabold text-[27px] mt-16 tracking-tight">Apa yang Anda terima</h2>
-    <div class="grid sm:grid-cols-2 gap-x-9 gap-y-0 mt-6 text-[16px] t2">
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">—</span> Video utama 2–3 menit, siap tayang</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">—</span> Enam potongan vertikal media sosial</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">—</span> Versi teks Indonesia dan Inggris</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">—</span> Berkas sumber resolusi penuh</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">—</span> Foto diam pilihan dari lokasi</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">—</span> Panduan pemakaian untuk tim internal</p>
+    <div class="grid sm:grid-cols-2 gap-x-9 mt-6 text-[16px] t2">
+      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Video utama 2 sampai 3 menit, siap tayang</p>
+      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Enam potongan vertikal media sosial</p>
+      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Teks Indonesia dan Inggris</p>
+      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Berkas sumber resolusi penuh</p>
+      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Foto diam pilihan dari lokasi</p>
+      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Panduan pemakaian untuk tim internal</p>
     </div>
 
     <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Yang kami butuhkan dari Anda</h2>
     <ol class="mt-6 space-y-4 text-[16px] t2">
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">01</span> Satu penanggung jawab yang berwenang menyetujui naskah</li>
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">02</span> Akses dan izin masuk ke fasilitas yang akan diambil gambarnya</li>
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">03</span> Materi merek yang berlaku: logo, warna, tipografi</li>
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">04</span> Tenggat sebenarnya, bukan tenggat yang dilonggarkan</li>
+      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">01</span> Satu orang yang berwenang menyetujui naskah</li>
+      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">02</span> Izin masuk ke lokasi yang akan diambil gambarnya</li>
+      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">03</span> Logo, warna, dan tipografi merek yang berlaku</li>
+      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">04</span> Tanggal tayang yang sebenarnya</li>
     </ol>
 
     <div class="glass mt-14 p-9" style="background:linear-gradient(135deg,rgba(211,176,55,0.10),rgba(255,255,255,0.03))">
       <h2 class="font-extrabold text-[25px] tracking-tight">Belum yakin paket ini yang tepat?</h2>
-      <p class="mt-3.5 t2 text-[16px] leading-relaxed">Sebutkan tujuan videonya, dan kami akan menyarankan paket yang sesuai — termasuk bila jawabannya adalah paket yang lebih kecil.</p>
+      <p class="mt-3.5 t2 text-[16px] leading-relaxed">Sebutkan tujuan videonya. Kami akan menyarankan paket yang sesuai, termasuk kalau jawabannya paket yang lebih kecil.</p>
+      <a href="#/kontak" class="btn-gold mt-7 inline-flex px-7 py-3.5">Tanyakan lewat WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ KONSULTAN PENGEMBANGAN BISNIS ============================ -->
+<section data-page="konsultan">
+  <div class="atmos">
+    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
+      <div class="enter">
+        <a href="#/layanan" class="font-mono text-[10.5px] tracking-[0.18em] text-logistics hover:text-white transition-colors">← SEMUA LAYANAN</a>
+        <h1 class="display text-[38px] lg:text-[58px] mt-6 max-w-[17ch]">Konsultan Pengembangan Bisnis</h1>
+        <p class="mt-6 text-[17px] t2 max-w-[56ch] leading-relaxed">Untuk perusahaan yang produknya bagus tapi penjualannya tersendat. Kami membenahi cara tim Anda mendekati klien korporat.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[900px] mx-auto px-5 lg:px-7 py-14">
+
+    <div class="glass p-8 lg:p-9" style="background:linear-gradient(135deg,rgba(0,162,233,0.10),rgba(255,255,255,0.03));border-color:rgba(0,162,233,0.35)">
+      <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">SIAPA YANG MENGERJAKAN</p>
+      <p class="mt-4 text-[16.5px] t2 leading-relaxed">Pendiri IMPI menghabiskan sebelas tahun sebagai Country Sales Leader di tiga perusahaan Amerika. Dia memegang target, menyusun proposal, dan duduk di rapat tempat anggaran diputuskan. Konsultasi ini dikerjakan langsung olehnya.</p>
+    </div>
+
+    <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Apa yang kami kerjakan</h2>
+    <div class="mt-6 space-y-3">
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Meninjau jalur penjualan</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Kami telusuri dari prospek pertama sampai kontrak ditandatangani. Biasanya ada satu atau dua titik tempat calon klien berhenti membalas, dan titik itu yang kami cari.</p>
+      </div>
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Memetakan pengambil keputusan</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Di perusahaan besar, orang yang Anda temui sering berbeda dengan orang yang menyetujui anggaran. Kami bantu memetakan siapa saja yang perlu diyakinkan dan apa yang mereka pedulikan.</p>
+      </div>
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Menyusun materi presentasi dan proposal</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Dokumen yang benar-benar dipakai tim Anda di lapangan, ditulis dengan bahasa yang dipahami pembeli korporat.</p>
+      </div>
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Melatih tim menjawab keberatan</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Keberatan soal harga, spesifikasi, dan pembanding dari kompetitor. Kami latih tim Anda menjawabnya tanpa langsung menurunkan harga.</p>
+      </div>
+    </div>
+
+    <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Cara kerjanya</h2>
+    <div class="grid sm:grid-cols-3 gap-5 mt-6">
+      <div class="glass p-6">
+        <p class="font-mono text-[9.5px] tracking-[0.16em] text-logistics">TAHAP 01</p>
+        <h3 class="font-extrabold text-[18px] mt-2.5 tracking-tight">Sesi pemetaan</h3>
+        <p class="mt-2 text-[15px] t2 leading-relaxed">Setengah hari bersama Anda dan tim penjualan.</p>
+      </div>
+      <div class="glass p-6">
+        <p class="font-mono text-[9.5px] tracking-[0.16em] text-logistics">TAHAP 02</p>
+        <h3 class="font-extrabold text-[18px] mt-2.5 tracking-tight">Temuan dan usulan</h3>
+        <p class="mt-2 text-[15px] t2 leading-relaxed">Dokumen berisi apa yang menghambat dan apa yang kami sarankan.</p>
+      </div>
+      <div class="glass p-6">
+        <p class="font-mono text-[9.5px] tracking-[0.16em] text-logistics">TAHAP 03</p>
+        <h3 class="font-extrabold text-[18px] mt-2.5 tracking-tight">Pendampingan</h3>
+        <p class="mt-2 text-[15px] t2 leading-relaxed">Sesi berkala selama tiga bulan sambil tim menjalankannya.</p>
+      </div>
+    </div>
+
+    <div class="glass mt-8 p-8">
+      <p class="font-mono text-[12px] t3">Biaya</p>
+      <p class="text-[24px] font-extrabold tracking-tight mt-1.5 t2">Menunggu konfirmasi</p>
+      <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-2">ANGKA DITETAPKAN KLIEN</p>
+      <p class="mt-4 text-[15.5px] t2 leading-relaxed">Bergantung pada ukuran tim dan lama pendampingan. Kami sampaikan angkanya setelah sesi pemetaan pertama.</p>
+    </div>
+
+    <div class="glass mt-6 p-9" style="background:linear-gradient(135deg,rgba(0,162,233,0.10),rgba(255,255,255,0.03))">
+      <h2 class="font-extrabold text-[25px] tracking-tight">Mau tahu apakah ini cocok untuk perusahaan Anda?</h2>
+      <p class="mt-3.5 t2 text-[16px] leading-relaxed">Ceritakan kondisi penjualan Anda sekarang. Kalau menurut kami masalahnya ada di tempat lain, kami akan bilang.</p>
+      <a href="#/kontak" class="btn-gold mt-7 inline-flex px-7 py-3.5">Tanyakan lewat WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DIGITAL MARKETING CAMPAIGN ============================ -->
+<section data-page="kampanye">
+  <div class="atmos">
+    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
+      <div class="enter">
+        <a href="#/layanan" class="font-mono text-[10.5px] tracking-[0.18em] text-mining hover:text-white transition-colors">← SEMUA LAYANAN</a>
+        <h1 class="display text-[38px] lg:text-[58px] mt-6 max-w-[17ch]">Digital Marketing Campaign</h1>
+        <p class="mt-6 text-[17px] t2 max-w-[56ch] leading-relaxed">Kampanye berbayar yang menargetkan pengambil keputusan di perusahaan. Laporannya menghitung prospek yang masuk, bukan jumlah tayangan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[900px] mx-auto px-5 lg:px-7 py-14">
+
+    <div class="glass p-8 lg:p-9" style="background:linear-gradient(135deg,rgba(84,184,119,0.10),rgba(255,255,255,0.03));border-color:rgba(84,184,119,0.35)">
+      <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">KENAPA KAMI</p>
+      <p class="mt-4 text-[16.5px] t2 leading-relaxed">Iklan B2B berbeda dengan iklan konsumen. Jumlah orang yang bisa membeli produk Anda mungkin cuma beberapa ratus di seluruh Indonesia. Yang penting bukan seberapa banyak yang melihat, tapi apakah yang melihat itu orang yang tepat.</p>
+    </div>
+
+    <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Apa yang kami jalankan</h2>
+    <div class="mt-6 space-y-3">
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Iklan Google untuk kata kunci pembelian</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Menyasar orang yang sedang mencari pemasok, dengan kata kunci yang dipakai pembeli industri. Bukan kata kunci umum yang ramai tapi tidak membeli.</p>
+      </div>
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Kampanye LinkedIn ke jabatan tertentu</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Menargetkan berdasarkan jabatan, industri, dan ukuran perusahaan. Cocok untuk menjangkau manajer pengadaan, kepala operasional, atau direktur.</p>
+      </div>
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Iklan Meta untuk penargetan ulang</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Menampilkan kembali materi Anda ke orang yang sudah pernah membuka situs atau menonton video. Biayanya jauh lebih murah daripada menjangkau orang baru.</p>
+      </div>
+      <div class="glass glass-hover p-6">
+        <h3 class="font-extrabold text-[19px] tracking-tight">Halaman pendaratan dan pelacakan</h3>
+        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Satu halaman fokus tanpa menu, terhubung langsung ke WhatsApp. Setiap klik tercatat, sehingga kita tahu iklan mana yang menghasilkan percakapan.</p>
+      </div>
+    </div>
+
+    <div class="glass mt-8 p-8">
+      <h2 class="font-extrabold text-[22px] tracking-tight">Laporan bulanan</h2>
+      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Setiap bulan Anda menerima laporan berisi berapa orang menghubungi lewat WhatsApp, dari iklan mana, dan berapa biaya per percakapan. Angka tayangan dan klik ada di halaman terakhir, untuk yang ingin melihatnya.</p>
+    </div>
+
+    <div class="glass mt-6 p-8">
+      <p class="font-mono text-[12px] t3">Biaya jasa</p>
+      <p class="text-[24px] font-extrabold tracking-tight mt-1.5 t2">Menunggu konfirmasi</p>
+      <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-2">ANGKA DITETAPKAN KLIEN</p>
+      <p class="mt-4 text-[15.5px] t2 leading-relaxed">Biaya jasa terpisah dari anggaran iklan yang dibayarkan langsung ke Google, Meta, atau LinkedIn.</p>
+    </div>
+
+    <div class="glass mt-6 p-9" style="background:linear-gradient(135deg,rgba(84,184,119,0.10),rgba(255,255,255,0.03))">
+      <h2 class="font-extrabold text-[25px] tracking-tight">Sudah punya materi tapi belum ada yang menghubungi?</h2>
+      <p class="mt-3.5 t2 text-[16px] leading-relaxed">Ceritakan produk dan siapa pembelinya. Kami akan sampaikan apakah kampanye berbayar masuk akal untuk kasus Anda.</p>
       <a href="#/kontak" class="btn-gold mt-7 inline-flex px-7 py-3.5">Tanyakan lewat WhatsApp</a>
     </div>
   </div>
@@ -608,11 +794,11 @@
 <!-- ============================ PORTOFOLIO ============================ -->
 <section data-page="portofolio">
   <div class="atmos">
-    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">PORTOFOLIO</p>
-        <h1 class="display text-[38px] lg:text-[62px] max-w-[18ch]">Tiga pekerjaan, beserta <span class="goldtext">persoalan di baliknya</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Sebagian klien belum mengizinkan namanya disebut. Yang bisa kami ceritakan adalah persoalannya, dan itu justru bagian yang berguna bagi Anda.</p>
+        <h1 class="display text-[38px] lg:text-[62px] max-w-[18ch]">Tiga pekerjaan dan <span class="goldtext">masalah di baliknya</span></h1>
+        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Sebagian klien belum mengizinkan namanya disebut. Yang bisa kami ceritakan adalah masalahnya, dan bagian itu yang biasanya lebih berguna.</p>
       </div>
     </div>
   </div>
@@ -628,9 +814,9 @@
         <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">STUDI KASUS 01 · PELUMAS B2B SEKTOR TAMBANG</p>
         <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Anak usaha BUMN sektor pelumas</h2>
         <dl class="mt-7 space-y-5 text-[15.5px]">
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menjelaskan keunggulan teknis pelumas kepada manajer perawatan di lokasi tambang, bukan kepada konsumen umum.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Pengambilan gambar di area operasional aktif dengan induksi keselamatan penuh, jendela waktu tiga jam, dan tidak boleh menghentikan produksi.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA INI PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Video ini dipakai tim penjualan di pertemuan langsung dengan pembeli. Satu penjelasan keliru berarti kredibilitas teknis hilang di menit pertama.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menjelaskan keunggulan teknis pelumas kepada manajer perawatan di lokasi tambang. Penontonnya membandingkan spesifikasi, bukan mencari hiburan.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Area operasional aktif, induksi keselamatan penuh, dan jendela waktu tiga jam. Produksi tidak boleh berhenti.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Video ini dipakai tim penjualan saat bertemu pembeli. Satu penjelasan teknis yang keliru langsung menghabiskan kredibilitas.</dd></div>
         </dl>
       </div>
     </article>
@@ -644,9 +830,9 @@
         <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">STUDI KASUS 02 · LOGISTIK MENUJU BURSA</p>
         <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Perusahaan logistik nasional</h2>
         <dl class="mt-7 space-y-5 text-[15.5px]">
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Materi visual untuk proses menjadi perusahaan terbuka, ditujukan kepada calon pemegang saham dan mitra strategis.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Setiap klaim harus lolos tinjauan tim hukum. Naskah melewati empat putaran sebelum satu kamera dinyalakan.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA INI PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Materi yang beredar di masa penawaran umum tidak bisa ditarik kembali. Ketelitian di tahap naskah adalah penghematan terbesar.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Materi visual untuk proses menjadi perusahaan terbuka, ditujukan ke calon pemegang saham dan mitra strategis.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Setiap klaim harus lolos tinjauan tim hukum. Naskahnya melewati empat putaran sebelum satu kamera dinyalakan.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Materi yang beredar di masa penawaran umum tidak bisa ditarik lagi. Waktu yang dipakai di tahap naskah menghemat jauh lebih banyak di belakang.</dd></div>
         </dl>
       </div>
     </article>
@@ -660,9 +846,9 @@
         <p class="font-mono text-[9.5px] tracking-[0.18em] text-port">STUDI KASUS 03 · PELABUHAN UNTUK INVESTOR</p>
         <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Operator pelabuhan swasta</h2>
         <dl class="mt-7 space-y-5 text-[15.5px]">
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menunjukkan kapasitas dermaga dan alur bongkar muat kepada calon investor yang tidak bisa datang ke lokasi.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Perizinan area pelabuhan, jadwal kapal yang tidak bisa diatur, dan cuaca yang menyisakan satu jendela pengambilan gambar.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA INI PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Investor menilai skala dari apa yang mereka lihat. Video menggantikan kunjungan lokasi yang biayanya berkali lipat.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menunjukkan kapasitas dermaga dan alur bongkar muat ke calon investor yang tidak bisa datang ke lokasi.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Perizinan area pelabuhan, jadwal kapal yang tidak bisa diatur, dan cuaca yang hanya menyisakan satu jendela pengambilan gambar.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Investor menilai skala dari apa yang mereka lihat. Video ini menggantikan kunjungan lokasi yang biayanya berkali lipat.</dd></div>
         </dl>
       </div>
     </article>
@@ -670,8 +856,8 @@
 
   <div class="atmos border-t border-white/[0.07]">
     <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20 text-center">
-      <h2 class="display text-[30px] lg:text-[44px]">Fasilitas Anda punya <span class="goldtext">persoalannya sendiri</span></h2>
-      <p class="mt-5 text-[16.5px] t2 max-w-[52ch] mx-auto leading-relaxed">Ceritakan lokasinya, dan kami akan menyampaikan apa saja yang perlu disiapkan sebelum tim berangkat.</p>
+      <h2 class="display text-[30px] lg:text-[44px]">Lokasi Anda punya <span class="goldtext">masalahnya sendiri</span></h2>
+      <p class="mt-5 text-[16.5px] t2 max-w-[52ch] mx-auto leading-relaxed">Ceritakan di mana fasilitasnya. Kami akan sampaikan apa saja yang perlu disiapkan sebelum kru berangkat.</p>
       <a href="#/kontak" class="btn-gold mt-9 inline-flex px-8 py-4">Mulai percakapan</a>
     </div>
   </div>
@@ -680,7 +866,7 @@
 <!-- ============================ TENTANG ============================ -->
 <section data-page="tentang">
   <div class="atmos">
-    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">TENTANG</p>
         <h1 class="display text-[36px] lg:text-[58px]">Sebelas tahun memegang target, <span class="goldtext">sebelum memegang kamera</span></h1>
@@ -695,21 +881,21 @@
         <span class="font-mono text-[9px] tracking-[0.14em] t3 px-4 text-center relative z-10">MENUNGGU FOTO PROFIL</span>
       </div>
       <div class="space-y-5 text-[16.5px] leading-relaxed t2">
-        <p>Sebelum IMPI berdiri, pendirinya menghabiskan sebelas tahun sebagai Country Sales Leader di tiga perusahaan Amerika. Sebelas tahun memegang angka, menyusun proposal, dan duduk di ruang rapat tempat anggaran diputuskan.</p>
-        <p>Selama itu ia menonton banyak video korporat. Sebagian bekerja. Sebagian besar tidak, dan alasannya hampir selalu sama: video itu dibuat untuk mengesankan, bukan untuk menjawab pertanyaan yang benar-benar ada di kepala pembeli.</p>
-        <p class="text-text font-semibold">IMPI dibangun untuk mengisi jarak itu.</p>
+        <p>Sebelum IMPI berdiri, pendirinya menghabiskan sebelas tahun sebagai Country Sales Leader di tiga perusahaan Amerika. Memegang angka, menyusun proposal, dan duduk di ruang rapat tempat anggaran diputuskan.</p>
+        <p>Selama itu dia menonton banyak video korporat. Ada yang bekerja, kebanyakan tidak. Alasannya hampir selalu sama: videonya dibuat untuk mengesankan, sementara pembelinya sedang mencari jawaban.</p>
+        <p class="text-text font-semibold">IMPI berdiri untuk mengisi jarak itu.</p>
       </div>
     </div>
 
     <div class="glass mt-14 p-9" style="background:linear-gradient(135deg,rgba(211,176,55,0.09),rgba(255,255,255,0.03))">
       <h2 class="font-extrabold text-[25px] tracking-tight">Kenapa ini penting bagi Anda</h2>
-      <p class="mt-4 text-[16.5px] t2 leading-relaxed">Kami tahu video seperti apa yang lolos rapat anggaran, karena kami pernah berada di sisi meja yang mengajukannya. Kami tahu pertanyaan apa yang muncul dari direktur keuangan, dan bagian mana dari naskah yang akan dicoret tim hukum. Pengetahuan itu masuk ke naskah sejak halaman pertama, bukan ditambal setelah revisi ketiga.</p>
+      <p class="mt-4 text-[16.5px] t2 leading-relaxed">Kami tahu video seperti apa yang lolos rapat anggaran, karena kami pernah berada di sisi meja yang mengajukannya. Kami tahu pertanyaan apa yang muncul dari direktur keuangan, dan bagian mana dari naskah yang akan dicoret tim hukum. Semua itu masuk ke naskah sejak halaman pertama.</p>
     </div>
 
     <div class="mt-10 grid md:grid-cols-2 gap-5">
       <div class="glass glass-hover p-7">
         <h2 class="font-extrabold text-[21px] tracking-tight">Cara kami bekerja</h2>
-        <p class="mt-3.5 text-[15.5px] t2 leading-relaxed">Inti tim kecil dan tetap. Untuk setiap produksi, kami menyusun kru dari tenaga lepas terpilih yang sudah pernah bekerja dengan kami — juru kamera, penata suara, penyunting. Anda mendapat spesialis yang sesuai kebutuhan, bukan tim tetap yang harus dicarikan pekerjaan.</p>
+        <p class="mt-3.5 text-[15.5px] t2 leading-relaxed">Inti tim kecil dan tetap. Untuk setiap produksi, kami menyusun kru dari tenaga lepas terpilih yang sudah pernah bekerja dengan kami. Juru kamera, penata suara, penyunting. Anda mendapat spesialis yang sesuai kebutuhan proyek.</p>
       </div>
       <div class="glass glass-hover p-7">
         <h2 class="font-extrabold text-[21px] tracking-tight">Legalitas</h2>
@@ -727,24 +913,24 @@
 <!-- ============================ PROSES ============================ -->
 <section data-page="proses">
   <div class="atmos">
-    <div class="max-w-[1020px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[1020px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">PROSES</p>
-        <h1 class="display text-[38px] lg:text-[60px] max-w-[16ch]">Kami mulai dari naskah, <span class="goldtext">bukan dari kamera</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[54ch] leading-relaxed">Tujuh tahap, tanpa kejutan di tengah jalan. Anda tahu persis di mana posisi pekerjaan setiap saat.</p>
+        <h1 class="display text-[38px] lg:text-[60px] max-w-[16ch]">Kami mulai dari naskah, <span class="goldtext">baru kamera</span></h1>
+        <p class="mt-7 text-[17px] t2 max-w-[54ch] leading-relaxed">Tujuh tahap. Anda selalu tahu posisi pekerjaannya ada di mana.</p>
       </div>
     </div>
   </div>
 
   <div class="max-w-[1020px] mx-auto px-5 lg:px-7 py-14">
     <ol class="space-y-3">
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">01</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Penggalian kebutuhan</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Satu sesi untuk memahami siapa yang akan menonton, keputusan apa yang ingin didorong, dan bagaimana video ini dipakai setelah jadi.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">02</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Penyusunan naskah</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Naskah lengkap beserta papan cerita. Tidak ada yang berlanjut sebelum bagian ini Anda setujui tertulis.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">03</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Pra-produksi dan perizinan lokasi</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Jadwal kru, izin masuk fasilitas, induksi keselamatan, dan rencana cadangan bila cuaca atau operasional berubah.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">04</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Pengambilan gambar</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Dikerjakan sesuai daftar bidikan yang sudah disepakati, dengan gangguan seminimal mungkin terhadap operasional Anda.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">05</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Penyuntingan dan revisi terbatas</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Dua putaran revisi tercakup. Batas ini justru melindungi tenggat Anda, bukan membatasi hasil.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">06</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Serah terima</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Seluruh berkas beserta panduan pemakaian: format mana untuk media sosial, mana untuk presentasi, mana untuk arsip.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">07</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Dukungan setelah tayang</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Penyesuaian kecil dalam 30 hari pertama bila format tambahan dibutuhkan.</p></div></li>
+      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">01</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Penggalian kebutuhan</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Satu sesi untuk memahami siapa penontonnya, keputusan apa yang ingin Anda dorong, dan video ini akan dipakai di mana saja.</p></div></li>
+      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">02</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Penyusunan naskah</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Naskah lengkap beserta papan cerita. Tidak ada yang berlanjut sebelum Anda menyetujuinya secara tertulis.</p></div></li>
+      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">03</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Pra-produksi dan izin lokasi</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Jadwal kru, izin masuk fasilitas, induksi keselamatan, dan rencana cadangan kalau cuaca atau operasional berubah.</p></div></li>
+      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">04</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Pengambilan gambar</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Mengikuti daftar bidikan yang sudah disepakati, dengan gangguan sekecil mungkin terhadap operasional Anda.</p></div></li>
+      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">05</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Penyuntingan dan revisi</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Dua putaran revisi sudah termasuk. Batas ini yang menjaga tanggal tayang Anda tetap aman.</p></div></li>
+      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">06</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Serah terima</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Semua berkas beserta panduan pemakaian. Format mana untuk media sosial, mana untuk presentasi, mana untuk arsip.</p></div></li>
+      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">07</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Dukungan setelah tayang</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Penyesuaian kecil dalam 30 hari pertama kalau ada format tambahan yang dibutuhkan.</p></div></li>
     </ol>
 
     <div class="glass mt-16 p-8 lg:p-11 atmos">
@@ -775,11 +961,11 @@
 <!-- ============================ ARTIKEL ============================ -->
 <section data-page="artikel">
   <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">ARTIKEL</p>
         <h1 class="display text-[38px] lg:text-[58px]">Catatan dari <span class="goldtext">sisi pembeli</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Tulisan tentang bagaimana anggaran video disetujui, kenapa sebagian company profile gagal, dan apa yang sebenarnya dinilai pembeli korporat.</p>
+        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Tulisan tentang cara anggaran video disetujui, alasan sebagian company profile gagal, dan apa yang sebenarnya dinilai pembeli korporat.</p>
       </div>
     </div>
   </div>
@@ -793,8 +979,8 @@
         </div>
         <div class="p-6">
           <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CONTOH ISI</p>
-          <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Kenapa company profile Anda tidak pernah ditonton sampai habis</h2>
-          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Masalahnya jarang pada kualitas gambar. Hampir selalu pada menit pertama.</p>
+          <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Kenapa company profile Anda tidak ditonton sampai habis</h2>
+          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Masalahnya jarang pada kualitas gambar. Biasanya di menit pertama.</p>
         </div>
       </article>
       <article class="reveal glass glass-hover overflow-hidden group/a">
@@ -805,7 +991,7 @@
         <div class="p-6">
           <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CONTOH ISI</p>
           <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Tujuh pertanyaan direktur keuangan sebelum anggaran video disetujui</h2>
-          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Siapkan jawabannya sebelum rapat, bukan di dalam rapat.</p>
+          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Siapkan jawabannya sebelum rapat.</p>
         </div>
       </article>
       <article class="reveal glass glass-hover overflow-hidden group/a">
@@ -815,15 +1001,15 @@
         </div>
         <div class="p-6">
           <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CONTOH ISI</p>
-          <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Mengambil gambar di area operasional tanpa menghentikan produksi</h2>
-          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Yang harus disiapkan tim fasilitas Anda sebelum kru datang.</p>
+          <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Syuting di area operasional tanpa menghentikan produksi</h2>
+          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Yang perlu disiapkan tim fasilitas Anda sebelum kru datang.</p>
         </div>
       </article>
     </div>
 
     <div class="glass mt-10 p-7" style="border-style:dashed">
       <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CATATAN UNTUK KLIEN</p>
-      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Ketiga tulisan di atas hanya contoh tampilan. Halaman ini diisi sendiri lewat dashboard. Selama belum ada tulisan terbit, halaman ini tidak ditampilkan di menu dan tidak diindeks mesin pencari — sehingga tidak pernah terlihat kosong oleh pengunjung.</p>
+      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Ketiga tulisan di atas hanya contoh tampilan. Halaman ini Anda isi sendiri lewat dashboard. Selama belum ada tulisan yang terbit, halaman ini tidak muncul di menu dan tidak diindeks mesin pencari, sehingga pengunjung tidak pernah melihatnya kosong.</p>
     </div>
   </div>
 </section>
@@ -831,7 +1017,7 @@
 <!-- ============================ BERITA ============================ -->
 <section data-page="berita">
   <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">BERITA</p>
         <h1 class="display text-[38px] lg:text-[58px]">Kabar <span class="goldtext">perusahaan</span></h1>
@@ -860,14 +1046,14 @@
         <time class="font-mono text-[13px] text-gold">03 Mar 2026</time>
         <div>
           <h2 class="font-extrabold text-[20px] tracking-tight">Kantor IMPI pindah ke ruang kerja baru</h2>
-          <p class="mt-2 text-[15px] t2 leading-relaxed">Ruang pratinjau khusus untuk sesi tinjauan bersama klien. Contoh isi.</p>
+          <p class="mt-2 text-[15px] t2 leading-relaxed">Ada ruang pratinjau khusus untuk sesi tinjauan bersama klien. Contoh isi.</p>
         </div>
       </article>
     </div>
 
     <div class="glass mt-10 p-7" style="border-style:dashed">
       <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CATATAN UNTUK KLIEN</p>
-      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Berita dan artikel dikelola terpisah di dashboard, dengan perlakuan yang sama: bila belum ada isinya, halaman ini tidak muncul di menu.</p>
+      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Berita dan artikel dikelola terpisah di dashboard dengan perlakuan yang sama. Kalau belum ada isinya, halaman ini tidak muncul di menu.</p>
     </div>
   </div>
 </section>
@@ -875,7 +1061,7 @@
 <!-- ============================ PROMO ============================ -->
 <section data-page="promo">
   <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">PROMO</p>
         <h1 class="display text-[38px] lg:text-[58px]">Penawaran yang <span class="goldtext">sedang berjalan</span></h1>
@@ -891,13 +1077,13 @@
         <span class="font-mono text-[9.5px] tracking-[0.16em] t3">CONTOH ISI</span>
       </div>
       <h2 class="display text-[30px] lg:text-[42px] mt-6 max-w-[20ch]">Tambahan enam potongan media sosial untuk pemesanan kuartal ketiga</h2>
-      <p class="mt-5 text-[16px] t2 leading-relaxed max-w-[58ch]">Setiap pemesanan paket Kampanye yang jadwal pengambilan gambarnya dikunci sebelum akhir September memperoleh enam potongan vertikal tambahan, tanpa biaya.</p>
+      <p class="mt-5 text-[16px] t2 leading-relaxed max-w-[58ch]">Setiap pemesanan paket Kampanye yang jadwal syutingnya dikunci sebelum akhir September mendapat enam potongan vertikal tambahan tanpa biaya.</p>
       <a href="#/kontak" class="btn-gold mt-8 inline-flex px-7 py-3.5">Tanyakan penawaran ini</a>
     </article>
 
     <div class="glass mt-8 p-7" style="border-style:dashed">
       <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CATATAN UNTUK KLIEN</p>
-      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Promo yang sedang berjalan juga tampil sebagai bagian di beranda. Ketika tidak ada promo aktif, bagian itu hilang dari beranda dan halaman ini tidak ditampilkan di menu.</p>
+      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Promo yang sedang berjalan juga tampil di beranda. Ketika tidak ada promo aktif, bagian itu hilang dari beranda dan halaman ini tidak muncul di menu.</p>
     </div>
   </div>
 </section>
@@ -905,7 +1091,7 @@
 <!-- ============================ KONTAK ============================ -->
 <section data-page="kontak">
   <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-18 pb-14 lg:pt-24 lg:pb-18">
+    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
       <div class="enter">
         <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">KONTAK</p>
         <h1 class="display text-[38px] lg:text-[58px]">Mulai dari <span class="goldtext">satu pesan</span></h1>
@@ -916,7 +1102,7 @@
   <div class="max-w-[1100px] mx-auto px-5 lg:px-7 py-14 grid lg:grid-cols-2 gap-10">
     <div>
       <a href="#/kontak" class="btn-gold flex items-center justify-center text-[17px] px-6 py-5 w-full">Buka percakapan WhatsApp</a>
-      <p class="mt-3.5 text-[14.5px] t3">Pesan pembuka sudah terisi. Anda tinggal menambahkan kebutuhan Anda.</p>
+      <p class="mt-3.5 text-[14.5px] t3">Pesan pembukanya sudah terisi. Anda tinggal menambahkan kebutuhan Anda.</p>
 
       <div class="mt-10 space-y-3">
         <div class="glass p-6">
@@ -929,14 +1115,14 @@
         </div>
         <div class="glass p-6">
           <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">JAM KERJA</p>
-          <p class="mt-2 t2 text-[15.5px]">Senin–Jumat, 09.00–18.00 WIB<br>Pesan di luar jam kerja dibalas hari kerja berikutnya.</p>
+          <p class="mt-2 t2 text-[15.5px]">Senin sampai Jumat, 09.00 sampai 18.00 WIB<br>Pesan di luar jam kerja dibalas hari kerja berikutnya.</p>
         </div>
       </div>
     </div>
 
     <div class="glass p-8">
       <h2 class="font-extrabold text-[23px] tracking-tight">Atau tinggalkan pesan</h2>
-      <p class="mt-2 text-[15px] t3">Empat isian, tidak lebih.</p>
+      <p class="mt-2 text-[15px] t3">Empat isian saja.</p>
       <div class="mt-7 space-y-5">
         <div>
           <label for="f-nama" class="block text-[14px] font-medium mb-2">Nama</label>
@@ -952,7 +1138,7 @@
         </div>
         <div>
           <label for="f-kebutuhan" class="block text-[14px] font-medium mb-2">Kebutuhan</label>
-          <textarea id="f-kebutuhan" rows="4" class="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-[15px] focus:border-gold outline-none transition-colors resize-none" placeholder="Jenis video, lokasi fasilitas, dan tenggat yang Anda kejar"></textarea>
+          <textarea id="f-kebutuhan" rows="4" class="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-[15px] focus:border-gold outline-none transition-colors resize-none" placeholder="Jenis layanan, lokasi, dan tanggal yang Anda kejar"></textarea>
         </div>
         <button type="button" class="btn-ghost w-full font-semibold py-4">Kirim pesan</button>
       </div>
@@ -968,9 +1154,9 @@
     <div class="mt-10 space-y-7 text-[16px] leading-relaxed t2">
       <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Data yang kami kumpulkan</h2><p class="mt-2.5">Nama, nama perusahaan, nomor WhatsApp, dan keterangan kebutuhan yang Anda kirimkan lewat formulir atau percakapan WhatsApp.</p></div>
       <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Alat pengukuran pihak ketiga</h2><p class="mt-2.5">Situs ini memakai Google Analytics dan Meta Pixel untuk mengukur kunjungan dan menilai efektivitas iklan. Keduanya menyimpan pengenal di peramban Anda.</p></div>
-      <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Penggunaan data</h2><p class="mt-2.5">Data kontak dipakai hanya untuk menjawab pertanyaan Anda dan menyusun penawaran. Kami tidak menjual atau membagikannya kepada pihak lain.</p></div>
+      <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Penggunaan data</h2><p class="mt-2.5">Data kontak dipakai hanya untuk menjawab pertanyaan Anda dan menyusun penawaran. Kami tidak menjual atau membagikannya ke pihak lain.</p></div>
       <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Hak Anda</h2><p class="mt-2.5">Anda berhak meminta salinan, koreksi, atau penghapusan data Anda dengan menghubungi surel kami.</p></div>
-      <p class="glass p-5 font-mono text-[10.5px] tracking-[0.14em] text-gold" style="border-style:dashed">NASKAH SEMENTARA — PERLU DITINJAU PENASIHAT HUKUM SEBELUM TAYANG</p>
+      <p class="glass p-5 font-mono text-[10.5px] tracking-[0.14em] text-gold" style="border-style:dashed">NASKAH SEMENTARA. PERLU DITINJAU PENASIHAT HUKUM SEBELUM TAYANG.</p>
     </div>
   </div>
 </section>
@@ -986,20 +1172,20 @@
         </div>
 
         <h1 class="display text-[40px] sm:text-[58px]">Jasa pembuatan video company profile untuk <span class="goldtext">perusahaan industri</span></h1>
-        <p class="mt-7 text-[17.5px] t2 leading-relaxed max-w-[54ch]">Dikerjakan oleh tim yang pernah memegang target penjualan korporat selama 11 tahun. Kami tahu video seperti apa yang lolos rapat anggaran.</p>
+        <p class="mt-7 text-[17.5px] t2 leading-relaxed max-w-[54ch]">Dikerjakan tim yang 11 tahun memegang target penjualan korporat. Kami tahu video seperti apa yang lolos rapat anggaran.</p>
         <a href="#/iklan" class="btn-gold mt-10 inline-flex w-full sm:w-auto items-center justify-center text-[17px] px-9 py-5">Minta penawaran lewat WhatsApp</a>
       </div>
 
       <div class="mt-16 grid sm:grid-cols-3 gap-4">
-        <div class="glass p-6"><p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">BUKTI 01</p><p class="mt-3 text-[15.5px] t2 leading-relaxed">Pengambilan gambar di tambang, pelabuhan, dan kilang — lengkap dengan perizinan dan induksi keselamatan.</p></div>
+        <div class="glass p-6"><p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">BUKTI 01</p><p class="mt-3 text-[15.5px] t2 leading-relaxed">Syuting di tambang, pelabuhan, dan kilang, lengkap dengan perizinan dan induksi keselamatan.</p></div>
         <div class="glass p-6"><p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">BUKTI 02</p><p class="mt-3 text-[15.5px] t2 leading-relaxed">Materi untuk proses menuju bursa yang lolos tinjauan tim hukum.</p></div>
         <div class="glass p-6"><p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">BUKTI 03</p><p class="mt-3 text-[15.5px] t2 leading-relaxed">Video penjaringan investor untuk operator pelabuhan swasta.</p></div>
       </div>
 
       <div class="glass mt-4 p-8" style="background:linear-gradient(135deg,rgba(211,176,55,0.10),rgba(255,255,255,0.03))">
         <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KISARAN BIAYA</p>
-        <p class="display text-[34px] mt-3.5">Rp15 juta – Rp60 juta+</p>
-        <p class="mt-3.5 text-[15.5px] t2 leading-relaxed">Bergantung jumlah lokasi, hari pengambilan gambar, dan keluaran yang dibutuhkan. Kisaran disampaikan di percakapan pertama.</p>
+        <p class="display text-[34px] mt-3.5">Rp15 juta sampai Rp60 juta</p>
+        <p class="mt-3.5 text-[15.5px] t2 leading-relaxed">Bergantung jumlah lokasi, hari pengambilan gambar, dan keluaran yang dibutuhkan. Kisarannya kami sampaikan di percakapan pertama.</p>
       </div>
 
       <div class="mt-14 text-[14px] t3">
@@ -1025,22 +1211,22 @@
         <p class="mt-5 text-[14px] t3">PT IMPI Marketing · Berbadan hukum sejak 2023</p>
       </div>
       <div>
-        <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">HALAMAN</p>
+        <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">LAYANAN</p>
         <ul class="mt-5 space-y-3 text-[15px] t2">
-          <li><a href="#/layanan" class="hover:text-gold transition-colors">Layanan</a></li>
+          <li><a href="#/paket" class="hover:text-gold transition-colors">Produksi Video</a></li>
+          <li><a href="#/konsultan" class="hover:text-gold transition-colors">Konsultan Pengembangan Bisnis</a></li>
+          <li><a href="#/kampanye" class="hover:text-gold transition-colors">Digital Marketing Campaign</a></li>
           <li><a href="#/portofolio" class="hover:text-gold transition-colors">Portofolio</a></li>
-          <li><a href="#/tentang" class="hover:text-gold transition-colors">Tentang</a></li>
           <li><a href="#/proses" class="hover:text-gold transition-colors">Proses</a></li>
-          <li><a href="#/artikel" class="hover:text-gold transition-colors">Artikel</a></li>
-          <li><a href="#/berita" class="hover:text-gold transition-colors">Berita</a></li>
         </ul>
       </div>
       <div>
         <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">HUBUNGI</p>
         <ul class="mt-5 space-y-3 text-[15px] t2">
           <li>halo@impi-marketing.com</li>
-          <li>Senin–Jumat, 09.00–18.00 WIB</li>
+          <li>Senin sampai Jumat, 09.00 sampai 18.00 WIB</li>
           <li><a href="#/kontak" class="hover:text-gold transition-colors">WhatsApp</a></li>
+          <li><a href="#/tentang" class="hover:text-gold transition-colors">Tentang</a></li>
           <li><a href="#/privasi" class="hover:text-gold transition-colors">Kebijakan privasi</a></li>
         </ul>
         <p class="mt-6 font-mono text-[9.5px] tracking-[0.14em] text-gold/60 leading-relaxed">TAUTAN MEDIA SOSIAL<br>MENUNGGU AKUN DARI KLIEN</p>
@@ -1201,8 +1387,8 @@
     replayEntrance(name);
     reveal();
 
-    // The player only exists on the home page; leaving it running elsewhere would
-    // keep the atmosphere paused-state and the clock out of sync.
+    // The player only exists on the home page; leaving the clock running elsewhere
+    // would put the clip out of step on return.
     if (window.heroPlayer) name === 'beranda' ? window.heroPlayer.start() : window.heroPlayer.stop();
   }
 
