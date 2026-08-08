@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Kosong sampai ada isinya, sesuai aturan yang sudah disepakati.
+Disallow: /artikel/
+Disallow: /berita/
+Disallow: /promo/
+
+Sitemap: https://impi-marketing.com/sitemap.xml
