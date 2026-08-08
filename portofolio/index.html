@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portofolio Video Korporat B2B | IMPI Marketing</title>
+<meta name="description" content="Tiga studi kasus produksi video untuk sektor pelumas tambang, logistik, dan pengelola pelabuhan milik daerah.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://impi-marketing.com/portofolio/">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  document.documentElement.classList.add('js');
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg:      '#0A0C0F',
+          bg2:     '#10141A',
+          text:    '#F2F4F6',
+          gold:    '#D3B037',
+          goldlite:'#EFD277',
+          mining:  '#54B877',
+          logistics:'#00A2E9',
+          port:    '#E62129'
+        },
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', 'Segoe UI', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'Consolas', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root {
+    --glass: rgba(255,255,255,0.045);
+    --glass-strong: rgba(255,255,255,0.075);
+    --brd: rgba(255,255,255,0.10);
+    --brd-lit: rgba(211,176,55,0.45);
+    --t2: rgba(242,244,246,0.62);
+    --t3: rgba(242,244,246,0.42);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; background: #0A0C0F; }
+
+  .display { letter-spacing: -0.035em; line-height: 1.02; font-weight: 800; }
+  .t2 { color: var(--t2); }
+  .t3 { color: var(--t3); }
+
+  /* Atmosphere: two brand-coloured light sources drifting behind the dark surface.
+     Pure CSS, so it costs no payload on the mobile connections the brief cares about. */
+  .atmos { position: relative; overflow: hidden; isolation: isolate; }
+  .atmos::before, .atmos::after {
+    content: ''; position: absolute; z-index: -1; border-radius: 50%;
+    filter: blur(90px); opacity: .55; will-change: transform;
+  }
+  .atmos::before {
+    width: 620px; height: 620px; top: -220px; left: -140px;
+    background: radial-gradient(circle, rgba(211,176,55,0.42), transparent 70%);
+    animation: drift1 24s ease-in-out infinite alternate;
+  }
+  .atmos::after {
+    width: 560px; height: 560px; bottom: -260px; right: -120px;
+    background: radial-gradient(circle, rgba(0,162,233,0.30), transparent 70%);
+    animation: drift2 30s ease-in-out infinite alternate;
+  }
+  @keyframes drift1 { to { transform: translate3d(90px, 60px, 0) scale(1.12); } }
+  @keyframes drift2 { to { transform: translate3d(-70px, -50px, 0) scale(1.08); } }
+
+  /* Glass sits on raised surfaces only, never behind long-form text. */
+  .glass {
+    background: var(--glass);
+    border: 1px solid var(--brd);
+    border-radius: 20px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 24px 48px -28px rgba(0,0,0,0.85);
+    transition: transform .28s cubic-bezier(.2,.7,.3,1), border-color .28s ease, box-shadow .28s ease, background .28s ease;
+  }
+  .glass-hover:hover {
+    transform: translateY(-5px);
+    border-color: var(--brd-lit);
+    background: var(--glass-strong);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 28px 56px -26px rgba(0,0,0,0.9), 0 0 44px -16px rgba(211,176,55,0.32);
+  }
+
+  .navglass { background: rgba(10,12,15,0.62); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); }
+  .navglass.scrolled { background: rgba(10,12,15,0.88); border-bottom-color: rgba(255,255,255,0.12); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #EFD277 0%, #D3B037 52%, #B4901F 100%);
+    color: #0A0C0F; border-radius: 12px; font-weight: 700;
+    box-shadow: 0 8px 24px -10px rgba(211,176,55,0.55);
+    transition: transform .2s cubic-bezier(.2,.7,.3,1), box-shadow .2s ease, filter .2s ease;
+  }
+  .btn-gold:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 14px 34px -10px rgba(211,176,55,0.7); }
+  .btn-gold:active { transform: translateY(0); }
+
+  .btn-ghost {
+    border: 1px solid var(--brd); border-radius: 12px; color: var(--text);
+    transition: border-color .22s ease, background .22s ease, transform .22s ease;
+  }
+  .btn-ghost:hover { border-color: var(--brd-lit); background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+
+  .goldtext { background: linear-gradient(120deg, #F5E3A6 0%, #D3B037 55%, #B4901F 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .rule { height: 1px; background: linear-gradient(90deg, rgba(211,176,55,0.55), rgba(255,255,255,0.06) 60%, transparent); }
+
+  /* Viewfinder brackets. Every media slot is framed, so an empty slot reads as
+     awaiting its subject rather than as a broken image. */
+  .frame { position: relative; overflow: hidden; border-radius: 18px; }
+  .frame .fc { position: absolute; width: 22px; height: 22px; border: 2px solid #D3B037; opacity: .85; transition: inset .3s cubic-bezier(.2,.7,.3,1), opacity .3s ease; }
+  .frame .fc.tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; border-radius: 6px 0 0 0; }
+  .frame .fc.tr { top: 12px; right: 12px; border-left: 0; border-bottom: 0; border-radius: 0 6px 0 0; }
+  .frame .fc.bl { bottom: 12px; left: 12px; border-right: 0; border-top: 0; border-radius: 0 0 0 6px; }
+  .frame .fc.br { bottom: 12px; right: 12px; border-left: 0; border-top: 0; border-radius: 0 0 6px 0; }
+  .frame:hover .fc { opacity: 1; }
+  .frame:hover .fc.tl, .frame:hover .fc.tr { top: 8px; }
+  .frame:hover .fc.bl, .frame:hover .fc.br { bottom: 8px; }
+  .frame:hover .fc.tl, .frame:hover .fc.bl { left: 8px; }
+  .frame:hover .fc.tr, .frame:hover .fc.br { right: 8px; }
+
+  .slot {
+    background: linear-gradient(135deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+    border: 1px solid var(--brd);
+  }
+  .slot::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.07) 50%, transparent 60%);
+    transform: translateX(-100%); animation: sweep 4.5s ease-in-out infinite;
+  }
+  @keyframes sweep { 0%, 65% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+  /* The hero stays pinned while the section beneath rides up over it, the way the
+     next-video panel covers a YouTube player. Normal scrolling drives it. */
+  .hero-sticky { position: sticky; top: 0; z-index: 0; will-change: opacity; }
+  .hero-panel { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; isolation: isolate; }
+  .hero-overlay { position: relative; z-index: 1; background: #0A0C0F; }
+  @supports not (min-height: 100svh) { .hero-panel { min-height: 100vh; } }
+
+  /* Layer order inside the hero: footage, grain, pointer light, tiles, frame, copy. */
+  .js .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: 0; filter: blur(16px); transition: opacity .9s ease, filter 1.2s cubic-bezier(.2,.7,.3,1); }
+  .is-focused .hero-canvas { opacity: 1; filter: blur(0); }
+
+  .hero-grain {
+    position: absolute; inset: -120px; z-index: 1; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1.1s steps(4) infinite;
+  }
+  @keyframes grain {
+    0%   { transform: translate3d(0, 0, 0); }
+    25%  { transform: translate3d(-22px, 14px, 0); }
+    50%  { transform: translate3d(16px, -20px, 0); }
+    75%  { transform: translate3d(-12px, -10px, 0); }
+    100% { transform: translate3d(20px, 18px, 0); }
+  }
+
+  .js .hero-spot {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .6s ease;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 42%), rgba(211,176,55,.14), rgba(211,176,55,.04) 42%, transparent 68%);
+  }
+  .is-focused .hero-spot { opacity: 1; }
+
+  /* Viewfinder brackets, now framing the hero itself rather than a single media slot. */
+  .hero-frame { position: absolute; inset: 22px; z-index: 4; pointer-events: none; }
+  .js .hero-frame > span { position: absolute; width: 34px; height: 34px; border: 2px solid rgba(211,176,55,.5); opacity: 0; transition: opacity .8s ease .5s; }
+  .is-focused .hero-frame > span { opacity: 1; animation: breathe 7s ease-in-out infinite alternate; }
+  .hero-frame .tl { top: 0; left: 0; border-right: 0; border-bottom: 0; border-radius: 10px 0 0 0; }
+  .hero-frame .tr { top: 0; right: 0; border-left: 0; border-bottom: 0; border-radius: 0 10px 0 0; }
+  .hero-frame .bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-radius: 0 0 0 10px; }
+  .hero-frame .br { bottom: 0; right: 0; border-left: 0; border-top: 0; border-radius: 0 0 10px 0; }
+  @keyframes breathe { to { transform: scale(1.16); opacity: .75; } }
+
+  .hero-content { position: relative; z-index: 5; width: 100%; }
+
+  /* Headline racks into focus one word at a time, the way a lens finds its subject. */
+  .js .w { display: inline-block; opacity: 0; transform: translateY(30px); filter: blur(10px); }
+  .is-focused .w {
+    opacity: 1; transform: none; filter: blur(0);
+    transition: opacity .75s ease, transform .85s cubic-bezier(.2,.7,.3,1), filter .85s ease;
+    transition-delay: calc(var(--i) * 65ms);
+  }
+  .js .fade-up { opacity: 0; transform: translateY(20px); }
+  .is-focused .fade-up {
+    opacity: 1; transform: none;
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1);
+    transition-delay: var(--d, 0s);
+  }
+
+  .seg { position: relative; flex: 1; height: 6px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
+  /* scaleX keeps the fill on the compositor; animating width would force a layout pass every frame. */
+  .seg > i { position: absolute; inset: 0; border-radius: 999px; transform: scaleX(0); transform-origin: left; }
+
+  .hero-scrub { position: relative; display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; padding: 19px 0; cursor: grab; touch-action: none; }
+  .hero-scrub.dragging { cursor: grabbing; }
+  .hero-scrub:hover .seg, .hero-scrub:focus-visible .seg { height: 8px; }
+  .seg { transition: height .18s ease; }
+  .hero-playhead { position: absolute; top: 50%; left: 0; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border-radius: 999px; background: #EFD277; box-shadow: 0 0 0 4px rgba(211,176,55,.22), 0 4px 12px rgba(0,0,0,.6); pointer-events: none; }
+
+  /* Floating editor objects. Real depth: the parent keeps a 3D context and the back
+     face sits behind on the Z axis, so rotation reveals the tile's thickness. */
+  .float-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .js .fo-wrap { position: absolute; perspective: 760px; opacity: 0; transition: transform .5s cubic-bezier(.2,.7,.3,1), opacity .9s ease .35s; will-change: transform; }
+  .is-focused .fo-wrap { opacity: 1; }
+  .fo3d {
+    position: relative; width: var(--size, 84px); height: var(--size, 84px);
+    transform-style: preserve-3d; will-change: transform;
+    animation: float3d var(--dur, 20s) ease-in-out infinite alternate;
+    animation-delay: var(--delay, 0s);
+  }
+  .fo3d-back { position: absolute; inset: 0; border-radius: 22px; transform: translateZ(-16px); background: linear-gradient(150deg, rgba(0,0,0,.55), rgba(0,0,0,.85)); }
+  .fo3d-face {
+    position: absolute; inset: 0; border-radius: 22px; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(148deg, rgba(255,255,255,.17), rgba(255,255,255,.055) 46%, rgba(255,255,255,.015));
+    border: 1px solid rgba(255,255,255,.20);
+    box-shadow: inset 0 1.5px 0 rgba(255,255,255,.30), inset 0 -14px 26px -14px rgba(0,0,0,.65), 0 26px 44px -22px rgba(0,0,0,.95);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .fo3d-glow { position: absolute; inset: -32%; border-radius: 50%; transform: translateZ(-30px); filter: blur(26px); opacity: .55; }
+  @keyframes float3d {
+    from { transform: translate3d(0, 0, 0) rotateX(15deg) rotateY(-20deg) rotateZ(-5deg); }
+    to   { transform: translate3d(var(--dx, 12px), var(--dy, -32px), 0) rotateX(-10deg) rotateY(18deg) rotateZ(6deg); }
+  }
+
+  #hero-more { transition: transform .25s cubic-bezier(.2,.7,.3,1), border-color .25s ease; }
+  #hero-more .chev { animation: nudge 2.4s ease-in-out infinite; }
+  @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+  body.motion-paused .fo3d,
+  body.motion-paused .hero-grain,
+  body.motion-paused .hero-frame > span,
+  body.motion-paused #hero-more .chev { animation-play-state: paused; }
+
+  @media (max-width: 767px) {
+    .fo-wrap[data-small="hide"] { display: none; }
+    .hero-frame { inset: 12px; }
+    .hero-frame > span { width: 24px; height: 24px; }
+  }
+
+
+  .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1); }
+  .reveal.shown { opacity: 1; transform: none; }
+
+  .enter > * { opacity: 0; animation: rise .7s cubic-bezier(.2,.7,.3,1) forwards; }
+  .enter > *:nth-child(1) { animation-delay: .05s; }
+  .enter > *:nth-child(2) { animation-delay: .14s; }
+  .enter > *:nth-child(3) { animation-delay: .23s; }
+  .enter > *:nth-child(4) { animation-delay: .32s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+  .drop { opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+  .group:hover .drop, .group:focus-within .drop { opacity: 1; transform: none; pointer-events: auto; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+    outline: 3px solid #D3B037; outline-offset: 3px; border-radius: 6px;
+  }
+
+  input::placeholder, textarea::placeholder { color: rgba(242,244,246,0.32); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .enter > * { opacity: 1; animation: none; }
+    .atmos::before, .atmos::after, .slot::after { animation: none; }
+    *, *::before, *::after { transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body class="bg-bg text-text font-sans">
+
+<a href="#konten" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:bg-gold focus:text-bg focus:px-4 focus:py-2 focus:rounded-lg">Lompat ke konten</a>
+
+<!-- Review banner. Removed before the real build; present so the client never mistakes this for a live site. -->
+<div class="bg-gradient-to-r from-gold/25 via-gold/10 to-transparent border-b border-white/10 text-[11.5px] font-mono tracking-[0.14em] px-4 py-2 text-center t2">
+  MOCKUP UNTUK PENINJAUAN. TOMBOL BELUM AKTIF, MATERI VISUAL MENYUSUL.
+</div>
+
+<!-- ============================ NAV ============================ -->
+<header id="site-nav" class="sticky top-0 z-40 navglass border-b border-white/[0.07] transition-colors duration-300">
+  <div class="max-w-[1220px] mx-auto px-5 lg:px-7">
+    <div class="flex items-center justify-between h-[70px] gap-3">
+
+      <a href="../" class="flex items-center gap-2.5 shrink-0 group/logo" aria-label="IMPI Marketing, ke beranda">
+        <span class="w-9 h-9 rounded-[10px] flex items-center justify-center font-extrabold text-bg text-[14px] transition-transform duration-300 group-hover/logo:scale-105" style="background:linear-gradient(135deg,#EFD277,#D3B037 55%,#B4901F)">IM</span>
+        <span class="leading-tight">
+          <span class="block font-extrabold text-[14.5px] tracking-tight">IMPI Marketing</span>
+          <span class="block font-mono text-[9px] tracking-[0.16em] t3">VIDEO KORPORAT B2B</span>
+        </span>
+      </a>
+
+      <nav class="hidden xl:flex items-center gap-0.5 text-[14px]" aria-label="Navigasi utama">
+        <div class="relative group">
+          <span class="flex items-center rounded-lg hover:bg-white/[0.06] transition-colors">
+            <a href="../layanan/" class="pl-3 pr-1 py-2 font-medium">Layanan</a>
+            <button type="button" class="pr-2.5 py-2" aria-label="Buka sub-menu Layanan" aria-expanded="false">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true" class="transition-transform duration-300 group-hover:rotate-180"><path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </button>
+          </span>
+          <div class="drop absolute left-0 top-full pt-2">
+            <div class="glass !rounded-2xl w-[19rem] py-2 px-1.5" style="background:rgba(16,20,26,0.94);backdrop-filter:blur(20px)">
+              <a href="../layanan/produksi-video/" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold shrink-0"></span> Produksi Video
+              </a>
+              <a href="../layanan/konsultan-pengembangan-bisnis/" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-logistics shrink-0"></span> Konsultan Pengembangan Bisnis
+              </a>
+              <a href="../layanan/digital-marketing-campaign/" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-mining shrink-0"></span> Digital Marketing Campaign
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="../portofolio/" aria-current="page" class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Portofolio</a>
+        <a href="../tentang/"    class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Tentang</a>
+        <a href="../proses/"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Proses</a>
+        <a href="../artikel/"    class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Artikel</a>
+        <a href="../berita/"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Berita</a>
+        <a href="../kontak/"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Kontak</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="../kontak/" class="hidden sm:inline-flex btn-gold items-center text-[13.5px] px-4 py-2.5">WhatsApp</a>
+        <button id="burger" type="button" class="xl:hidden w-11 h-11 -mr-1.5 flex items-center justify-center rounded-lg hover:bg-white/[0.06] transition-colors" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile uses an accordion; hover does not exist on touch screens. -->
+  <div id="mobile-menu" class="xl:hidden hidden border-t border-white/[0.07]" style="background:rgba(10,12,15,0.97)">
+    <div class="px-5 py-3">
+      <details class="border-b border-white/[0.07]">
+        <summary class="flex items-center justify-between py-3.5 cursor-pointer font-medium list-none">
+          Layanan
+          <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </summary>
+        <div class="pb-3 pl-3.5 space-y-0.5">
+          <a href="../layanan/" class="block py-2.5 text-[14.5px] text-gold font-medium">Semua layanan</a>
+          <a href="../layanan/produksi-video/" class="block py-2.5 text-[14.5px] t2">Produksi Video</a>
+          <a href="../layanan/konsultan-pengembangan-bisnis/" class="block py-2.5 text-[14.5px] t2">Konsultan Pengembangan Bisnis</a>
+          <a href="../layanan/digital-marketing-campaign/" class="block py-2.5 text-[14.5px] t2">Digital Marketing Campaign</a>
+        </div>
+      </details>
+      <a href="../portofolio/" aria-current="page" class="block py-3.5 border-b border-white/[0.07] font-medium">Portofolio</a>
+      <a href="../tentang/"    class="block py-3.5 border-b border-white/[0.07] font-medium">Tentang</a>
+      <a href="../proses/"     class="block py-3.5 border-b border-white/[0.07] font-medium">Proses</a>
+      <a href="../artikel/"    class="block py-3.5 border-b border-white/[0.07] font-medium">Artikel</a>
+      <a href="../berita/"     class="block py-3.5 border-b border-white/[0.07] font-medium">Berita</a>
+      <a href="../kontak/"     class="block py-3.5 font-medium">Kontak</a>
+    </div>
+  </div>
+</header>
+
+<main id="konten">
+<section class="page">
+  <div class="atmos">
+    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
+      <div class="enter">
+        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">PORTOFOLIO</p>
+        <h1 class="display text-[38px] lg:text-[62px] max-w-[18ch]">Tiga pekerjaan dan <span class="goldtext">masalah di baliknya</span></h1>
+        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Sebagian klien belum mau namanya disebut. Yang bisa kami ceritakan adalah masalahnya, dan biasanya justru bagian itu yang berguna buat Anda.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-16 space-y-20">
+
+    <article class="reveal grid lg:grid-cols-2 gap-10 items-start">
+      <div class="frame slot aspect-video flex items-center justify-center">
+        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
+        <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
+      </div>
+      <div>
+        <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">STUDI KASUS 01 · PELUMAS B2B SEKTOR TAMBANG</p>
+        <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Anak usaha BUMN sektor pelumas</h2>
+        <dl class="mt-7 space-y-5 text-[15.5px]">
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menjelaskan keunggulan teknis pelumas ke manajer perawatan di lokasi tambang. Penontonnya sedang membandingkan spesifikasi.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Area yang sedang beroperasi, dengan jendela waktu terbatas dan produksi yang tidak boleh berhenti. <span class="font-mono text-[9.5px] tracking-[0.14em] text-gold">[DETAIL DIISI KLIEN]</span></dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Video ini dipakai tim penjualan saat bertemu pembeli. Satu penjelasan teknis yang keliru langsung menghabiskan kredibilitas di menit pertama.</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="reveal grid lg:grid-cols-2 gap-10 items-start">
+      <div class="frame slot aspect-video flex items-center justify-center lg:order-2">
+        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
+        <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
+      </div>
+      <div class="lg:order-1">
+        <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">STUDI KASUS 02 · LOGISTIK MENUJU BURSA</p>
+        <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Perusahaan logistik sektor pertambangan</h2>
+        <dl class="mt-7 space-y-5 text-[15.5px]">
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Materi visual untuk proses menjadi perusahaan terbuka, ditujukan ke calon pemegang saham dan mitra strategis.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Setiap klaim harus lolos tinjauan tim hukum sebelum satu kamera dinyalakan. <span class="font-mono text-[9.5px] tracking-[0.14em] text-gold">[JUMLAH PUTARAN DIISI KLIEN]</span></dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Materi yang sudah beredar di masa penawaran umum tidak bisa ditarik lagi. Waktu di tahap naskah menghemat jauh lebih banyak di belakang.</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="reveal grid lg:grid-cols-2 gap-10 items-start">
+      <div class="frame slot aspect-video flex items-center justify-center">
+        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
+        <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
+      </div>
+      <div>
+        <p class="font-mono text-[9.5px] tracking-[0.18em] text-port">STUDI KASUS 03 · PELABUHAN UNTUK INVESTOR</p>
+        <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Pengelola pelabuhan milik pemerintah daerah</h2>
+        <dl class="mt-7 space-y-5 text-[15.5px]">
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menunjukkan kapasitas dermaga dan alur bongkar muat ke calon investor yang tidak bisa datang ke lokasi.</dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Jadwal kapal tidak bisa diatur dan cuaca membatasi kesempatan syuting. <span class="font-mono text-[9.5px] tracking-[0.14em] text-gold">[DETAIL DIISI KLIEN]</span></dd></div>
+          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Investor menilai skala dari apa yang mereka lihat. Video ini menggantikan kunjungan lokasi yang biayanya berkali lipat.</dd></div>
+        </dl>
+      </div>
+    </article>
+  </div>
+
+  <div class="atmos border-t border-white/[0.07]">
+    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20 text-center">
+      <h2 class="display text-[30px] lg:text-[44px]">Lokasi Anda punya <span class="goldtext">masalahnya sendiri</span></h2>
+      <p class="mt-5 text-[16.5px] t2 max-w-[52ch] mx-auto leading-relaxed">Ceritakan lokasinya di mana. Kami sampaikan apa saja yang perlu disiapkan sebelum kru berangkat.</p>
+      <a href="../kontak/" class="btn-gold mt-9 inline-flex px-8 py-4">Mulai percakapan</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer id="site-footer" class="border-t border-white/[0.07] atmos">
+  <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-16">
+    <div class="grid md:grid-cols-4 gap-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-[10px] flex items-center justify-center font-extrabold text-bg text-[14px]" style="background:linear-gradient(135deg,#EFD277,#D3B037 55%,#B4901F)">IM</span>
+          <span class="font-extrabold text-[14.5px] tracking-tight">IMPI Marketing</span>
+        </div>
+        <p class="mt-5 text-[15px] t2 max-w-[42ch] leading-relaxed">Rumah produksi video komersial B2B untuk perusahaan industri dan korporasi Indonesia.</p>
+        <p class="mt-5 text-[14px] t3">PT IMPI Marketing · Berbadan hukum sejak 2023</p>
+      </div>
+      <div>
+        <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">LAYANAN</p>
+        <ul class="mt-5 space-y-3 text-[15px] t2">
+          <li><a href="../layanan/produksi-video/" class="hover:text-gold transition-colors">Produksi Video</a></li>
+          <li><a href="../layanan/konsultan-pengembangan-bisnis/" class="hover:text-gold transition-colors">Konsultan Pengembangan Bisnis</a></li>
+          <li><a href="../layanan/digital-marketing-campaign/" class="hover:text-gold transition-colors">Digital Marketing Campaign</a></li>
+          <li><a href="../portofolio/" aria-current="page" class="hover:text-gold transition-colors">Portofolio</a></li>
+          <li><a href="../proses/" class="hover:text-gold transition-colors">Proses</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">HUBUNGI</p>
+        <ul class="mt-5 space-y-3 text-[15px] t2">
+          <li>solution@impi-marketing.com</li>
+          <li>Senin sampai Jumat, 09.00 sampai 18.00 WIB</li>
+          <li><a href="../kontak/" class="hover:text-gold transition-colors">WhatsApp</a></li>
+          <li><a href="../tentang/" class="hover:text-gold transition-colors">Tentang</a></li>
+          <li><a href="../kebijakan-privasi/" class="hover:text-gold transition-colors">Kebijakan privasi</a></li>
+        </ul>
+        <p class="mt-6 font-mono text-[9.5px] tracking-[0.14em] text-gold/60 leading-relaxed">TAUTAN MEDIA SOSIAL<br>MENUNGGU AKUN DARI KLIEN</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky on mobile only; the brief calls for it to stay put on phone screens. -->
+<a id="wa-sticky" href="../kontak/" class="sm:hidden fixed bottom-3 inset-x-3 z-40 btn-gold text-center py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
+<div id="wa-spacer" class="sm:hidden h-[76px]"></div>
+
+
+
+
+
+
+
+<script>
+// Per-page behaviour that used to live in the single-file router: the mobile menu,
+// the nav's scrolled state, and the scroll reveal.
+(function () {
+  var nav = document.getElementById('site-nav');
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobile-menu');
+
+  if (burger && mobileMenu) {
+    burger.addEventListener('click', function () {
+      var open = mobileMenu.classList.toggle('hidden') === false;
+      burger.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  if (nav) {
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  }
+
+  var revealables = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(revealables, function (el) { el.classList.add('shown'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry, i) {
+      if (!entry.isIntersecting) return;
+      entry.target.style.transitionDelay = (i * 70) + 'ms';
+      entry.target.classList.add('shown');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  Array.prototype.forEach.call(revealables, function (el) { observer.observe(el); });
+})();
+</script>
+
+</body>
+</html>

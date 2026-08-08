@@ -4,12 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jasa Video Company Profile B2B untuk Perusahaan Industri | IMPI Marketing</title>
-<meta name="description" content="Rumah produksi video komersial B2B untuk perusahaan industri dan korporasi Indonesia. Company profile, materi investor, konsultan pengembangan bisnis, dan kampanye pemasaran digital.">
+<meta name="description" content="Rumah produksi video komersial B2B untuk perusahaan industri dan korporasi Indonesia. Company profile, materi investor, dan video pendukung penjualan. Berbasis di Jakarta.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://impi-marketing.com/">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
+  document.documentElement.classList.add('js');
   tailwind.config = {
     theme: {
       extend: {
@@ -133,64 +135,111 @@
   /* The hero stays pinned while the section beneath rides up over it, the way the
      next-video panel covers a YouTube player. Normal scrolling drives it. */
   .hero-sticky { position: sticky; top: 0; z-index: 0; will-change: opacity; }
-  .hero-panel { min-height: 100svh; display: flex; align-items: center; }
+  .hero-panel { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; isolation: isolate; }
   .hero-overlay { position: relative; z-index: 1; background: #0A0C0F; }
-
   @supports not (min-height: 100svh) { .hero-panel { min-height: 100vh; } }
 
-  .seg { position: relative; flex: 1; height: 5px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
+  /* Layer order inside the hero: footage, grain, pointer light, tiles, frame, copy. */
+  .js .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: 0; filter: blur(16px); transition: opacity .9s ease, filter 1.2s cubic-bezier(.2,.7,.3,1); }
+  .is-focused .hero-canvas { opacity: 1; filter: blur(0); }
+
+  .hero-grain {
+    position: absolute; inset: -120px; z-index: 1; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1.1s steps(4) infinite;
+  }
+  @keyframes grain {
+    0%   { transform: translate3d(0, 0, 0); }
+    25%  { transform: translate3d(-22px, 14px, 0); }
+    50%  { transform: translate3d(16px, -20px, 0); }
+    75%  { transform: translate3d(-12px, -10px, 0); }
+    100% { transform: translate3d(20px, 18px, 0); }
+  }
+
+  .js .hero-spot {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .6s ease;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 42%), rgba(211,176,55,.14), rgba(211,176,55,.04) 42%, transparent 68%);
+  }
+  .is-focused .hero-spot { opacity: 1; }
+
+  /* Viewfinder brackets, now framing the hero itself rather than a single media slot. */
+  .hero-frame { position: absolute; inset: 22px; z-index: 4; pointer-events: none; }
+  .js .hero-frame > span { position: absolute; width: 34px; height: 34px; border: 2px solid rgba(211,176,55,.5); opacity: 0; transition: opacity .8s ease .5s; }
+  .is-focused .hero-frame > span { opacity: 1; animation: breathe 7s ease-in-out infinite alternate; }
+  .hero-frame .tl { top: 0; left: 0; border-right: 0; border-bottom: 0; border-radius: 10px 0 0 0; }
+  .hero-frame .tr { top: 0; right: 0; border-left: 0; border-bottom: 0; border-radius: 0 10px 0 0; }
+  .hero-frame .bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-radius: 0 0 0 10px; }
+  .hero-frame .br { bottom: 0; right: 0; border-left: 0; border-top: 0; border-radius: 0 0 10px 0; }
+  @keyframes breathe { to { transform: scale(1.16); opacity: .75; } }
+
+  .hero-content { position: relative; z-index: 5; width: 100%; }
+
+  /* Headline racks into focus one word at a time, the way a lens finds its subject. */
+  .js .w { display: inline-block; opacity: 0; transform: translateY(30px); filter: blur(10px); }
+  .is-focused .w {
+    opacity: 1; transform: none; filter: blur(0);
+    transition: opacity .75s ease, transform .85s cubic-bezier(.2,.7,.3,1), filter .85s ease;
+    transition-delay: calc(var(--i) * 65ms);
+  }
+  .js .fade-up { opacity: 0; transform: translateY(20px); }
+  .is-focused .fade-up {
+    opacity: 1; transform: none;
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1);
+    transition-delay: var(--d, 0s);
+  }
+
+  .seg { position: relative; flex: 1; height: 6px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
   /* scaleX keeps the fill on the compositor; animating width would force a layout pass every frame. */
   .seg > i { position: absolute; inset: 0; border-radius: 999px; transform: scaleX(0); transform-origin: left; }
 
+  .hero-scrub { position: relative; display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; padding: 19px 0; cursor: grab; touch-action: none; }
+  .hero-scrub.dragging { cursor: grabbing; }
+  .hero-scrub:hover .seg, .hero-scrub:focus-visible .seg { height: 8px; }
+  .seg { transition: height .18s ease; }
+  .hero-playhead { position: absolute; top: 50%; left: 0; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border-radius: 999px; background: #EFD277; box-shadow: 0 0 0 4px rgba(211,176,55,.22), 0 4px 12px rgba(0,0,0,.6); pointer-events: none; }
+
   /* Floating editor objects. Real depth: the parent keeps a 3D context and the back
      face sits behind on the Z axis, so rotation reveals the tile's thickness. */
-  .float-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-  .fo-wrap { position: absolute; perspective: 760px; transition: transform .55s cubic-bezier(.2,.7,.3,1); will-change: transform; }
+  .float-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .js .fo-wrap { position: absolute; perspective: 760px; opacity: 0; transition: transform .5s cubic-bezier(.2,.7,.3,1), opacity .9s ease .35s; will-change: transform; }
+  .is-focused .fo-wrap { opacity: 1; }
   .fo3d {
     position: relative; width: var(--size, 84px); height: var(--size, 84px);
     transform-style: preserve-3d; will-change: transform;
     animation: float3d var(--dur, 20s) ease-in-out infinite alternate;
     animation-delay: var(--delay, 0s);
   }
-  .fo3d-back {
-    position: absolute; inset: 0; border-radius: 22px;
-    transform: translateZ(-16px);
-    background: linear-gradient(150deg, rgba(0,0,0,.55), rgba(0,0,0,.85));
-  }
+  .fo3d-back { position: absolute; inset: 0; border-radius: 22px; transform: translateZ(-16px); background: linear-gradient(150deg, rgba(0,0,0,.55), rgba(0,0,0,.85)); }
   .fo3d-face {
-    position: absolute; inset: 0; border-radius: 22px;
-    display: flex; align-items: center; justify-content: center;
+    position: absolute; inset: 0; border-radius: 22px; display: flex; align-items: center; justify-content: center;
     background: linear-gradient(148deg, rgba(255,255,255,.17), rgba(255,255,255,.055) 46%, rgba(255,255,255,.015));
     border: 1px solid rgba(255,255,255,.20);
     box-shadow: inset 0 1.5px 0 rgba(255,255,255,.30), inset 0 -14px 26px -14px rgba(0,0,0,.65), 0 26px 44px -22px rgba(0,0,0,.95);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
-  .fo3d-glow {
-    position: absolute; inset: -32%; border-radius: 50%;
-    transform: translateZ(-30px); filter: blur(26px); opacity: .55;
-  }
+  .fo3d-glow { position: absolute; inset: -32%; border-radius: 50%; transform: translateZ(-30px); filter: blur(26px); opacity: .55; }
   @keyframes float3d {
     from { transform: translate3d(0, 0, 0) rotateX(15deg) rotateY(-20deg) rotateZ(-5deg); }
     to   { transform: translate3d(var(--dx, 12px), var(--dy, -32px), 0) rotateX(-10deg) rotateY(18deg) rotateZ(6deg); }
   }
 
-  #hero-more { animation: nudge 2.4s ease-in-out infinite; }
-  @keyframes nudge { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -7px); } }
+  #hero-more { transition: transform .25s cubic-bezier(.2,.7,.3,1), border-color .25s ease; }
+  #hero-more .chev { animation: nudge 2.4s ease-in-out infinite; }
+  @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
   body.motion-paused .fo3d,
-  body.motion-paused #hero-more { animation-play-state: paused; }
+  body.motion-paused .hero-grain,
+  body.motion-paused .hero-frame > span,
+  body.motion-paused #hero-more .chev { animation-play-state: paused; }
 
-  @media (max-width: 767px) { .fo-wrap[data-small="hide"] { display: none; } }
+  @media (max-width: 767px) {
+    .fo-wrap[data-small="hide"] { display: none; }
+    .hero-frame { inset: 12px; }
+    .hero-frame > span { width: 24px; height: 24px; }
+  }
 
-  /* The pause control stops every looping animation on the page, not only the progress bar. */
-  body.motion-paused .atmos::before,
-  body.motion-paused .atmos::after,
-  body.motion-paused .slot::after { animation-play-state: paused; }
 
-  [data-page] { display: none; }
-  [data-page].is-active { display: block; }
-
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1); }
+  .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1); }
   .reveal.shown { opacity: 1; transform: none; }
 
   .enter > * { opacity: 0; animation: rise .7s cubic-bezier(.2,.7,.3,1) forwards; }
@@ -232,7 +281,7 @@
   <div class="max-w-[1220px] mx-auto px-5 lg:px-7">
     <div class="flex items-center justify-between h-[70px] gap-3">
 
-      <a href="#/beranda" class="flex items-center gap-2.5 shrink-0 group/logo" aria-label="IMPI Marketing, ke beranda">
+      <a href="./" class="flex items-center gap-2.5 shrink-0 group/logo" aria-label="IMPI Marketing, ke beranda">
         <span class="w-9 h-9 rounded-[10px] flex items-center justify-center font-extrabold text-bg text-[14px] transition-transform duration-300 group-hover/logo:scale-105" style="background:linear-gradient(135deg,#EFD277,#D3B037 55%,#B4901F)">IM</span>
         <span class="leading-tight">
           <span class="block font-extrabold text-[14.5px] tracking-tight">IMPI Marketing</span>
@@ -243,38 +292,36 @@
       <nav class="hidden xl:flex items-center gap-0.5 text-[14px]" aria-label="Navigasi utama">
         <div class="relative group">
           <span class="flex items-center rounded-lg hover:bg-white/[0.06] transition-colors">
-            <a href="#/layanan" class="pl-3 pr-1 py-2 font-medium">Layanan</a>
+            <a href="layanan/" class="pl-3 pr-1 py-2 font-medium">Layanan</a>
             <button type="button" class="pr-2.5 py-2" aria-label="Buka sub-menu Layanan" aria-expanded="false">
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true" class="transition-transform duration-300 group-hover:rotate-180"><path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             </button>
           </span>
           <div class="drop absolute left-0 top-full pt-2">
             <div class="glass !rounded-2xl w-[19rem] py-2 px-1.5" style="background:rgba(16,20,26,0.94);backdrop-filter:blur(20px)">
-              <a href="#/paket" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+              <a href="layanan/produksi-video/" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
                 <span class="w-1.5 h-1.5 rounded-full bg-gold shrink-0"></span> Produksi Video
               </a>
-              <a href="#/konsultan" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+              <a href="layanan/konsultan-pengembangan-bisnis/" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
                 <span class="w-1.5 h-1.5 rounded-full bg-logistics shrink-0"></span> Konsultan Pengembangan Bisnis
               </a>
-              <a href="#/kampanye" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
+              <a href="layanan/digital-marketing-campaign/" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors">
                 <span class="w-1.5 h-1.5 rounded-full bg-mining shrink-0"></span> Digital Marketing Campaign
               </a>
-              <div class="rule my-2 mx-3.5"></div>
-              <a href="#/promo" class="block px-3.5 py-2.5 rounded-xl hover:bg-white/[0.07] text-[14px] transition-colors text-gold">Promo berjalan</a>
             </div>
           </div>
         </div>
 
-        <a href="#/portofolio" class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Portofolio</a>
-        <a href="#/tentang"    class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Tentang</a>
-        <a href="#/proses"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Proses</a>
-        <a href="#/artikel"    class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Artikel</a>
-        <a href="#/berita"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Berita</a>
-        <a href="#/kontak"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Kontak</a>
+        <a href="portofolio/" class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Portofolio</a>
+        <a href="tentang/"    class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Tentang</a>
+        <a href="proses/"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Proses</a>
+        <a href="artikel/"    class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Artikel</a>
+        <a href="berita/"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Berita</a>
+        <a href="kontak/"     class="px-3 py-2 rounded-lg hover:bg-white/[0.06] font-medium transition-colors">Kontak</a>
       </nav>
 
       <div class="flex items-center gap-2">
-        <a href="#/kontak" class="hidden sm:inline-flex btn-gold items-center text-[13.5px] px-4 py-2.5">WhatsApp</a>
+        <a href="kontak/" class="hidden sm:inline-flex btn-gold items-center text-[13.5px] px-4 py-2.5">WhatsApp</a>
         <button id="burger" type="button" class="xl:hidden w-11 h-11 -mr-1.5 flex items-center justify-center rounded-lg hover:bg-white/[0.06] transition-colors" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
@@ -291,33 +338,33 @@
           <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
         </summary>
         <div class="pb-3 pl-3.5 space-y-0.5">
-          <a href="#/layanan" class="block py-2.5 text-[14.5px] text-gold font-medium">Semua layanan</a>
-          <a href="#/paket" class="block py-2.5 text-[14.5px] t2">Produksi Video</a>
-          <a href="#/konsultan" class="block py-2.5 text-[14.5px] t2">Konsultan Pengembangan Bisnis</a>
-          <a href="#/kampanye" class="block py-2.5 text-[14.5px] t2">Digital Marketing Campaign</a>
-          <a href="#/promo" class="block py-2.5 text-[14.5px] t2">Promo berjalan</a>
+          <a href="layanan/" class="block py-2.5 text-[14.5px] text-gold font-medium">Semua layanan</a>
+          <a href="layanan/produksi-video/" class="block py-2.5 text-[14.5px] t2">Produksi Video</a>
+          <a href="layanan/konsultan-pengembangan-bisnis/" class="block py-2.5 text-[14.5px] t2">Konsultan Pengembangan Bisnis</a>
+          <a href="layanan/digital-marketing-campaign/" class="block py-2.5 text-[14.5px] t2">Digital Marketing Campaign</a>
         </div>
       </details>
-      <a href="#/portofolio" class="block py-3.5 border-b border-white/[0.07] font-medium">Portofolio</a>
-      <a href="#/tentang"    class="block py-3.5 border-b border-white/[0.07] font-medium">Tentang</a>
-      <a href="#/proses"     class="block py-3.5 border-b border-white/[0.07] font-medium">Proses</a>
-      <a href="#/artikel"    class="block py-3.5 border-b border-white/[0.07] font-medium">Artikel</a>
-      <a href="#/berita"     class="block py-3.5 border-b border-white/[0.07] font-medium">Berita</a>
-      <a href="#/kontak"     class="block py-3.5 font-medium">Kontak</a>
+      <a href="portofolio/" class="block py-3.5 border-b border-white/[0.07] font-medium">Portofolio</a>
+      <a href="tentang/"    class="block py-3.5 border-b border-white/[0.07] font-medium">Tentang</a>
+      <a href="proses/"     class="block py-3.5 border-b border-white/[0.07] font-medium">Proses</a>
+      <a href="artikel/"    class="block py-3.5 border-b border-white/[0.07] font-medium">Artikel</a>
+      <a href="berita/"     class="block py-3.5 border-b border-white/[0.07] font-medium">Berita</a>
+      <a href="kontak/"     class="block py-3.5 font-medium">Kontak</a>
     </div>
   </div>
 </header>
 
 <main id="konten">
-
-<!-- ============================ BERANDA ============================ -->
-<section data-page="beranda" class="is-active">
+<section class="page">
 
   <div id="hero-sticky" class="hero-sticky">
-    <div class="atmos hero-panel">
+    <div id="hero-panel" class="hero-panel">
+
+      <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-grain" aria-hidden="true"></div>
+      <div id="hero-spot" class="hero-spot" aria-hidden="true"></div>
 
       <div id="float-layer" class="float-layer" aria-hidden="true">
-
         <div class="fo-wrap" style="top:13%;right:9%" data-depth="30">
           <div class="fo3d" style="--size:88px;--dur:19s;--dx:14px;--dy:-30px">
             <span class="fo3d-glow" style="background:radial-gradient(circle,#D3B037,transparent 68%)"></span>
@@ -334,70 +381,73 @@
             <span class="fo3d-back"></span>
             <span class="fo3d-face">
               <svg width="34" height="34" viewBox="0 0 34 34" fill="#5CC8F5" aria-hidden="true">
-                <rect x="4"  y="14" width="3" height="6"  rx="1.5"/>
-                <rect x="10" y="9"  width="3" height="16" rx="1.5"/>
-                <rect x="16" y="5"  width="3" height="24" rx="1.5"/>
-                <rect x="22" y="11" width="3" height="12" rx="1.5"/>
-                <rect x="28" y="15" width="3" height="4"  rx="1.5"/>
+                <rect x="4" y="14" width="3" height="6" rx="1.5"/><rect x="10" y="9" width="3" height="16" rx="1.5"/>
+                <rect x="16" y="5" width="3" height="24" rx="1.5"/><rect x="22" y="11" width="3" height="12" rx="1.5"/>
+                <rect x="28" y="15" width="3" height="4" rx="1.5"/>
               </svg>
             </span>
           </div>
         </div>
 
-        <div class="fo-wrap" style="bottom:12%;right:23%" data-depth="20" data-small="hide">
+        <div class="fo-wrap" style="bottom:13%;right:24%" data-depth="20" data-small="hide">
           <div class="fo3d" style="--size:72px;--dur:17s;--delay:-3s;--dx:10px;--dy:-24px">
             <span class="fo3d-glow" style="background:radial-gradient(circle,#54B877,transparent 68%)"></span>
             <span class="fo3d-back"></span>
             <span class="fo3d-face">
               <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#84D9A8" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
-                <circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/>
-                <path d="M8.1 15.9L18.5 3M15.9 15.9L5.5 3"/>
+                <circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.1 15.9L18.5 3M15.9 15.9L5.5 3"/>
               </svg>
             </span>
           </div>
         </div>
       </div>
 
-      <div class="max-w-[1220px] mx-auto px-5 lg:px-7 w-full relative z-10 py-16 lg:py-20">
-        <div class="enter">
-          <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7">RUMAH PRODUKSI VIDEO B2B &middot; JAKARTA</p>
-          <h1 class="display text-[40px] sm:text-[58px] lg:text-[76px] max-w-[16ch]">
-            Video korporat B2B untuk <span class="goldtext">keputusan bernilai tinggi</span>
-          </h1>
-          <p class="mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed">
-            Company profile, materi investor, dan video untuk tim penjualan. Kami terbiasa syuting di pabrik, tambang, dan pelabuhan.
-          </p>
-          <div class="mt-10 flex flex-col sm:flex-row gap-3">
-            <a href="#/kontak" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
-            <a href="#/portofolio" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat studi kasus</a>
-          </div>
+      <div class="hero-frame" aria-hidden="true"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+
+      <div class="hero-content max-w-[1220px] mx-auto px-5 lg:px-7 pt-16 pb-28 lg:pt-20 lg:pb-32">
+        <p class="fade-up font-mono text-[10.5px] tracking-[0.22em] text-gold mb-7" style="--d:.1s">RUMAH PRODUKSI VIDEO B2B &middot; JAKARTA</p>
+
+        <h1 class="display text-[40px] sm:text-[58px] lg:text-[76px] max-w-[16ch]">
+          <span class="w" style="--i:0">Video</span> <span class="w" style="--i:1">korporat</span> <span class="w" style="--i:2">B2B</span> <span class="w" style="--i:3">untuk</span>
+          <span class="goldtext"><span class="w" style="--i:4">keputusan</span> <span class="w" style="--i:5">bernilai</span> <span class="w" style="--i:6">tinggi</span></span>
+        </h1>
+
+        <p class="fade-up mt-8 text-[17px] lg:text-[19px] t2 max-w-[52ch] leading-relaxed" style="--d:.62s">
+          Company profile, materi investor, dan video untuk tim penjualan. Kami terbiasa syuting di pabrik, tambang, dan pelabuhan.
+        </p>
+
+        <div class="fade-up mt-10 flex flex-col sm:flex-row gap-3" style="--d:.72s">
+          <a id="hero-cta" href="kontak/" class="btn-gold inline-flex items-center justify-center px-7 py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
+          <a href="portofolio/" class="btn-ghost inline-flex items-center justify-center px-7 py-4 text-[15.5px] font-medium">Lihat studi kasus</a>
         </div>
 
-        <div id="hero-player" class="glass mt-12 px-3.5 py-3 lg:px-5 lg:py-3.5 max-w-2xl">
+        <div class="fade-up glass mt-12 px-3.5 py-0.5 lg:px-5 max-w-2xl" style="--d:.82s">
           <div class="flex items-center gap-3.5">
             <button id="hero-play" type="button" class="w-11 h-11 shrink-0 flex items-center justify-center rounded-xl hover:bg-white/[0.08] transition-colors" aria-label="Jeda gerakan">
               <svg class="ico-pause" width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.4" height="12" rx="1.2"/><rect x="9.6" y="2" width="3.4" height="12" rx="1.2"/></svg>
               <svg class="ico-play hidden" width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.4v11.2L14 8z"/></svg>
             </button>
 
-            <div id="hero-timeline" class="flex items-center gap-1.5 flex-1 min-w-0">
+            <div id="hero-scrub" class="hero-scrub" role="slider" tabindex="0"
+                 aria-label="Geser untuk menelusuri gambar" aria-valuemin="0" aria-valuemax="18" aria-valuenow="0" aria-valuetext="0 detik dari 18 detik">
               <span class="seg"><i style="background:linear-gradient(90deg,#EFD277,#D3B037)"></i></span>
               <span class="seg"><i style="background:linear-gradient(90deg,#5CC8F5,#00A2E9)"></i></span>
               <span class="seg"><i style="background:linear-gradient(90deg,#84D9A8,#54B877)"></i></span>
+              <span id="hero-playhead" class="hero-playhead"></span>
             </div>
 
             <span id="hero-timecode" class="hidden sm:block shrink-0 font-mono text-[11px] t3 tabular-nums">00:00 / 00:18</span>
           </div>
         </div>
 
-        <p class="mt-6 text-[13.5px] t3 max-w-3xl leading-relaxed">
+        <p class="fade-up mt-6 text-[13.5px] t3 max-w-3xl leading-relaxed" style="--d:.92s">
           <span class="font-mono text-[9.5px] tracking-[0.18em] text-gold/70 mr-2.5">SEJAK 2023</span>
           PT berbadan hukum &middot; Dipimpin mantan Country Sales Leader dengan 11 tahun pengalaman korporat
         </p>
       </div>
 
-      <button id="hero-more" type="button" class="absolute left-1/2 bottom-7 z-20 flex items-center gap-2 px-5 py-3 rounded-full glass hover:!border-gold/50 text-[13px] font-medium" aria-label="Lihat bagian berikutnya">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10L8 5.5l4.5 4.5"/></svg>
+      <button id="hero-more" type="button" class="absolute left-1/2 -translate-x-1/2 bottom-7 z-20 flex items-center gap-2 px-5 py-3 rounded-full glass text-[13px] font-medium" aria-label="Lihat bagian berikutnya">
+        <svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10L8 5.5l4.5 4.5"/></svg>
         Selengkapnya
       </button>
     </div>
@@ -421,7 +471,7 @@
           <span class="text-[13px] t3 px-3 py-1.5 rounded-full" style="border:1px solid var(--brd)">Video produk teknis</span>
           <span class="text-[13px] t3 px-3 py-1.5 rounded-full" style="border:1px solid var(--brd)">Dokumentasi fasilitas</span>
         </div>
-        <a href="#/paket" class="btn-gold mt-8 inline-flex self-start px-6 py-3.5 text-[15px]">Lihat tiga paketnya</a>
+        <a href="layanan/produksi-video/" class="btn-gold mt-8 inline-flex self-start px-6 py-3.5 text-[15px]">Lihat tiga paketnya</a>
       </article>
 
       <div class="lg:col-span-2 grid gap-5">
@@ -430,7 +480,7 @@
           <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">LAYANAN</p>
           <h3 class="font-extrabold text-[22px] mt-3 tracking-tight">Konsultan Pengembangan Bisnis</h3>
           <p class="mt-3 text-[15px] t2 leading-relaxed">Membenahi cara tim Anda menjual ke klien korporat. Dikerjakan langsung oleh orang yang 11 tahun pegang target penjualan.</p>
-          <a href="#/konsultan" class="mt-5 inline-flex text-[14.5px] font-medium text-logistics hover:text-white transition-colors">Selengkapnya →</a>
+          <a href="layanan/konsultan-pengembangan-bisnis/" class="mt-5 inline-flex text-[14.5px] font-medium text-logistics hover:text-white transition-colors">Selengkapnya →</a>
         </article>
 
         <article class="reveal glass glass-hover p-7 relative overflow-hidden">
@@ -438,7 +488,7 @@
           <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">LAYANAN</p>
           <h3 class="font-extrabold text-[22px] mt-3 tracking-tight">Digital Marketing Campaign</h3>
           <p class="mt-3 text-[15px] t2 leading-relaxed">Membawa materi Anda ke orang yang tepat lewat Google, Meta, dan LinkedIn. Laporannya menghitung prospek yang masuk.</p>
-          <a href="#/kampanye" class="mt-5 inline-flex text-[14.5px] font-medium text-mining hover:text-white transition-colors">Selengkapnya →</a>
+          <a href="layanan/digital-marketing-campaign/" class="mt-5 inline-flex text-[14.5px] font-medium text-mining hover:text-white transition-colors">Selengkapnya →</a>
         </article>
       </div>
     </div>
@@ -482,7 +532,7 @@
     <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <h2 class="display text-[32px] lg:text-[46px]">Pekerjaan terpilih</h2>
-        <a href="#/portofolio" class="text-[15px] font-medium text-gold hover:text-goldlite transition-colors">Lihat semua studi kasus →</a>
+        <a href="portofolio/" class="text-[15px] font-medium text-gold hover:text-goldlite transition-colors">Lihat semua studi kasus →</a>
       </div>
       <div class="grid md:grid-cols-3 gap-5 mt-11">
         <article class="reveal group/c">
@@ -499,7 +549,7 @@
             <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
           </div>
           <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics mt-4">LOGISTIK · MENUJU BURSA</p>
-          <h3 class="font-extrabold text-[19px] mt-1.5 tracking-tight group-hover/c:text-gold transition-colors">Perusahaan logistik nasional</h3>
+          <h3 class="font-extrabold text-[19px] mt-1.5 tracking-tight group-hover/c:text-gold transition-colors">Perusahaan logistik sektor pertambangan</h3>
         </article>
         <article class="reveal group/c">
           <div class="frame slot aspect-video flex items-center justify-center">
@@ -507,7 +557,7 @@
             <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
           </div>
           <p class="font-mono text-[9.5px] tracking-[0.18em] text-port mt-4">PELABUHAN · INVESTOR</p>
-          <h3 class="font-extrabold text-[19px] mt-1.5 tracking-tight group-hover/c:text-gold transition-colors">Operator pelabuhan swasta</h3>
+          <h3 class="font-extrabold text-[19px] mt-1.5 tracking-tight group-hover/c:text-gold transition-colors">Pengelola pelabuhan milik daerah</h3>
         </article>
       </div>
     </div>
@@ -517,733 +567,11 @@
     <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-24 text-center">
       <h2 class="display text-[34px] lg:text-[56px] max-w-[20ch] mx-auto">Ceritakan kebutuhan Anda. <span class="goldtext">Kami balas di jam kerja.</span></h2>
       <p class="mt-6 t2 text-[16.5px] max-w-[54ch] mx-auto leading-relaxed">Sebutkan jenis videonya, lokasinya di mana, dan kapan harus tayang. Kisaran biaya kami sampaikan di percakapan pertama.</p>
-      <a href="#/kontak" class="btn-gold mt-10 inline-flex px-8 text-[16px]" style="padding-top:17px;padding-bottom:17px">Mulai percakapan di WhatsApp</a>
+      <a href="kontak/" class="btn-gold mt-10 inline-flex px-8 text-[16px]" style="padding-top:17px;padding-bottom:17px">Mulai percakapan di WhatsApp</a>
     </div>
   </div>
   </div>
 </section>
-
-<!-- ============================ LAYANAN ============================ -->
-<section data-page="layanan">
-  <div class="atmos">
-    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">LAYANAN</p>
-        <h1 class="display text-[38px] lg:text-[64px] max-w-[16ch]">Tiga cara kami <span class="goldtext">membantu penjualan Anda</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[58ch] leading-relaxed">Video adalah pekerjaan utama kami dan yang paling banyak kami kerjakan. Konsultasi dan kampanye lahir dari keahlian yang sama, cuma dipakai di tahap berbeda.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-14">
-
-    <article class="reveal glass p-8 lg:p-10 relative overflow-hidden" style="border-color:rgba(211,176,55,0.4);background:linear-gradient(180deg,rgba(211,176,55,0.07),rgba(255,255,255,0.03))">
-      <span class="absolute top-0 left-0 right-0 h-[3px]" style="background:linear-gradient(90deg,#EFD277,#D3B037,transparent)"></span>
-      <div class="flex flex-wrap items-center gap-3">
-        <span class="font-mono text-[9.5px] tracking-[0.18em] text-gold">LAYANAN UTAMA</span>
-        <span class="w-px h-3 bg-white/15"></span>
-        <span class="font-mono text-[9.5px] tracking-[0.16em] t3">92 PERSEN PEKERJAAN KAMI</span>
-      </div>
-      <h2 class="display text-[32px] lg:text-[46px] mt-5">Produksi Video</h2>
-      <p class="mt-5 text-[17px] t2 max-w-[60ch] leading-relaxed">Sekali kru berangkat ke lokasi Anda, hasilnya bisa dipakai untuk banyak hal. Video utama, potongan pendek buat media sosial, foto diam buat presentasi. Anda bayar satu perjalanan.</p>
-
-      <div class="grid lg:grid-cols-3 gap-5 mt-10">
-
-        <div class="glass glass-hover p-7 flex flex-col" style="background:rgba(255,255,255,0.03)">
-          <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 01</p>
-          <h3 class="font-extrabold text-[25px] mt-2.5 tracking-tight">Dasar</h3>
-          <p class="mt-3 text-[15px] t2 leading-relaxed">Untuk kebutuhan yang sudah jelas dan tenggat pendek.</p>
-          <div class="rule my-6"></div>
-          <p class="font-mono text-[12px] t3">Mulai dari</p>
-          <p class="display text-[34px] mt-1.5">Rp15 juta</p>
-          <ul class="mt-6 space-y-2.5 text-[15px] flex-1 t2">
-            <li class="flex gap-3"><span class="text-gold">·</span> Naskah dan papan cerita</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Satu hari pengambilan gambar</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Video utama 60 sampai 90 detik</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Dua putaran revisi</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Selesai dalam 14 hari kerja</li>
-          </ul>
-          <a href="#/paket" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
-        </div>
-
-        <div class="glass glass-hover p-7 flex flex-col relative" style="border-color:rgba(211,176,55,0.5);background:rgba(211,176,55,0.07)">
-          <span class="absolute -top-3 left-7 btn-gold text-[9.5px] font-mono tracking-[0.14em] px-3 py-1.5">PALING SERING DIPILIH</span>
-          <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 02</p>
-          <h3 class="font-extrabold text-[25px] mt-2.5 tracking-tight">Kampanye</h3>
-          <p class="mt-3 text-[15px] t2 leading-relaxed">Untuk peluncuran produk, pameran dagang, atau kampanye satu kuartal.</p>
-          <div class="rule my-6"></div>
-          <p class="font-mono text-[12px] t3">Mulai dari</p>
-          <p class="text-[23px] font-extrabold tracking-tight mt-1.5 t2">Menunggu konfirmasi</p>
-          <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-1.5">ANGKA DITETAPKAN KLIEN</p>
-          <ul class="mt-6 space-y-2.5 text-[15px] flex-1 t2">
-            <li class="flex gap-3"><span class="text-gold">·</span> Semua isi paket Dasar</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Dua hari pengambilan gambar</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Video utama 2 sampai 3 menit</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Enam potongan pendek media sosial</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Teks Indonesia dan Inggris</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Selesai dalam 21 hari kerja</li>
-          </ul>
-          <a href="#/paket" class="btn-gold mt-7 text-center py-3.5">Lihat rincian</a>
-        </div>
-
-        <div class="glass glass-hover p-7 flex flex-col" style="background:rgba(255,255,255,0.03)">
-          <p class="font-mono text-[9.5px] tracking-[0.18em] t3">PAKET 03</p>
-          <h3 class="font-extrabold text-[25px] mt-2.5 tracking-tight">Sales Enablement</h3>
-          <p class="mt-3 text-[15px] t2 leading-relaxed">Produksi penuh untuk tim penjualan, calon investor, dan proses menuju bursa.</p>
-          <div class="rule my-6"></div>
-          <p class="font-mono text-[12px] t3">Mulai dari</p>
-          <p class="display text-[34px] mt-1.5">Rp60 juta</p>
-          <ul class="mt-6 space-y-2.5 text-[15px] flex-1 t2">
-            <li class="flex gap-3"><span class="text-gold">·</span> Semua isi paket Kampanye</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Sesi penggalian bersama tim penjualan</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Pengambilan gambar di beberapa lokasi</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Versi utama, versi investor, versi ringkas</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Panduan pemakaian untuk tim internal</li>
-            <li class="flex gap-3"><span class="text-gold">·</span> Selesai dalam 35 hari kerja</li>
-          </ul>
-          <a href="#/paket" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
-        </div>
-      </div>
-    </article>
-
-    <div class="grid lg:grid-cols-2 gap-5 mt-6">
-
-      <article class="reveal glass glass-hover p-8 lg:p-9 relative overflow-hidden flex flex-col">
-        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#00A2E9,transparent)"></span>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">LAYANAN</p>
-        <h2 class="display text-[28px] lg:text-[34px] mt-3">Konsultan Pengembangan Bisnis</h2>
-        <p class="mt-4 text-[16px] t2 leading-relaxed">Kadang masalahnya ada di cara tim Anda menjual, jauh sebelum sampai ke materinya. Kami benahi bagian itu. Dikerjakan langsung oleh orang yang 11 tahun pegang target penjualan korporat.</p>
-        <ul class="mt-6 space-y-2.5 text-[15px] t2 flex-1">
-          <li class="flex gap-3"><span class="text-logistics">·</span> Meninjau jalur penjualan dari prospek sampai kontrak</li>
-          <li class="flex gap-3"><span class="text-logistics">·</span> Menyusun materi presentasi dan proposal</li>
-          <li class="flex gap-3"><span class="text-logistics">·</span> Melatih tim menjawab keberatan harga</li>
-          <li class="flex gap-3"><span class="text-logistics">·</span> Memetakan siapa yang memutuskan pembelian</li>
-        </ul>
-        <a href="#/konsultan" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
-      </article>
-
-      <article class="reveal glass glass-hover p-8 lg:p-9 relative overflow-hidden flex flex-col">
-        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,#54B877,transparent)"></span>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">LAYANAN</p>
-        <h2 class="display text-[28px] lg:text-[34px] mt-3">Digital Marketing Campaign</h2>
-        <p class="mt-4 text-[16px] t2 leading-relaxed">Materi bagus tetap harus sampai ke orang yang tepat. Kami jalankan kampanye berbayar yang menyasar pengambil keputusan di perusahaan, lalu laporkan berapa prospek yang masuk.</p>
-        <ul class="mt-6 space-y-2.5 text-[15px] t2 flex-1">
-          <li class="flex gap-3"><span class="text-mining">·</span> Iklan Google untuk kata kunci pembelian</li>
-          <li class="flex gap-3"><span class="text-mining">·</span> Kampanye LinkedIn ke jabatan tertentu</li>
-          <li class="flex gap-3"><span class="text-mining">·</span> Halaman pendaratan yang terhubung ke WhatsApp</li>
-          <li class="flex gap-3"><span class="text-mining">·</span> Laporan bulanan berisi jumlah prospek</li>
-        </ul>
-        <a href="#/kampanye" class="btn-ghost mt-7 text-center font-medium py-3.5">Lihat rincian</a>
-      </article>
-    </div>
-
-    <div class="reveal glass mt-14 p-8 lg:p-10">
-      <h2 class="font-extrabold text-[25px] tracking-tight">Skema pembayaran</h2>
-      <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-2.5">USULAN, MENUNGGU PERSETUJUAN KLIEN</p>
-      <div class="grid sm:grid-cols-3 gap-6 mt-8">
-        <div class="pl-5" style="border-left:2px solid rgba(211,176,55,0.5)">
-          <p class="display text-[32px] goldtext">50%</p>
-          <p class="text-[15px] t2 mt-2">Saat naskah disetujui dan jadwal dikunci</p>
-        </div>
-        <div class="pl-5" style="border-left:2px solid rgba(211,176,55,0.5)">
-          <p class="display text-[32px] goldtext">30%</p>
-          <p class="text-[15px] t2 mt-2">Setelah pengambilan gambar selesai</p>
-        </div>
-        <div class="pl-5" style="border-left:2px solid rgba(211,176,55,0.5)">
-          <p class="display text-[32px] goldtext">20%</p>
-          <p class="text-[15px] t2 mt-2">Saat berkas akhir diserahkan</p>
-        </div>
-      </div>
-      <p class="mt-7 text-[15px] t2">Faktur atas nama PT dengan faktur pajak. Pembayaran lewat transfer bank perusahaan.</p>
-    </div>
-
-    <div class="mt-14 text-center">
-      <a href="#/kontak" class="btn-gold inline-flex px-8 py-4">Tanyakan layanan yang sesuai</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ DETAIL PAKET VIDEO ============================ -->
-<section data-page="paket">
-  <div class="atmos">
-    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <a href="#/layanan" class="font-mono text-[10.5px] tracking-[0.18em] text-gold hover:text-goldlite transition-colors">← SEMUA LAYANAN</a>
-        <h1 class="display text-[38px] lg:text-[60px] mt-6">Produksi Video, Paket Kampanye</h1>
-        <p class="mt-6 text-[17px] t2 max-w-[56ch] leading-relaxed">Untuk perusahaan yang sedang meluncurkan lini baru, bersiap ke pameran dagang, atau menjalankan kampanye selama satu kuartal.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[900px] mx-auto px-5 lg:px-7 py-14">
-    <div class="frame slot aspect-video flex items-center justify-center">
-      <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-      <span class="font-mono text-[10.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">CUPLIKAN CONTOH · MENUNGGU TAUTAN YOUTUBE ATAU VIMEO</span>
-    </div>
-
-    <h2 class="font-extrabold text-[27px] mt-16 tracking-tight">Apa yang Anda terima</h2>
-    <div class="grid sm:grid-cols-2 gap-x-9 mt-6 text-[16px] t2">
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Video utama 2 sampai 3 menit, siap tayang</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Enam potongan vertikal media sosial</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Teks Indonesia dan Inggris</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Berkas sumber resolusi penuh</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Foto diam pilihan dari lokasi</p>
-      <p class="flex gap-3 border-b border-white/[0.07] py-4"><span class="text-gold">·</span> Panduan pemakaian untuk tim internal</p>
-    </div>
-
-    <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Yang kami butuhkan dari Anda</h2>
-    <ol class="mt-6 space-y-4 text-[16px] t2">
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">01</span> Satu orang yang berwenang menyetujui naskah</li>
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">02</span> Akses ke lokasi yang akan kami syuting</li>
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">03</span> Logo, warna, dan tipografi merek yang berlaku</li>
-      <li class="flex gap-5"><span class="font-mono text-gold shrink-0 text-[14px]">04</span> Tanggal tayang yang sebenarnya, bukan yang sudah dilonggarkan</li>
-    </ol>
-
-    <div class="glass mt-14 p-9" style="background:linear-gradient(135deg,rgba(211,176,55,0.10),rgba(255,255,255,0.03))">
-      <h2 class="font-extrabold text-[25px] tracking-tight">Belum yakin paket ini yang tepat?</h2>
-      <p class="mt-3.5 t2 text-[16px] leading-relaxed">Sebutkan tujuan videonya. Kami sarankan paket yang paling masuk akal, termasuk kalau jawabannya paket yang lebih murah.</p>
-      <a href="#/kontak" class="btn-gold mt-7 inline-flex px-7 py-3.5">Tanyakan lewat WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ KONSULTAN PENGEMBANGAN BISNIS ============================ -->
-<section data-page="konsultan">
-  <div class="atmos">
-    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <a href="#/layanan" class="font-mono text-[10.5px] tracking-[0.18em] text-logistics hover:text-white transition-colors">← SEMUA LAYANAN</a>
-        <h1 class="display text-[38px] lg:text-[58px] mt-6 max-w-[17ch]">Konsultan Pengembangan Bisnis</h1>
-        <p class="mt-6 text-[17px] t2 max-w-[56ch] leading-relaxed">Untuk perusahaan yang produknya bagus tapi penjualannya tersendat. Kami membenahi cara tim Anda mendekati klien korporat.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[900px] mx-auto px-5 lg:px-7 py-14">
-
-    <div class="glass p-8 lg:p-9" style="background:linear-gradient(135deg,rgba(0,162,233,0.10),rgba(255,255,255,0.03));border-color:rgba(0,162,233,0.35)">
-      <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">SIAPA YANG MENGERJAKAN</p>
-      <p class="mt-4 text-[16.5px] t2 leading-relaxed">Pendiri IMPI menghabiskan sebelas tahun sebagai Country Sales Leader di tiga perusahaan Amerika. Dia memegang target, menyusun proposal, dan duduk di rapat tempat anggaran diputuskan. Konsultasi ini dikerjakan langsung olehnya.</p>
-    </div>
-
-    <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Apa yang kami kerjakan</h2>
-    <div class="mt-6 space-y-3">
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Meninjau jalur penjualan</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Kami telusuri dari prospek pertama sampai kontrak ditandatangani. Biasanya ada satu atau dua titik tempat calon klien berhenti membalas, dan titik itu yang kami cari.</p>
-      </div>
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Memetakan pengambil keputusan</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Di perusahaan besar, orang yang Anda temui sering berbeda dengan orang yang menyetujui anggaran. Kami bantu memetakan siapa saja yang perlu diyakinkan dan apa yang mereka pedulikan.</p>
-      </div>
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Menyusun materi presentasi dan proposal</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Dokumen yang benar-benar dipakai tim Anda di lapangan, ditulis dengan bahasa yang dipahami pembeli korporat.</p>
-      </div>
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Melatih tim menjawab keberatan</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Keberatan soal harga, spesifikasi, dan pembanding dari kompetitor. Kami latih tim Anda menjawabnya tanpa langsung menurunkan harga.</p>
-      </div>
-    </div>
-
-    <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Cara kerjanya</h2>
-    <div class="grid sm:grid-cols-3 gap-5 mt-6">
-      <div class="glass p-6">
-        <p class="font-mono text-[9.5px] tracking-[0.16em] text-logistics">TAHAP 01</p>
-        <h3 class="font-extrabold text-[18px] mt-2.5 tracking-tight">Sesi pemetaan</h3>
-        <p class="mt-2 text-[15px] t2 leading-relaxed">Setengah hari bersama Anda dan tim penjualan.</p>
-      </div>
-      <div class="glass p-6">
-        <p class="font-mono text-[9.5px] tracking-[0.16em] text-logistics">TAHAP 02</p>
-        <h3 class="font-extrabold text-[18px] mt-2.5 tracking-tight">Temuan dan usulan</h3>
-        <p class="mt-2 text-[15px] t2 leading-relaxed">Dokumen berisi apa yang menghambat dan apa yang kami sarankan.</p>
-      </div>
-      <div class="glass p-6">
-        <p class="font-mono text-[9.5px] tracking-[0.16em] text-logistics">TAHAP 03</p>
-        <h3 class="font-extrabold text-[18px] mt-2.5 tracking-tight">Pendampingan</h3>
-        <p class="mt-2 text-[15px] t2 leading-relaxed">Sesi berkala selama tiga bulan sambil tim menjalankannya.</p>
-      </div>
-    </div>
-
-    <div class="glass mt-8 p-8">
-      <p class="font-mono text-[12px] t3">Biaya</p>
-      <p class="text-[24px] font-extrabold tracking-tight mt-1.5 t2">Menunggu konfirmasi</p>
-      <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-2">ANGKA DITETAPKAN KLIEN</p>
-      <p class="mt-4 text-[15.5px] t2 leading-relaxed">Bergantung pada ukuran tim dan lama pendampingan. Kami sampaikan angkanya setelah sesi pemetaan pertama.</p>
-    </div>
-
-    <div class="glass mt-6 p-9" style="background:linear-gradient(135deg,rgba(0,162,233,0.10),rgba(255,255,255,0.03))">
-      <h2 class="font-extrabold text-[25px] tracking-tight">Mau tahu apakah ini cocok untuk perusahaan Anda?</h2>
-      <p class="mt-3.5 t2 text-[16px] leading-relaxed">Ceritakan kondisi penjualan Anda sekarang. Kalau menurut kami masalahnya ada di tempat lain, kami akan bilang.</p>
-      <a href="#/kontak" class="btn-gold mt-7 inline-flex px-7 py-3.5">Tanyakan lewat WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ DIGITAL MARKETING CAMPAIGN ============================ -->
-<section data-page="kampanye">
-  <div class="atmos">
-    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <a href="#/layanan" class="font-mono text-[10.5px] tracking-[0.18em] text-mining hover:text-white transition-colors">← SEMUA LAYANAN</a>
-        <h1 class="display text-[38px] lg:text-[58px] mt-6 max-w-[17ch]">Digital Marketing Campaign</h1>
-        <p class="mt-6 text-[17px] t2 max-w-[56ch] leading-relaxed">Kampanye berbayar yang menargetkan pengambil keputusan di perusahaan. Laporannya menghitung prospek yang masuk, bukan jumlah tayangan.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[900px] mx-auto px-5 lg:px-7 py-14">
-
-    <div class="glass p-8 lg:p-9" style="background:linear-gradient(135deg,rgba(84,184,119,0.10),rgba(255,255,255,0.03));border-color:rgba(84,184,119,0.35)">
-      <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">KENAPA KAMI</p>
-      <p class="mt-4 text-[16.5px] t2 leading-relaxed">Iklan B2B berbeda dengan iklan konsumen. Jumlah orang yang bisa membeli produk Anda mungkin cuma beberapa ratus di seluruh Indonesia. Yang penting bukan seberapa banyak yang melihat, tapi apakah yang melihat itu orang yang tepat.</p>
-    </div>
-
-    <h2 class="font-extrabold text-[27px] mt-14 tracking-tight">Apa yang kami jalankan</h2>
-    <div class="mt-6 space-y-3">
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Iklan Google untuk kata kunci pembelian</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Menyasar orang yang sedang mencari pemasok, dengan kata kunci yang dipakai pembeli industri. Bukan kata kunci umum yang ramai tapi tidak membeli.</p>
-      </div>
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Kampanye LinkedIn ke jabatan tertentu</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Menargetkan berdasarkan jabatan, industri, dan ukuran perusahaan. Cocok untuk menjangkau manajer pengadaan, kepala operasional, atau direktur.</p>
-      </div>
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Iklan Meta untuk penargetan ulang</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Menampilkan kembali materi Anda ke orang yang sudah pernah membuka situs atau menonton video. Biayanya jauh lebih murah daripada menjangkau orang baru.</p>
-      </div>
-      <div class="glass glass-hover p-6">
-        <h3 class="font-extrabold text-[19px] tracking-tight">Halaman pendaratan dan pelacakan</h3>
-        <p class="mt-2 text-[15.5px] t2 leading-relaxed">Satu halaman fokus tanpa menu, terhubung langsung ke WhatsApp. Setiap klik tercatat, sehingga kita tahu iklan mana yang menghasilkan percakapan.</p>
-      </div>
-    </div>
-
-    <div class="glass mt-8 p-8">
-      <h2 class="font-extrabold text-[22px] tracking-tight">Laporan bulanan</h2>
-      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Setiap bulan Anda menerima laporan berisi berapa orang menghubungi lewat WhatsApp, dari iklan mana, dan berapa biaya per percakapan. Angka tayangan dan klik ada di halaman terakhir, untuk yang ingin melihatnya.</p>
-    </div>
-
-    <div class="glass mt-6 p-8">
-      <p class="font-mono text-[12px] t3">Biaya jasa</p>
-      <p class="text-[24px] font-extrabold tracking-tight mt-1.5 t2">Menunggu konfirmasi</p>
-      <p class="font-mono text-[9.5px] tracking-[0.14em] text-gold mt-2">ANGKA DITETAPKAN KLIEN</p>
-      <p class="mt-4 text-[15.5px] t2 leading-relaxed">Biaya jasa terpisah dari anggaran iklan yang dibayarkan langsung ke Google, Meta, atau LinkedIn.</p>
-    </div>
-
-    <div class="glass mt-6 p-9" style="background:linear-gradient(135deg,rgba(84,184,119,0.10),rgba(255,255,255,0.03))">
-      <h2 class="font-extrabold text-[25px] tracking-tight">Sudah punya materi tapi belum ada yang menghubungi?</h2>
-      <p class="mt-3.5 t2 text-[16px] leading-relaxed">Ceritakan produk dan siapa pembelinya. Kami akan sampaikan apakah kampanye berbayar masuk akal untuk kasus Anda.</p>
-      <a href="#/kontak" class="btn-gold mt-7 inline-flex px-7 py-3.5">Tanyakan lewat WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ PORTOFOLIO ============================ -->
-<section data-page="portofolio">
-  <div class="atmos">
-    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">PORTOFOLIO</p>
-        <h1 class="display text-[38px] lg:text-[62px] max-w-[18ch]">Tiga pekerjaan dan <span class="goldtext">masalah di baliknya</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Sebagian klien belum mau namanya disebut. Yang bisa kami ceritakan adalah masalahnya, dan biasanya justru bagian itu yang berguna buat Anda.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-16 space-y-20">
-
-    <article class="reveal grid lg:grid-cols-2 gap-10 items-start">
-      <div class="frame slot aspect-video flex items-center justify-center">
-        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-        <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
-      </div>
-      <div>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-mining">STUDI KASUS 01 · PELUMAS B2B SEKTOR TAMBANG</p>
-        <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Anak usaha BUMN sektor pelumas</h2>
-        <dl class="mt-7 space-y-5 text-[15.5px]">
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menjelaskan keunggulan teknis pelumas ke manajer perawatan di lokasi tambang. Penontonnya sedang membandingkan spesifikasi.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Area yang sedang beroperasi, jendela waktu tiga jam, dan produksi tidak boleh berhenti sedetik pun.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Video ini dipakai tim penjualan saat bertemu pembeli. Satu penjelasan teknis yang keliru langsung menghabiskan kredibilitas di menit pertama.</dd></div>
-        </dl>
-      </div>
-    </article>
-
-    <article class="reveal grid lg:grid-cols-2 gap-10 items-start">
-      <div class="frame slot aspect-video flex items-center justify-center lg:order-2">
-        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-        <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
-      </div>
-      <div class="lg:order-1">
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-logistics">STUDI KASUS 02 · LOGISTIK MENUJU BURSA</p>
-        <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Perusahaan logistik nasional</h2>
-        <dl class="mt-7 space-y-5 text-[15.5px]">
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Materi visual untuk proses menjadi perusahaan terbuka, ditujukan ke calon pemegang saham dan mitra strategis.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Setiap klaim harus lolos tinjauan tim hukum. Naskahnya melewati empat putaran sebelum satu kamera dinyalakan.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Materi yang sudah beredar di masa penawaran umum tidak bisa ditarik lagi. Waktu di tahap naskah menghemat jauh lebih banyak di belakang.</dd></div>
-        </dl>
-      </div>
-    </article>
-
-    <article class="reveal grid lg:grid-cols-2 gap-10 items-start">
-      <div class="frame slot aspect-video flex items-center justify-center">
-        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-        <span class="font-mono text-[9.5px] tracking-[0.16em] t3 px-6 text-center relative z-10">MENUNGGU MATERI DARI KLIEN</span>
-      </div>
-      <div>
-        <p class="font-mono text-[9.5px] tracking-[0.18em] text-port">STUDI KASUS 03 · PELABUHAN UNTUK INVESTOR</p>
-        <h2 class="display text-[30px] lg:text-[38px] mt-3.5">Operator pelabuhan swasta</h2>
-        <dl class="mt-7 space-y-5 text-[15.5px]">
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KEBUTUHAN</dt><dd class="mt-1.5 t2 leading-relaxed">Menunjukkan kapasitas dermaga dan alur bongkar muat ke calon investor yang tidak bisa datang ke lokasi.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">TANTANGAN</dt><dd class="mt-1.5 t2 leading-relaxed">Jadwal kapal tidak bisa diatur dan cuaca cuma menyisakan satu jendela syuting. Kami dapat gambarnya dalam sekali kesempatan.</dd></div>
-          <div><dt class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KENAPA PENTING</dt><dd class="mt-1.5 t2 leading-relaxed">Investor menilai skala dari apa yang mereka lihat. Video ini menggantikan kunjungan lokasi yang biayanya berkali lipat.</dd></div>
-        </dl>
-      </div>
-    </article>
-  </div>
-
-  <div class="atmos border-t border-white/[0.07]">
-    <div class="max-w-[1220px] mx-auto px-5 lg:px-7 py-20 text-center">
-      <h2 class="display text-[30px] lg:text-[44px]">Lokasi Anda punya <span class="goldtext">masalahnya sendiri</span></h2>
-      <p class="mt-5 text-[16.5px] t2 max-w-[52ch] mx-auto leading-relaxed">Ceritakan lokasinya di mana. Kami sampaikan apa saja yang perlu disiapkan sebelum kru berangkat.</p>
-      <a href="#/kontak" class="btn-gold mt-9 inline-flex px-8 py-4">Mulai percakapan</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ TENTANG ============================ -->
-<section data-page="tentang">
-  <div class="atmos">
-    <div class="max-w-[900px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">TENTANG</p>
-        <h1 class="display text-[36px] lg:text-[58px]">Sebelas tahun memegang target, <span class="goldtext">sebelum memegang kamera</span></h1>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[900px] mx-auto px-5 lg:px-7 py-14">
-    <div class="grid sm:grid-cols-[210px_1fr] gap-9 items-start">
-      <div class="frame slot aspect-[3/4] flex items-center justify-center">
-        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-        <span class="font-mono text-[9px] tracking-[0.14em] t3 px-4 text-center relative z-10">MENUNGGU FOTO PROFIL</span>
-      </div>
-      <div class="space-y-5 text-[16.5px] leading-relaxed t2">
-        <p>Sebelum IMPI berdiri, pendirinya sebelas tahun jadi Country Sales Leader di tiga perusahaan Amerika. Pegang angka, susun proposal, dan duduk di ruang rapat tempat anggaran diputuskan.</p>
-        <p>Selama itu dia menonton banyak sekali video korporat. Ada yang bekerja, kebanyakan tidak. Alasannya hampir selalu sama. Videonya dibuat untuk mengesankan, padahal pembelinya sedang cari jawaban.</p>
-        <p class="text-text font-semibold">IMPI berdiri untuk mengisi jarak itu.</p>
-      </div>
-    </div>
-
-    <div class="glass mt-14 p-9" style="background:linear-gradient(135deg,rgba(211,176,55,0.09),rgba(255,255,255,0.03))">
-      <h2 class="font-extrabold text-[25px] tracking-tight">Kenapa ini penting bagi Anda</h2>
-      <p class="mt-4 text-[16.5px] t2 leading-relaxed">Kami pernah duduk di sisi meja yang mengajukan. Kami hafal pertanyaan direktur keuangan, dan bagian mana dari naskah yang bakal dicoret tim hukum. Semua itu sudah masuk sejak halaman pertama.</p>
-    </div>
-
-    <div class="mt-10 grid md:grid-cols-2 gap-5">
-      <div class="glass glass-hover p-7">
-        <h2 class="font-extrabold text-[21px] tracking-tight">Cara kami bekerja</h2>
-        <p class="mt-3.5 text-[15.5px] t2 leading-relaxed">Tim inti kami kecil dan tetap. Untuk tiap produksi, kami panggil kru lepas yang sudah pernah kerja bareng kami. Juru kamera, penata suara, penyunting. Anda dapat orang yang paling cocok untuk proyek itu.</p>
-      </div>
-      <div class="glass glass-hover p-7">
-        <h2 class="font-extrabold text-[21px] tracking-tight">Legalitas</h2>
-        <ul class="mt-3.5 space-y-2.5 text-[15.5px] t2">
-          <li class="flex gap-3.5"><span class="text-gold font-mono text-[12px] shrink-0 mt-0.5">PT</span> Berbadan hukum perseroan terbatas sejak 2023</li>
-          <li class="flex gap-3.5"><span class="text-gold font-mono text-[12px] shrink-0 mt-0.5">NPWP</span> Terdaftar dan tertib pelaporan pajak</li>
-          <li class="flex gap-3.5"><span class="text-gold font-mono text-[12px] shrink-0 mt-0.5">FP</span> Menerbitkan faktur pajak setiap transaksi</li>
-        </ul>
-        <p class="mt-5 text-[14.5px] t3">Syarat wajib bagi vendor korporat, dan tidak semua rumah produksi memilikinya.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ PROSES ============================ -->
-<section data-page="proses">
-  <div class="atmos">
-    <div class="max-w-[1020px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">PROSES</p>
-        <h1 class="display text-[38px] lg:text-[60px] max-w-[16ch]">Naskah dulu, <span class="goldtext">kamera belakangan</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[54ch] leading-relaxed">Tujuh tahap. Anda selalu tahu pekerjaannya sudah sampai mana.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[1020px] mx-auto px-5 lg:px-7 py-14">
-    <ol class="space-y-3">
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">01</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Kami gali dulu kebutuhannya</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Satu sesi. Kami tanya siapa penontonnya, keputusan apa yang ingin Anda dorong, dan videonya nanti dipakai di mana saja.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">02</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Kami tulis naskahnya</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Naskah lengkap plus papan cerita. Tidak ada yang jalan sebelum Anda setuju secara tertulis.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">03</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Kami siapkan kru dan jadwal</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Kru, peralatan, jadwal yang cocok dengan operasional Anda, dan rencana cadangan kalau cuaca berubah.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">04</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Kami syuting</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Mengikuti daftar bidikan yang sudah disepakati. Kami masuk, ambil gambar, lalu keluar.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">05</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Kami sunting, Anda revisi</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Dua putaran revisi sudah termasuk. Batas ini yang menjaga tanggal tayang Anda tetap aman.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">06</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Kami serahkan semua berkas</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Lengkap dengan panduan singkat. Format mana buat media sosial, mana buat presentasi, mana buat arsip.</p></div></li>
-      <li class="reveal glass glass-hover grid sm:grid-cols-[74px_1fr] gap-5 p-6"><span class="font-mono text-[13px] text-gold">07</span><div><h2 class="font-extrabold text-[20px] tracking-tight">Kami dampingi 30 hari pertama</h2><p class="mt-2 text-[15.5px] t2 leading-relaxed">Butuh format tambahan atau potongan lain setelah tayang? Masih kami kerjakan.</p></div></li>
-    </ol>
-
-    <div class="glass mt-16 p-8 lg:p-11 atmos">
-      <p class="font-mono text-[10.5px] tracking-[0.2em] text-gold">KALENDER MUNDUR</p>
-      <h2 class="display text-[30px] lg:text-[40px] mt-5">Kapan Anda harus mulai</h2>
-      <p class="mt-4 t2 text-[16px] max-w-[50ch] leading-relaxed">Hitung mundur dari tanggal tayang yang Anda kejar. Setiap minggu penundaan menggeser tanggal itu satu minggu penuh.</p>
-      <div class="mt-9 overflow-x-auto">
-        <table class="w-full text-left text-[15px] border-collapse min-w-[430px]">
-          <thead><tr class="border-b border-white/15">
-            <th class="py-3.5 font-mono text-[9.5px] tracking-[0.16em] text-gold font-medium">TAHAP</th>
-            <th class="py-3.5 font-mono text-[9.5px] tracking-[0.16em] text-gold font-medium">PAKET DASAR</th>
-            <th class="py-3.5 font-mono text-[9.5px] tracking-[0.16em] text-gold font-medium">PAKET KAMPANYE</th>
-          </tr></thead>
-          <tbody class="t2">
-            <tr class="border-b border-white/[0.07]"><td class="py-4 pr-4">Percakapan pertama</td><td class="py-4 font-mono">H-21</td><td class="py-4 font-mono">H-35</td></tr>
-            <tr class="border-b border-white/[0.07]"><td class="py-4 pr-4">Naskah disetujui</td><td class="py-4 font-mono">H-16</td><td class="py-4 font-mono">H-27</td></tr>
-            <tr class="border-b border-white/[0.07]"><td class="py-4 pr-4">Pengambilan gambar</td><td class="py-4 font-mono">H-11</td><td class="py-4 font-mono">H-19</td></tr>
-            <tr class="border-b border-white/[0.07]"><td class="py-4 pr-4">Tinjauan pertama</td><td class="py-4 font-mono">H-6</td><td class="py-4 font-mono">H-10</td></tr>
-            <tr><td class="py-4 pr-4 font-semibold text-text">Serah terima</td><td class="py-4 font-mono font-semibold text-gold">H-1</td><td class="py-4 font-mono font-semibold text-gold">H-2</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <a href="#/kontak" class="btn-gold mt-10 inline-flex px-7 py-3.5">Sebutkan tanggal tayang Anda</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ ARTIKEL ============================ -->
-<section data-page="artikel">
-  <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">ARTIKEL</p>
-        <h1 class="display text-[38px] lg:text-[58px]">Catatan dari <span class="goldtext">sisi pembeli</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Tulisan tentang cara anggaran video disetujui, alasan sebagian company profile gagal, dan apa yang sebenarnya dinilai pembeli korporat.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[1100px] mx-auto px-5 lg:px-7 py-14">
-    <div class="grid md:grid-cols-3 gap-5">
-      <article class="reveal glass glass-hover overflow-hidden group/a">
-        <div class="frame slot aspect-[16/10] flex items-center justify-center !rounded-none">
-          <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-          <span class="font-mono text-[9px] tracking-[0.14em] t3 relative z-10">GAMBAR SAMPUL</span>
-        </div>
-        <div class="p-6">
-          <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CONTOH ISI</p>
-          <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Kenapa company profile Anda tidak ditonton sampai habis</h2>
-          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Masalahnya jarang pada kualitas gambar. Biasanya di menit pertama.</p>
-        </div>
-      </article>
-      <article class="reveal glass glass-hover overflow-hidden group/a">
-        <div class="frame slot aspect-[16/10] flex items-center justify-center !rounded-none">
-          <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-          <span class="font-mono text-[9px] tracking-[0.14em] t3 relative z-10">GAMBAR SAMPUL</span>
-        </div>
-        <div class="p-6">
-          <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CONTOH ISI</p>
-          <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Tujuh pertanyaan direktur keuangan sebelum anggaran video disetujui</h2>
-          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Siapkan jawabannya sebelum rapat.</p>
-        </div>
-      </article>
-      <article class="reveal glass glass-hover overflow-hidden group/a">
-        <div class="frame slot aspect-[16/10] flex items-center justify-center !rounded-none">
-          <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
-          <span class="font-mono text-[9px] tracking-[0.14em] t3 relative z-10">GAMBAR SAMPUL</span>
-        </div>
-        <div class="p-6">
-          <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CONTOH ISI</p>
-          <h2 class="font-extrabold text-[19px] mt-2.5 leading-snug tracking-tight group-hover/a:text-gold transition-colors">Syuting di area operasional tanpa menghentikan produksi</h2>
-          <p class="mt-3 text-[14.5px] t2 leading-relaxed">Yang perlu disiapkan tim fasilitas Anda sebelum kru datang.</p>
-        </div>
-      </article>
-    </div>
-
-    <div class="glass mt-10 p-7" style="border-style:dashed">
-      <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CATATAN UNTUK KLIEN</p>
-      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Ketiga tulisan di atas hanya contoh tampilan. Halaman ini Anda isi sendiri lewat dashboard. Selama belum ada tulisan yang terbit, halaman ini tidak muncul di menu dan tidak diindeks mesin pencari, sehingga pengunjung tidak pernah melihatnya kosong.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ BERITA ============================ -->
-<section data-page="berita">
-  <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">BERITA</p>
-        <h1 class="display text-[38px] lg:text-[58px]">Kabar <span class="goldtext">perusahaan</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[54ch] leading-relaxed">Kerja sama baru, pencapaian tim, dan kegiatan yang kami ikuti.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[1100px] mx-auto px-5 lg:px-7 py-14">
-    <div class="space-y-3">
-      <article class="reveal glass glass-hover grid sm:grid-cols-[140px_1fr] gap-5 p-6">
-        <time class="font-mono text-[13px] text-gold">12 Jul 2026</time>
-        <div>
-          <h2 class="font-extrabold text-[20px] tracking-tight">IMPI menyelesaikan produksi multi-lokasi untuk operator pelabuhan swasta</h2>
-          <p class="mt-2 text-[15px] t2 leading-relaxed">Tiga lokasi, dua hari pengambilan gambar, satu jendela cuaca. Contoh isi.</p>
-        </div>
-      </article>
-      <article class="reveal glass glass-hover grid sm:grid-cols-[140px_1fr] gap-5 p-6">
-        <time class="font-mono text-[13px] text-gold">28 Mei 2026</time>
-        <div>
-          <h2 class="font-extrabold text-[20px] tracking-tight">Tim produksi menyelesaikan sertifikasi keselamatan kerja area tambang</h2>
-          <p class="mt-2 text-[15px] t2 leading-relaxed">Syarat masuk fasilitas operasional bagi seluruh kru lapangan. Contoh isi.</p>
-        </div>
-      </article>
-      <article class="reveal glass glass-hover grid sm:grid-cols-[140px_1fr] gap-5 p-6">
-        <time class="font-mono text-[13px] text-gold">03 Mar 2026</time>
-        <div>
-          <h2 class="font-extrabold text-[20px] tracking-tight">Kantor IMPI pindah ke ruang kerja baru</h2>
-          <p class="mt-2 text-[15px] t2 leading-relaxed">Ada ruang pratinjau khusus untuk sesi tinjauan bersama klien. Contoh isi.</p>
-        </div>
-      </article>
-    </div>
-
-    <div class="glass mt-10 p-7" style="border-style:dashed">
-      <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CATATAN UNTUK KLIEN</p>
-      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Berita dan artikel dikelola terpisah di dashboard dengan perlakuan yang sama. Kalau belum ada isinya, halaman ini tidak muncul di menu.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ PROMO ============================ -->
-<section data-page="promo">
-  <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">PROMO</p>
-        <h1 class="display text-[38px] lg:text-[58px]">Penawaran yang <span class="goldtext">sedang berjalan</span></h1>
-        <p class="mt-7 text-[17px] t2 max-w-[56ch] leading-relaxed">Setiap penawaran punya tanggal mulai dan berakhir. Yang sudah lewat hilang sendiri dari halaman ini.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[1100px] mx-auto px-5 lg:px-7 py-14">
-    <article class="glass p-9 lg:p-11" style="border-color:rgba(211,176,55,0.45);background:linear-gradient(135deg,rgba(211,176,55,0.12),rgba(255,255,255,0.03))">
-      <div class="flex flex-wrap items-center gap-3">
-        <span class="btn-gold text-[9.5px] font-mono tracking-[0.14em] px-3 py-1.5">BERLAKU SAMPAI 30 SEP 2026</span>
-        <span class="font-mono text-[9.5px] tracking-[0.16em] t3">CONTOH ISI</span>
-      </div>
-      <h2 class="display text-[30px] lg:text-[42px] mt-6 max-w-[20ch]">Tambahan enam potongan media sosial untuk pemesanan kuartal ketiga</h2>
-      <p class="mt-5 text-[16px] t2 leading-relaxed max-w-[58ch]">Setiap pemesanan paket Kampanye yang jadwal syutingnya dikunci sebelum akhir September mendapat enam potongan vertikal tambahan tanpa biaya.</p>
-      <a href="#/kontak" class="btn-gold mt-8 inline-flex px-7 py-3.5">Tanyakan penawaran ini</a>
-    </article>
-
-    <div class="glass mt-8 p-7" style="border-style:dashed">
-      <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">CATATAN UNTUK KLIEN</p>
-      <p class="mt-3 text-[15.5px] t2 leading-relaxed">Promo yang sedang berjalan juga tampil di beranda. Ketika tidak ada promo aktif, bagian itu hilang dari beranda dan halaman ini tidak muncul di menu.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ KONTAK ============================ -->
-<section data-page="kontak">
-  <div class="atmos">
-    <div class="max-w-[1100px] mx-auto px-5 lg:px-7 pt-16 pb-14 lg:pt-24 lg:pb-18">
-      <div class="enter">
-        <p class="font-mono text-[10.5px] tracking-[0.22em] text-gold mb-6">KONTAK</p>
-        <h1 class="display text-[38px] lg:text-[58px]">Mulai dari <span class="goldtext">satu pesan</span></h1>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-[1100px] mx-auto px-5 lg:px-7 py-14 grid lg:grid-cols-2 gap-10">
-    <div>
-      <a href="#/kontak" class="btn-gold flex items-center justify-center text-[17px] px-6 py-5 w-full">Buka percakapan WhatsApp</a>
-      <p class="mt-3.5 text-[14.5px] t3">Pesan pembukanya sudah terisi. Anda tinggal menambahkan kebutuhan Anda.</p>
-
-      <div class="mt-10 space-y-3">
-        <div class="glass p-6">
-          <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KANTOR</p>
-          <p class="mt-2 t2 text-[15.5px]">Alamat kantor IMPI Marketing<br>Jakarta, Indonesia</p>
-        </div>
-        <div class="glass p-6">
-          <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">SUREL</p>
-          <p class="mt-2 t2 text-[15.5px]">halo@impi-marketing.com</p>
-        </div>
-        <div class="glass p-6">
-          <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">JAM KERJA</p>
-          <p class="mt-2 t2 text-[15.5px]">Senin sampai Jumat, 09.00 sampai 18.00 WIB<br>Pesan di luar jam kerja dibalas hari kerja berikutnya.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="glass p-8">
-      <h2 class="font-extrabold text-[23px] tracking-tight">Atau tinggalkan pesan</h2>
-      <p class="mt-2 text-[15px] t3">Empat isian saja.</p>
-      <div class="mt-7 space-y-5">
-        <div>
-          <label for="f-nama" class="block text-[14px] font-medium mb-2">Nama</label>
-          <input id="f-nama" type="text" class="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-[15px] focus:border-gold outline-none transition-colors" placeholder="Nama Anda">
-        </div>
-        <div>
-          <label for="f-perusahaan" class="block text-[14px] font-medium mb-2">Perusahaan</label>
-          <input id="f-perusahaan" type="text" class="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-[15px] focus:border-gold outline-none transition-colors" placeholder="Nama perusahaan">
-        </div>
-        <div>
-          <label for="f-wa" class="block text-[14px] font-medium mb-2">Nomor WhatsApp</label>
-          <input id="f-wa" type="tel" class="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-[15px] focus:border-gold outline-none transition-colors" placeholder="08xx xxxx xxxx">
-        </div>
-        <div>
-          <label for="f-kebutuhan" class="block text-[14px] font-medium mb-2">Kebutuhan</label>
-          <textarea id="f-kebutuhan" rows="4" class="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-[15px] focus:border-gold outline-none transition-colors resize-none" placeholder="Jenis layanan, lokasi, dan tanggal yang Anda kejar"></textarea>
-        </div>
-        <button type="button" class="btn-ghost w-full font-semibold py-4">Kirim pesan</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ KEBIJAKAN PRIVASI ============================ -->
-<section data-page="privasi">
-  <div class="max-w-[760px] mx-auto px-5 lg:px-7 py-16">
-    <p class="font-mono text-[10.5px] tracking-[0.2em] text-gold">KEBIJAKAN PRIVASI</p>
-    <h1 class="display text-[34px] lg:text-[46px] mt-5">Bagaimana kami memperlakukan data Anda</h1>
-    <div class="mt-10 space-y-7 text-[16px] leading-relaxed t2">
-      <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Data yang kami kumpulkan</h2><p class="mt-2.5">Nama, nama perusahaan, nomor WhatsApp, dan keterangan kebutuhan yang Anda kirimkan lewat formulir atau percakapan WhatsApp.</p></div>
-      <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Alat pengukuran pihak ketiga</h2><p class="mt-2.5">Situs ini memakai Google Analytics dan Meta Pixel untuk mengukur kunjungan dan menilai efektivitas iklan. Keduanya menyimpan pengenal di peramban Anda.</p></div>
-      <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Penggunaan data</h2><p class="mt-2.5">Data kontak dipakai hanya untuk menjawab pertanyaan Anda dan menyusun penawaran. Kami tidak menjual atau membagikannya ke pihak lain.</p></div>
-      <div><h2 class="font-extrabold text-[19px] text-text tracking-tight">Hak Anda</h2><p class="mt-2.5">Anda berhak meminta salinan, koreksi, atau penghapusan data Anda dengan menghubungi surel kami.</p></div>
-      <p class="glass p-5 font-mono text-[10.5px] tracking-[0.14em] text-gold" style="border-style:dashed">NASKAH SEMENTARA. PERLU DITINJAU PENASIHAT HUKUM SEBELUM TAYANG.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ HALAMAN IKLAN ============================ -->
-<section data-page="iklan">
-  <div class="atmos min-h-screen">
-    <div class="max-w-[820px] mx-auto px-5 lg:px-7 py-16 lg:py-24">
-      <div class="enter">
-        <div class="flex items-center gap-2.5 mb-14">
-          <span class="w-9 h-9 rounded-[10px] flex items-center justify-center font-extrabold text-bg text-[14px]" style="background:linear-gradient(135deg,#EFD277,#D3B037 55%,#B4901F)">IM</span>
-          <span class="font-extrabold text-[14.5px] tracking-tight">IMPI Marketing</span>
-        </div>
-
-        <h1 class="display text-[40px] sm:text-[58px]">Jasa pembuatan video company profile untuk <span class="goldtext">perusahaan industri</span></h1>
-        <p class="mt-7 text-[17.5px] t2 leading-relaxed max-w-[54ch]">Dikerjakan tim yang 11 tahun pegang target penjualan korporat. Kami tahu video mana yang lolos rapat anggaran.</p>
-        <a href="#/iklan" class="btn-gold mt-10 inline-flex w-full sm:w-auto items-center justify-center text-[17px] px-9 py-5">Minta penawaran lewat WhatsApp</a>
-      </div>
-
-      <div class="mt-16 grid sm:grid-cols-3 gap-4">
-        <div class="glass p-6"><p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">BUKTI 01</p><p class="mt-3 text-[15.5px] t2 leading-relaxed">Terbiasa syuting di tambang, pelabuhan, dan kilang tanpa menghentikan operasional.</p></div>
-        <div class="glass p-6"><p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">BUKTI 02</p><p class="mt-3 text-[15.5px] t2 leading-relaxed">Materi untuk proses menuju bursa yang lolos tinjauan tim hukum.</p></div>
-        <div class="glass p-6"><p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">BUKTI 03</p><p class="mt-3 text-[15.5px] t2 leading-relaxed">Video penjaringan investor untuk operator pelabuhan swasta.</p></div>
-      </div>
-
-      <div class="glass mt-4 p-8" style="background:linear-gradient(135deg,rgba(211,176,55,0.10),rgba(255,255,255,0.03))">
-        <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">KISARAN BIAYA</p>
-        <p class="display text-[34px] mt-3.5">Rp15 juta sampai Rp60 juta</p>
-        <p class="mt-3.5 text-[15.5px] t2 leading-relaxed">Bergantung jumlah lokasi, hari pengambilan gambar, dan keluaran yang dibutuhkan. Kisarannya kami sampaikan di percakapan pertama.</p>
-      </div>
-
-      <div class="mt-14 text-[14px] t3">
-        <p>PT IMPI Marketing · Berbadan hukum sejak 2023 · Jakarta</p>
-        <a href="#/privasi" class="underline hover:text-gold transition-colors">Kebijakan privasi</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <!-- ============================ FOOTER ============================ -->
@@ -1261,21 +589,21 @@
       <div>
         <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">LAYANAN</p>
         <ul class="mt-5 space-y-3 text-[15px] t2">
-          <li><a href="#/paket" class="hover:text-gold transition-colors">Produksi Video</a></li>
-          <li><a href="#/konsultan" class="hover:text-gold transition-colors">Konsultan Pengembangan Bisnis</a></li>
-          <li><a href="#/kampanye" class="hover:text-gold transition-colors">Digital Marketing Campaign</a></li>
-          <li><a href="#/portofolio" class="hover:text-gold transition-colors">Portofolio</a></li>
-          <li><a href="#/proses" class="hover:text-gold transition-colors">Proses</a></li>
+          <li><a href="layanan/produksi-video/" class="hover:text-gold transition-colors">Produksi Video</a></li>
+          <li><a href="layanan/konsultan-pengembangan-bisnis/" class="hover:text-gold transition-colors">Konsultan Pengembangan Bisnis</a></li>
+          <li><a href="layanan/digital-marketing-campaign/" class="hover:text-gold transition-colors">Digital Marketing Campaign</a></li>
+          <li><a href="portofolio/" class="hover:text-gold transition-colors">Portofolio</a></li>
+          <li><a href="proses/" class="hover:text-gold transition-colors">Proses</a></li>
         </ul>
       </div>
       <div>
         <p class="font-mono text-[9.5px] tracking-[0.16em] text-gold">HUBUNGI</p>
         <ul class="mt-5 space-y-3 text-[15px] t2">
-          <li>halo@impi-marketing.com</li>
+          <li>solution@impi-marketing.com</li>
           <li>Senin sampai Jumat, 09.00 sampai 18.00 WIB</li>
-          <li><a href="#/kontak" class="hover:text-gold transition-colors">WhatsApp</a></li>
-          <li><a href="#/tentang" class="hover:text-gold transition-colors">Tentang</a></li>
-          <li><a href="#/privasi" class="hover:text-gold transition-colors">Kebijakan privasi</a></li>
+          <li><a href="kontak/" class="hover:text-gold transition-colors">WhatsApp</a></li>
+          <li><a href="tentang/" class="hover:text-gold transition-colors">Tentang</a></li>
+          <li><a href="kebijakan-privasi/" class="hover:text-gold transition-colors">Kebijakan privasi</a></li>
         </ul>
         <p class="mt-6 font-mono text-[9.5px] tracking-[0.14em] text-gold/60 leading-relaxed">TAUTAN MEDIA SOSIAL<br>MENUNGGU AKUN DARI KLIEN</p>
       </div>
@@ -1284,76 +612,203 @@
 </footer>
 
 <!-- Sticky on mobile only; the brief calls for it to stay put on phone screens. -->
-<a id="wa-sticky" href="#/kontak" class="sm:hidden fixed bottom-3 inset-x-3 z-40 btn-gold text-center py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
+<a id="wa-sticky" href="kontak/" class="sm:hidden fixed bottom-3 inset-x-3 z-40 btn-gold text-center py-4 text-[15.5px]">Mulai percakapan di WhatsApp</a>
 <div id="wa-spacer" class="sm:hidden h-[76px]"></div>
 
 <script>
-// Pointer parallax for the floating tiles. Depth is read from the markup so the
-// arrangement stays editable without touching this logic.
+/* =====================================================================
+   Hero: an edit bay.
+   One clock at the centre. Playback, the scrubber, the bokeh field and the
+   timecode all read from it, so nothing can drift apart or contradict the
+   controls. Everything below is CSS or canvas, no image assets.
+   ===================================================================== */
 (function () {
+  var LOOP_SECONDS = 18;
+  var TWO_PI = Math.PI * 2;
+
+  var panel = document.getElementById('hero-panel');
+  var canvas = document.getElementById('hero-canvas');
+  var spot = document.getElementById('hero-spot');
   var layer = document.getElementById('float-layer');
-  if (!layer) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (!window.matchMedia('(hover: hover)').matches) return;
+  var playButton = document.getElementById('hero-play');
+  var scrubber = document.getElementById('hero-scrub');
+  var playhead = document.getElementById('hero-playhead');
+  var timecode = document.getElementById('hero-timecode');
+  var fills = Array.prototype.slice.call(scrubber ? scrubber.querySelectorAll('.seg > i') : []);
+  if (!panel || !canvas || !playButton || !scrubber) return;
 
-  var tiles = Array.prototype.slice.call(layer.querySelectorAll('.fo-wrap'));
-  var pointerX = 0, pointerY = 0, pending = false;
+  var context = canvas.getContext('2d', { alpha: true });
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = window.matchMedia('(hover: hover)').matches;
 
-  function apply() {
-    pending = false;
-    tiles.forEach(function (tile) {
-      var depth = parseFloat(tile.getAttribute('data-depth')) || 24;
-      tile.style.transform = 'translate3d(' + (pointerX * depth) + 'px,' + (pointerY * depth) + 'px,0)';
-    });
+  var elapsed = 0;          // seconds into the loop, the single source of truth
+  var lastFrameAt = 0;
+  var isPlaying = false;
+  var frameRequest = null;
+  var isDragging = false;
+  var isCovered = false;
+
+  var width = 0, height = 0, ratio = 1;
+  var pointerX = 0, pointerY = 0;   // roughly -0.5..0.5
+  var particles = [];
+  var sprites = {};
+
+  /* ---------- sprites ----------
+     Radial gradients are expensive to build per frame, so each colour is baked
+     once into a small canvas and then stamped. "disc" carries the bright rim of
+     an in-focus bokeh circle; "soft" is the out-of-focus version. */
+  var PALETTE = [
+    { key: 'gold',  rgb: '239,210,119', weight: 0.62 },
+    { key: 'blue',  rgb: '92,200,245',  weight: 0.24 },
+    { key: 'green', rgb: '132,217,168', weight: 0.14 }
+  ];
+
+  function buildSprite(rgb, sharp) {
+    var size = 128;
+    var sprite = document.createElement('canvas');
+    sprite.width = sprite.height = size;
+    var paint = sprite.getContext('2d');
+    var gradient = paint.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    if (sharp) {
+      gradient.addColorStop(0, 'rgba(' + rgb + ',0.55)');
+      gradient.addColorStop(0.72, 'rgba(' + rgb + ',0.62)');
+      gradient.addColorStop(0.90, 'rgba(' + rgb + ',0.95)');
+      gradient.addColorStop(1, 'rgba(' + rgb + ',0)');
+    } else {
+      gradient.addColorStop(0, 'rgba(' + rgb + ',0.62)');
+      gradient.addColorStop(0.45, 'rgba(' + rgb + ',0.28)');
+      gradient.addColorStop(1, 'rgba(' + rgb + ',0)');
+    }
+    paint.fillStyle = gradient;
+    paint.fillRect(0, 0, size, size);
+    return sprite;
   }
 
-  window.addEventListener('pointermove', function (event) {
-    var box = layer.getBoundingClientRect();
-    if (!box.height) return;
-    // Normalised to roughly -0.5..0.5, so depth reads as pixels of travel.
-    pointerX = (event.clientX - box.left) / box.width - 0.5;
-    pointerY = (event.clientY - box.top) / box.height - 0.5;
-    if (!pending) { pending = true; requestAnimationFrame(apply); }
-  }, { passive: true });
-})();
-</script>
+  PALETTE.forEach(function (entry) {
+    sprites[entry.key] = { sharp: buildSprite(entry.rgb, true), soft: buildSprite(entry.rgb, false) };
+  });
 
-<script>
-// Decorative playhead. It runs a fixed eighteen second loop across three segments and
-// changes nothing on the page, so the hero copy never moves out from under the reader.
-(function () {
-  var SEGMENT_MS = 6000;
+  function pickColour(roll) {
+    var running = 0;
+    for (var i = 0; i < PALETTE.length; i++) {
+      running += PALETTE[i].weight;
+      if (roll <= running) return PALETTE[i].key;
+    }
+    return PALETTE[0].key;
+  }
 
-  var fills = Array.prototype.slice.call(document.querySelectorAll('#hero-timeline .seg > i'));
-  var playButton = document.getElementById('hero-play');
-  var timecode = document.getElementById('hero-timecode');
-  if (!fills.length || !playButton) return;
+  /* ---------- field ----------
+     Drift frequencies are whole multiples of the loop, so the field returns to
+     its exact starting arrangement every eighteen seconds. That is what lets the
+     scrubber be honest: the bar really does map to the picture. */
+  function buildField() {
+    // A phone draws the same field at a third of the size, so it needs fewer circles
+    // to look equally full.
+    var count = window.innerWidth < 768 ? 32 : 58;
+    particles = [];
+    for (var i = 0; i < count; i++) {
+      particles.push({
+        baseX: Math.random(),
+        baseY: Math.random(),
+        depth: Math.random(),
+        radius: 12 + Math.random() * 46,
+        alpha: 0.30 + Math.random() * 0.55,
+        cyclesX: 1 + Math.floor(Math.random() * 3),
+        cyclesY: 1 + Math.floor(Math.random() * 3),
+        phaseX: Math.random() * TWO_PI,
+        phaseY: Math.random() * TWO_PI,
+        swingX: 0.03 + Math.random() * 0.06,
+        swingY: 0.03 + Math.random() * 0.07,
+        colour: pickColour(Math.random())
+      });
+    }
+  }
 
-  var LOOP_MS = SEGMENT_MS * fills.length;
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var elapsedMs = 0, lastFrameAt = 0, isPlaying = false, frameRequest = null;
+  function resize() {
+    var box = panel.getBoundingClientRect();
+    if (!box.width || !box.height) return;
+    ratio = Math.min(window.devicePixelRatio || 1, 2);
+    width = box.width;
+    height = box.height;
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    measureMagnet();
+    draw();
+  }
 
+  function draw() {
+    if (!width || !height) return;
+    context.clearRect(0, 0, width, height);
+    context.globalCompositeOperation = 'lighter';
+
+    var phase = (elapsed / LOOP_SECONDS) * TWO_PI;
+    // The focal plane sweeps once per loop, so the field racks in and out of focus.
+    var focal = 0.5 + Math.sin(phase) * 0.44;
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      var x = (p.baseX + Math.sin(phase * p.cyclesX + p.phaseX) * p.swingX) * width;
+      var y = (p.baseY + Math.cos(phase * p.cyclesY + p.phaseY) * p.swingY) * height;
+
+      // Nearer circles answer the pointer more, which reads as depth.
+      x += pointerX * (1.15 - p.depth) * 54;
+      y += pointerY * (1.15 - p.depth) * 34;
+
+      var distance = Math.abs(p.depth - focal);
+      var sharpness = Math.max(0, 1 - distance / 0.30);
+      var size = p.radius * (0.5 + distance * 3.6);
+      var alpha = p.alpha * Math.max(0.06, 1 - distance * 1.15);
+
+      var pair = sprites[p.colour];
+      var left = x - size / 2;
+      var top = y - size / 2;
+
+      if (sharpness > 0.02) {
+        context.globalAlpha = alpha * sharpness;
+        context.drawImage(pair.sharp, left, top, size, size);
+      }
+      if (sharpness < 0.98) {
+        context.globalAlpha = alpha * (1 - sharpness) * 0.9;
+        context.drawImage(pair.soft, left, top, size, size);
+      }
+    }
+
+    context.globalAlpha = 1;
+    context.globalCompositeOperation = 'source-over';
+  }
+
+  /* ---------- readouts ---------- */
   function twoDigits(value) { return (value < 10 ? '0' : '') + value; }
 
-  function render() {
-    fills.forEach(function (fill, i) {
-      var ratio = (elapsedMs - i * SEGMENT_MS) / SEGMENT_MS;
-      fill.style.transform = 'scaleX(' + Math.min(Math.max(ratio, 0), 1).toFixed(4) + ')';
-    });
-    timecode.textContent = '00:' + twoDigits(Math.floor(elapsedMs / 1000)) + ' / 00:' + (LOOP_MS / 1000);
+  function renderControls() {
+    var perSegment = LOOP_SECONDS / fills.length;
+    for (var i = 0; i < fills.length; i++) {
+      var portion = (elapsed - i * perSegment) / perSegment;
+      fills[i].style.transform = 'scaleX(' + Math.min(Math.max(portion, 0), 1).toFixed(4) + ')';
+    }
+    var percent = (elapsed / LOOP_SECONDS) * 100;
+    playhead.style.left = percent.toFixed(2) + '%';
+    var seconds = Math.floor(elapsed);
+    if (timecode) timecode.textContent = '00:' + twoDigits(seconds) + ' / 00:' + LOOP_SECONDS;
+    scrubber.setAttribute('aria-valuenow', String(seconds));
+    scrubber.setAttribute('aria-valuetext', seconds + ' detik dari ' + LOOP_SECONDS + ' detik');
   }
 
+  function renderAll() { draw(); renderControls(); }
+
+  /* ---------- clock ---------- */
   function tick(now) {
     if (!isPlaying) return;
-    elapsedMs += now - lastFrameAt;
+    elapsed += (now - lastFrameAt) / 1000;
     lastFrameAt = now;
-    if (elapsedMs >= LOOP_MS) elapsedMs = 0;
-    render();
+    if (elapsed >= LOOP_SECONDS) elapsed -= LOOP_SECONDS;
+    renderAll();
     frameRequest = requestAnimationFrame(tick);
   }
 
   function play() {
-    if (isPlaying) return;
+    if (isPlaying || isCovered) return;
     isPlaying = true;
     lastFrameAt = performance.now();
     document.body.classList.remove('motion-paused');
@@ -1363,36 +818,152 @@
     frameRequest = requestAnimationFrame(tick);
   }
 
-  // Stops the clock only. Used when the visitor leaves the home page, where freezing
-  // the background light of every other page would be wrong.
-  function stopClock() {
+  // Halts the clock without touching the paused styling, for when the hero simply
+  // is not on screen. The visitor's own pause choice must survive that.
+  function halt() {
     isPlaying = false;
     if (frameRequest) cancelAnimationFrame(frameRequest);
+    frameRequest = null;
   }
 
   function pause() {
-    stopClock();
+    halt();
     document.body.classList.add('motion-paused');
     playButton.setAttribute('aria-label', 'Lanjutkan gerakan');
     playButton.querySelector('.ico-pause').classList.add('hidden');
     playButton.querySelector('.ico-play').classList.remove('hidden');
   }
 
+  function isPausedByUser() { return document.body.classList.contains('motion-paused'); }
+
   playButton.addEventListener('click', function () { isPlaying ? pause() : play(); });
 
-  // A hidden tab keeps firing timers; pausing there saves work nobody can see.
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden && isPlaying) stopClock();
-    else if (!document.hidden && !document.body.classList.contains('motion-paused')) play();
+  /* ---------- scrubbing ----------
+     Dragging moves the clock, and the clock draws the field, so the picture
+     genuinely follows the bar rather than merely looking like it does. */
+  function seekFromPointer(clientX) {
+    var box = scrubber.getBoundingClientRect();
+    var portion = (clientX - box.left) / box.width;
+    elapsed = Math.min(Math.max(portion, 0), 1) * LOOP_SECONDS;
+    renderAll();
+  }
+
+  scrubber.addEventListener('pointerdown', function (event) {
+    isDragging = true;
+    scrubber.classList.add('dragging');
+    scrubber.setPointerCapture(event.pointerId);
+    halt();
+    seekFromPointer(event.clientX);
   });
 
-  window.heroPlayer = {
-    start: function () { if (!prefersReducedMotion) play(); },
-    stop: stopClock
-  };
+  scrubber.addEventListener('pointermove', function (event) {
+    if (isDragging) seekFromPointer(event.clientX);
+  });
 
-  render();
-  if (!prefersReducedMotion) play(); else pause();
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    scrubber.classList.remove('dragging');
+    if (!isPausedByUser() && !prefersReducedMotion) play();
+  }
+  scrubber.addEventListener('pointerup', endDrag);
+  scrubber.addEventListener('pointercancel', endDrag);
+
+  scrubber.addEventListener('keydown', function (event) {
+    var step = event.shiftKey ? 3 : 1;
+    var handled = true;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowUp') elapsed += step;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') elapsed -= step;
+    else if (event.key === 'Home') elapsed = 0;
+    else if (event.key === 'End') elapsed = LOOP_SECONDS - 0.01;
+    else handled = false;
+    if (!handled) return;
+    event.preventDefault();
+    elapsed = (elapsed + LOOP_SECONDS) % LOOP_SECONDS;
+    renderAll();
+  });
+
+  /* ---------- pointer light, parallax, magnetism ---------- */
+  var MAGNET_RANGE = 170;
+  var tiles = layer ? Array.prototype.slice.call(layer.querySelectorAll('.fo-wrap')) : [];
+  var magnet = document.getElementById('hero-more');
+  var magnetCentre = { x: 0, y: 0 };
+  var pointerPending = false;
+  var lastPointer = { x: 0.5, y: 0.42 };
+
+  // offsetLeft and offsetTop are measured against the panel and ignore transforms, so
+  // the resting centre stays correct even while the button is being pulled about.
+  function measureMagnet() {
+    if (!magnet) return;
+    magnetCentre.x = magnet.offsetLeft + magnet.offsetWidth / 2;
+    magnetCentre.y = magnet.offsetTop + magnet.offsetHeight / 2;
+  }
+
+  function applyPointer() {
+    pointerPending = false;
+    spot.style.setProperty('--mx', (lastPointer.x * 100).toFixed(2) + '%');
+    spot.style.setProperty('--my', (lastPointer.y * 100).toFixed(2) + '%');
+    pointerX = lastPointer.x - 0.5;
+    pointerY = lastPointer.y - 0.5;
+    for (var i = 0; i < tiles.length; i++) {
+      var depth = parseFloat(tiles[i].getAttribute('data-depth')) || 24;
+      tiles[i].style.transform = 'translate3d(' + (pointerX * depth) + 'px,' + (pointerY * depth) + 'px,0)';
+    }
+    if (magnet) {
+      var dx = lastPointer.x * width - magnetCentre.x;
+      var dy = lastPointer.y * height - magnetCentre.y;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+      var pull = distance < MAGNET_RANGE ? 0.30 * (1 - distance / MAGNET_RANGE) : 0;
+      magnet.style.transform = 'translate(calc(-50% + ' + (dx * pull).toFixed(1) + 'px),' + (dy * pull).toFixed(1) + 'px)';
+    }
+    if (!isPlaying) draw();
+  }
+
+  if (canHover && !prefersReducedMotion) {
+    panel.addEventListener('pointermove', function (event) {
+      var box = panel.getBoundingClientRect();
+      if (!box.width) return;
+      lastPointer.x = (event.clientX - box.left) / box.width;
+      lastPointer.y = (event.clientY - box.top) / box.height;
+      if (!pointerPending) { pointerPending = true; requestAnimationFrame(applyPointer); }
+    }, { passive: true });
+
+    panel.addEventListener('pointerleave', function () {
+      lastPointer.x = 0.5; lastPointer.y = 0.42;
+      if (!pointerPending) { pointerPending = true; requestAnimationFrame(applyPointer); }
+    });
+  }
+
+  /* ---------- lifecycle ---------- */
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 160);
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) halt();
+    else if (!isPausedByUser() && !prefersReducedMotion) play();
+  });
+
+  buildField();
+  resize();
+  renderControls();
+  requestAnimationFrame(function () { panel.classList.add('is-focused'); });
+
+  if (prefersReducedMotion) pause(); else play();
+
+  // Exposed so page routing and the cover effect can stop work nobody can see.
+  window.heroStage = {
+    resume: function () { isCovered = false; resize(); if (!isPausedByUser() && !prefersReducedMotion) play(); },
+    suspend: function () { isCovered = true; halt(); },
+    setCovered: function (covered) {
+      if (covered === isCovered) return;
+      isCovered = covered;
+      if (covered) halt();
+      else if (!isPausedByUser() && !prefersReducedMotion) play();
+    }
+  };
 })();
 </script>
 
@@ -1413,8 +984,9 @@
     var heroHeight = hero.offsetHeight;
     if (!heroHeight) return;
     var covered = Math.min(window.scrollY / heroHeight, 1);
-    hero.style.opacity = String(1 - covered * 0.85);
+    hero.style.opacity = String(1 - covered * 0.88);
     hero.style.visibility = covered > 0.995 ? 'hidden' : 'visible';
+    if (window.heroStage) window.heroStage.setCovered(covered > 0.9);
   }
 
   moreButton.addEventListener('click', function () {
@@ -1430,83 +1002,43 @@
 })();
 </script>
 
+
+
 <script>
+// Per-page behaviour that used to live in the single-file router: the mobile menu,
+// the nav's scrolled state, and the scroll reveal.
 (function () {
-  var pages = document.querySelectorAll('[data-page]');
   var nav = document.getElementById('site-nav');
-  var footer = document.getElementById('site-footer');
-  var sticky = document.getElementById('wa-sticky');
-  var spacer = document.getElementById('wa-spacer');
   var burger = document.getElementById('burger');
   var mobileMenu = document.getElementById('mobile-menu');
 
-  // The ad landing page deliberately carries no navigation; removing the menu is the point of it.
-  function isBare(name) { return name === 'iklan'; }
-
-  function show(name) {
-    var found = false;
-    pages.forEach(function (p) {
-      var match = p.getAttribute('data-page') === name;
-      p.classList.toggle('is-active', match);
-      if (match) found = true;
+  if (burger && mobileMenu) {
+    burger.addEventListener('click', function () {
+      var open = mobileMenu.classList.toggle('hidden') === false;
+      burger.setAttribute('aria-expanded', String(open));
     });
-    if (!found) { show('beranda'); return; }
-
-    var bare = isBare(name);
-    [nav, footer, sticky, spacer].forEach(function (el) { el.style.display = bare ? 'none' : ''; });
-
-    mobileMenu.classList.add('hidden');
-    burger.setAttribute('aria-expanded', 'false');
-    window.scrollTo(0, 0);
-    replayEntrance(name);
-    reveal();
-
-    // The player only exists on the home page; leaving the clock running elsewhere
-    // would put the clip out of step on return.
-    if (window.heroPlayer) name === 'beranda' ? window.heroPlayer.start() : window.heroPlayer.stop();
-    if (window.heroCover) window.heroCover();
   }
 
-  // Re-triggers the staggered hero entrance when a page is opened, since the CSS
-  // animation would otherwise only run once on first load.
-  function replayEntrance(name) {
-    var active = document.querySelector('[data-page="' + name + '"] .enter');
-    if (!active) return;
-    active.classList.remove('enter');
-    void active.offsetWidth;
-    active.classList.add('enter');
+  if (nav) {
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
   }
 
-  burger.addEventListener('click', function () {
-    var open = mobileMenu.classList.toggle('hidden') === false;
-    burger.setAttribute('aria-expanded', String(open));
-  });
-
-  window.addEventListener('scroll', function () {
-    nav.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
-
-  var observer = null;
-  function reveal() {
-    if (observer) observer.disconnect();
-    if (!('IntersectionObserver' in window)) {
-      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('shown'); });
-      return;
-    }
-    observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e, i) {
-        if (!e.isIntersecting) return;
-        e.target.style.transitionDelay = (i * 70) + 'ms';
-        e.target.classList.add('shown');
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.is-active .reveal').forEach(function (el) { observer.observe(el); });
+  var revealables = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(revealables, function (el) { el.classList.add('shown'); });
+    return;
   }
-
-  window.addEventListener('hashchange', function () {
-    show((location.hash || '#/beranda').replace('#/', ''));
-  });
-  show((location.hash || '#/beranda').replace('#/', ''));
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry, i) {
+      if (!entry.isIntersecting) return;
+      entry.target.style.transitionDelay = (i * 70) + 'ms';
+      entry.target.classList.add('shown');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  Array.prototype.forEach.call(revealables, function (el) { observer.observe(el); });
 })();
 </script>
 
